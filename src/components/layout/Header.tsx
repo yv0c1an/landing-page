@@ -4,9 +4,11 @@ import { useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { useTranslations, useLocale } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-
 import Link from 'next/link';
 import { locales } from '@/config/i18n';
+import { externalLinks } from '@/config/externalConfig';
+import { useExternalLink } from '@/hooks/useExternalLink';
+import { RedirectModal } from '@/components/common/RedirectModal';
 
 const Header = () => {
   const t = useTranslations();
@@ -14,6 +16,13 @@ const Header = () => {
   const pathname = usePathname();
   const locale = useLocale();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { 
+    isRedirectModalOpen, 
+    currentLink, 
+    handleExternalClick, 
+    handleRedirect, 
+    handleClose 
+  } = useExternalLink();
 
   const languages = locales.map(lang => ({
     key: lang,
@@ -45,15 +54,24 @@ const Header = () => {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/seller" className="text-gray-700 hover:text-primary">
+            <button 
+              onClick={() => handleExternalClick('sellerCenter')}
+              className="text-gray-700 hover:text-primary"
+            >
               {t('common.sellerCenter')}
-            </Link>
-            <Link href="/shop" className="text-gray-700 hover:text-primary">
+            </button>
+            <button 
+              onClick={() => handleExternalClick('shopping')}
+              className="text-gray-700 hover:text-primary"
+            >
               {t('common.goShopping')}
-            </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-primary">
+            </button>
+            <button 
+              onClick={() => handleExternalClick('contactUs')}
+              className="text-gray-700 hover:text-primary"
+            >
               {t('common.contactUs')}
-            </Link>
+            </button>
             
             {/* Language Selector */}
             <Dropdown>
@@ -80,7 +98,11 @@ const Header = () => {
             </Dropdown>
 
             {/* Login Button */}
-            <Button color="primary" variant="flat">
+            <Button 
+              color="primary" 
+              variant="flat"
+              onPress={() => handleExternalClick('login')}
+            >
               {t('common.login')}
             </Button>
           </nav>
@@ -104,17 +126,27 @@ const Header = () => {
               />
             </svg>
           </button>
-
-          {/* Mobile Menu */}
-          <MobileMenu
-            isOpen={isMobileMenuOpen}
-            onClose={() => setIsMobileMenuOpen(false)}
-            languages={languages}
-            currentLocale={locale}
-            onLanguageChange={handleLanguageChange}
-          />
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        locale={locale}
+        onLanguageChange={handleLanguageChange}
+        onExternalClick={handleExternalClick}
+      />
+
+      {/* Redirect Modal */}
+      {currentLink && (
+        <RedirectModal
+          isOpen={isRedirectModalOpen}
+          onClose={handleClose}
+          onRedirect={handleRedirect}
+          title={externalLinks[currentLink].redirectTitle}
+        />
+      )}
     </header>
   );
 };

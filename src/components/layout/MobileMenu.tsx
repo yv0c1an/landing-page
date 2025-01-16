@@ -1,27 +1,24 @@
 import { Modal, Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { locales } from '@/config/i18n';
-
-interface Language {
-  key: string;
-  label: string;
-}
+import { externalLinks } from '@/config/externalConfig';
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
   locale: string;
   onLanguageChange: (lang: string) => void;
+  onExternalClick: (linkKey: keyof typeof externalLinks) => void;
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ 
   isOpen, 
   onClose, 
   locale, 
-  onLanguageChange 
-}: MobileMenuProps) => {
+  onLanguageChange,
+  onExternalClick
+}) => {
   const t = useTranslations();
 
   const languages = locales.map(lang => ({
@@ -30,10 +27,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   }));
 
   const menuItems = [
-    { name: t('common.sellerCenter'), href: `/${locale}/seller` },
-    { name: t('common.goShopping'), href: `/${locale}/shop` },
-    { name: t('common.contactUs'), href: `/${locale}/contact` },
-  ];
+    { key: 'sellerCenter', name: t('common.sellerCenter') },
+    { key: 'shopping', name: t('common.goShopping') },
+    { key: 'contactUs', name: t('common.contactUs') },
+  ] as const;
 
   return (
     <Modal 
@@ -66,43 +63,23 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         <nav className="space-y-4">
           {menuItems.map((item) => (
             <motion.div
-              key={item.name}
+              key={item.key}
               whileTap={{ scale: 0.98 }}
             >
-              <Link
-                href={item.href}
-                className="block px-4 py-2 text-lg text-gray-700 hover:text-primary"
-                onClick={onClose}
+              <button
+                className="block w-full px-4 py-2 text-lg text-left text-gray-700 hover:text-primary"
+                onClick={() => {
+                  onExternalClick(item.key);
+                  onClose();
+                }}
               >
                 {item.name}
-              </Link>
+              </button>
             </motion.div>
           ))}
         </nav>
 
-        <div className="space-y-4">
-          <Link 
-            href={`/${locale}/seller`} 
-            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-            onClick={onClose}
-          >
-            {t('common.sellerCenter')}
-          </Link>
-          <Link 
-            href={`/${locale}/shop`} 
-            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-            onClick={onClose}
-          >
-            {t('common.goShopping')}
-          </Link>
-          <Link 
-            href={`/${locale}/contact`} 
-            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-            onClick={onClose}
-          >
-            {t('common.contactUs')}
-          </Link>
-          
+        <div className="mt-6 space-y-4">
           <div className="px-4 py-2">
             <p className="text-sm text-gray-500 mb-2">{t('nav.selectLanguage')}</p>
             <div className="space-y-2">
@@ -124,7 +101,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
           </div>
 
           <div className="px-4 py-2">
-            <Button color="primary" className="w-full">
+            <Button 
+              color="primary" 
+              className="w-full"
+              onPress={() => {
+                onExternalClick('login');
+                onClose();
+              }}
+            >
               {t('common.login')}
             </Button>
           </div>
