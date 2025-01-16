@@ -2,6 +2,7 @@ import { Modal, Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { locales } from '@/config/i18n';
 
 interface Language {
   key: string;
@@ -11,24 +12,27 @@ interface Language {
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  languages: Language[];
-  currentLocale: string;
+  locale: string;
   onLanguageChange: (lang: string) => void;
 }
 
-const MobileMenu = ({ 
+const MobileMenu: React.FC<MobileMenuProps> = ({ 
   isOpen, 
   onClose, 
-  languages,
-  currentLocale, 
+  locale, 
   onLanguageChange 
 }: MobileMenuProps) => {
   const t = useTranslations();
 
+  const languages = locales.map(lang => ({
+    key: lang,
+    label: t(`nav.languages.${lang}`)
+  }));
+
   const menuItems = [
-    { name: t('common.sellerCenter'), href: "/seller" },
-    { name: t('common.goShopping'), href: "/shop" },
-    { name: t('common.contactUs'), href: "/contact" },
+    { name: t('common.sellerCenter'), href: `/${locale}/seller` },
+    { name: t('common.goShopping'), href: `/${locale}/shop` },
+    { name: t('common.contactUs'), href: `/${locale}/contact` },
   ];
 
   return (
@@ -67,7 +71,7 @@ const MobileMenu = ({
             >
               <Link
                 href={item.href}
-                className="block py-2 text-lg text-gray-700 hover:text-primary"
+                className="block px-4 py-2 text-lg text-gray-700 hover:text-primary"
                 onClick={onClose}
               >
                 {item.name}
@@ -76,41 +80,58 @@ const MobileMenu = ({
           ))}
         </nav>
 
-        {/* 语言选择 */}
-        <div className="mt-6 pt-6 border-t">
-          <h3 className="text-sm text-gray-500 mb-3">{t('nav.selectLanguage')}</h3>
-          <div className="grid grid-cols-3 gap-2">
-            {languages.map((lang) => (
-              <Button
-                key={lang.key}
-                variant={currentLocale === lang.key ? "solid" : "light"}
-                color={currentLocale === lang.key ? "primary" : "default"}
-                className="w-full"
-                onPress={() => {
-                  onLanguageChange(lang.key);
-                  onClose();
-                }}
-              >
-                {lang.label}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        {/* 登录按钮 */}
-        <div className="mt-6 pt-6 border-t">
-          <Button
-            color="primary"
-            className="w-full"
-            size="lg"
-            onPress={onClose}
+        <div className="space-y-4">
+          <Link 
+            href={`/${locale}/seller`} 
+            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+            onClick={onClose}
           >
-            {t('common.login')}/{t('common.register')}
-          </Button>
+            {t('common.sellerCenter')}
+          </Link>
+          <Link 
+            href={`/${locale}/shop`} 
+            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+            onClick={onClose}
+          >
+            {t('common.goShopping')}
+          </Link>
+          <Link 
+            href={`/${locale}/contact`} 
+            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+            onClick={onClose}
+          >
+            {t('common.contactUs')}
+          </Link>
+          
+          <div className="px-4 py-2">
+            <p className="text-sm text-gray-500 mb-2">{t('nav.selectLanguage')}</p>
+            <div className="space-y-2">
+              {languages.map((lang) => (
+                <button
+                  key={lang.key}
+                  className={`w-full text-left px-3 py-2 rounded ${
+                    locale === lang.key ? 'bg-primary/10 text-primary' : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  onClick={() => {
+                    onLanguageChange(lang.key);
+                    onClose();
+                  }}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="px-4 py-2">
+            <Button color="primary" className="w-full">
+              {t('common.login')}
+            </Button>
+          </div>
         </div>
       </div>
     </Modal>
   );
 };
 
-export default MobileMenu; 
+export default MobileMenu;

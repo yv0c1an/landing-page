@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { useTranslations, useLocale } from 'next-intl';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Link from 'next/link';
 import { locales } from '@/config/i18n';
@@ -11,19 +11,19 @@ import { locales } from '@/config/i18n';
 const Header = () => {
   const t = useTranslations();
   const router = useRouter();
+  const pathname = usePathname();
   const locale = useLocale();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const languages = [
-    { key: 'zh', label: '简体中文' },
-    { key: 'en', label: 'English' },
-    { key: 'ja', label: '日本語' },
-    { key: 'th', label: 'ภาษาไทย' },
-    { key: 'ko', label: '한국어' },
-  ];
+  const languages = locales.map(lang => ({
+    key: lang,
+    label: t(`nav.languages.${lang}`)
+  }));
 
   const handleLanguageChange = (lang: string) => {
-    router.replace('/', { });
+    const newPathname = pathname.replace(/^\/[^\/]+/, '') || '/';
+    const newUrl = `/${lang}${newPathname}`;
+    router.push(newUrl);
   };
 
   return (
@@ -59,14 +59,19 @@ const Header = () => {
             <Dropdown>
               <DropdownTrigger>
                 <Button variant="light" className="capitalize">
-                  {languages.find(lang => lang.key === locale)?.label || '简体中文'}
+                  {t(`nav.languages.${locale}`)}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
-                aria-label="Language Selection"
+                aria-label={t('nav.selectLanguage')}
                 selectionMode="single"
                 selectedKeys={new Set([locale])}
-                onSelectionChange={(keys) => handleLanguageChange(Array.from(keys)[0] as string)}
+                onSelectionChange={(keys) => {
+                  const selectedLang = Array.from(keys)[0] as string;
+                  if (selectedLang) {
+                    handleLanguageChange(selectedLang);
+                  }
+                }}
               >
                 {languages.map((lang) => (
                   <DropdownItem key={lang.key}>{lang.label}</DropdownItem>
@@ -114,4 +119,4 @@ const Header = () => {
   );
 };
 
-export default Header; 
+export default Header;
