@@ -5,6 +5,7 @@ export default {
     sellerCenter: "셀러센터",
     goShopping: "쇼핑하기",
     contactUs: "문의하기",
+    redirectTitle: "이동中 {modalName}..."
   },
   nav: {
     selectLanguage: "언어 선택",
@@ -128,6 +129,11 @@ export default {
       prev: "이전",
       next: "다음"
     }
+  },
+  cta: {
+    title: "귀하의 크로스보더 전자상거래 여정을 시작하세요",
+    subtitle: "지금 등록하고 전문적인 크로스보더 전자상거래 서비스를 누리세요",
+    button: "지금 시작하기"
   },
   platformInfo: {
     sellerBackend: {

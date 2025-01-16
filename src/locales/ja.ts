@@ -5,6 +5,8 @@ export default {
     sellerCenter: "セラーセンター",
     goShopping: "ショッピング",
     contactUs: "お問い合わせ",
+    // 日文
+    redirectTitle: "ジャンプ先{modalName}..."
   },
   nav: {
     selectLanguage: "言語を選択",

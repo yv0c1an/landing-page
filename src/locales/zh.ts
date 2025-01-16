@@ -5,6 +5,7 @@ export default {
     sellerCenter: "卖家中心",
     goShopping: "去购物",
     contactUs: "联系我们",
+    redirectTitle: "即将跳转到{modalName}..." 
   },
   nav: {
     selectLanguage: "选择语言",

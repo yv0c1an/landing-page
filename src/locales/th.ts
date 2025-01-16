@@ -5,6 +5,7 @@ export default {
     sellerCenter: "ศูนย์ผู้ขาย",
     goShopping: "ไปช้อปปิ้ง",
     contactUs: "ติดต่อเรา",
+    redirectTitle: "กําลังเดินทางไป {modalName}..."
   },
   nav: {
     selectLanguage: "เลือกภาษา",

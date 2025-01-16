@@ -47,7 +47,7 @@ const Header = () => {
               width={40}
               height={40}
               className="w-10 h-10"
-              priority
+              loading="eager"
             />
             <span className="text-xl font-bold">CrossBorder</span>
           </Link>
@@ -61,7 +61,7 @@ const Header = () => {
               {t('common.sellerCenter')}
             </button>
             <button 
-              onClick={() => handleExternalClick('shopping')}
+              onClick={() => handleExternalClick('goShopping')}
               className="text-gray-700 hover:text-primary"
             >
               {t('common.goShopping')}
@@ -144,7 +144,7 @@ const Header = () => {
           isOpen={isRedirectModalOpen}
           onClose={handleClose}
           onRedirect={handleRedirect}
-          title={externalLinks[currentLink].redirectTitle}
+          title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
         />
       )}
     </header>

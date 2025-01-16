@@ -5,6 +5,7 @@ export default {
     sellerCenter: "Seller Center",
     goShopping: "Shop Now",
     contactUs: "Contact Us",
+    redirectTitle: "Redirecting to {modalName}..."
   },
   nav: {
     selectLanguage: "Select Language",
