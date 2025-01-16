@@ -127,6 +127,55 @@ export default {
       }
     }
   },
+  sellerBenefits: {
+    title: "商家专属权益",
+    subtitle: "加入我们的平台，享受全方位的商家扶持政策",
+    disclaimer: "具体权益可能因店铺类型和地区不同而有所差异，详情请咨询客服",
+    benefits: {
+      lowFee: {
+        title: "低费率政策",
+        description: "平台佣金低至3%，新店铺还可享受3个月免佣金特权"
+      },
+      traffic: {
+        title: "精准流量扶持",
+        description: "新店铺可获得平台首页推荐位展示，快速获取精准流量"
+      },
+      operation: {
+        title: "运营指导",
+        description: "专业运营团队1对1指导，助您快速掌握跨境电商运营技巧"
+      },
+      logistics: {
+        title: "物流补贴",
+        description: "与全球知名物流商合作，享受专属价格和运费补贴"
+      },
+      training: {
+        title: "培训支持",
+        description: "定期举办线上线下培训，分享行业趋势和运营经验"
+      },
+      protection: {
+        title: "店铺保护",
+        description: "完善的知识产权保护机制，打造公平的经营环境"
+      }
+    },
+    stats: {
+      logisticsPartners: {
+        number: "200+",
+        label: "合作物流商"
+      },
+      activeSellers: {
+        number: "50万+",
+        label: "活跃商家"
+      },
+      monthlyUsers: {
+        number: "1亿+",
+        label: "月活用户"
+      },
+      countries: {
+        number: "150+",
+        label: "覆盖国家"
+      }
+    }
+  },
   cta: {
     title: "开启您的跨境电商之旅",
     subtitle: "立即注册，享受专业的跨境电商服务",

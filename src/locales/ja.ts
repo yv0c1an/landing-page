@@ -131,5 +131,54 @@ export default {
         customerService: "効率的な買い手サポートのための多言語カスタマーサービスシステム"
       }
     }
+  },
+  sellerBenefits: {
+    title: "出店者特典",
+    subtitle: "プラットフォームに参加して、包括的な出店者サポート特典をご利用ください",
+    disclaimer: "特典は店舗タイプや地域によって異なる場合があります。詳細はカスタマーサービスにお問い合わせください",
+    benefits: {
+      lowFee: {
+        title: "低手数料",
+        description: "プラットフォーム手数料は3%から、新規店舗は3ヶ月間手数料無料特典付き"
+      },
+      traffic: {
+        title: "ターゲット集客支援",
+        description: "新規店舗はトップページでの掲載枠を獲得し、効率的に集客可能"
+      },
+      operation: {
+        title: "運営サポート",
+        description: "専門チームによる1対1の指導で、越境ECの運営ノウハウを習得"
+      },
+      logistics: {
+        title: "物流補助",
+        description: "世界的な物流業者との提携による特別料金と配送料補助"
+      },
+      training: {
+        title: "研修サポート",
+        description: "定期的なオンライン・オフライン研修で、業界動向と運営経験を共有"
+      },
+      protection: {
+        title: "店舗保護",
+        description: "知的財産権保護の完備された仕組みで、公平なビジネス環境を実現"
+      }
+    },
+    stats: {
+      logisticsPartners: {
+        number: "200+",
+        label: "物流パートナー"
+      },
+      activeSellers: {
+        number: "50万+",
+        label: "アクティブ出店者"
+      },
+      monthlyUsers: {
+        number: "1億+",
+        label: "月間アクティブユーザー"
+      },
+      countries: {
+        number: "150+",
+        label: "対応国"
+      }
+    }
   }
 }; 

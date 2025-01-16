@@ -131,5 +131,54 @@ export default {
         customerService: "Multi-language customer service system for efficient buyer support"
       }
     }
+  },
+  sellerBenefits: {
+    title: "Exclusive Seller Benefits",
+    subtitle: "Join our platform and enjoy comprehensive seller support policies",
+    disclaimer: "Specific benefits may vary depending on store type and region. Please contact customer service for details",
+    benefits: {
+      lowFee: {
+        title: "Low Commission Rate",
+        description: "Platform commission as low as 3%, new stores enjoy 3 months commission-free privilege"
+      },
+      traffic: {
+        title: "Targeted Traffic Support",
+        description: "New stores get homepage featured spots, quickly gaining targeted traffic"
+      },
+      operation: {
+        title: "Operational Guidance",
+        description: "1-on-1 guidance from professional operation team to help you master cross-border e-commerce"
+      },
+      logistics: {
+        title: "Logistics Subsidy",
+        description: "Partnerships with global logistics providers, enjoy exclusive rates and shipping subsidies"
+      },
+      training: {
+        title: "Training Support",
+        description: "Regular online and offline training sessions, sharing industry trends and operational experience"
+      },
+      protection: {
+        title: "Store Protection",
+        description: "Comprehensive IP protection mechanism for a fair business environment"
+      }
+    },
+    stats: {
+      logisticsPartners: {
+        number: "200+",
+        label: "Logistics Partners"
+      },
+      activeSellers: {
+        number: "500K+",
+        label: "Active Sellers"
+      },
+      monthlyUsers: {
+        number: "100M+",
+        label: "Monthly Active Users"
+      },
+      countries: {
+        number: "150+",
+        label: "Countries Covered"
+      }
+    }
   }
 };

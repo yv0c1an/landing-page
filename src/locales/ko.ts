@@ -131,5 +131,54 @@ export default {
         customerService: "효율적인 구매자 지원을 위한 다국어 고객 서비스 시스템"
       }
     }
+  },
+  sellerBenefits: {
+    title: "판매자 전용 혜택",
+    subtitle: "우리 플랫폼에 가입하여 종합적인 판매자 지원 정책을 누리세요",
+    disclaimer: "구체적인 혜택은 스토어 유형과 지역에 따라 다를 수 있습니다. 자세한 내용은 고객 서비스에 문의하세요",
+    benefits: {
+      lowFee: {
+        title: "낮은 수수료",
+        description: "플랫폼 수수료 3%부터, 신규 스토어는 3개월 수수료 면제 특권"
+      },
+      traffic: {
+        title: "타겟 트래픽 지원",
+        description: "신규 스토어는 메인 페이지 추천 위치 노출로 빠른 타겟 트래픽 확보"
+      },
+      operation: {
+        title: "운영 가이드",
+        description: "전문 운영팀의 1대1 지도로 크로스보더 이커머스 운영 노하우 습득"
+      },
+      logistics: {
+        title: "물류 보조금",
+        description: "글로벌 물류 업체와 협력하여 특별 요금과 운송비 보조금 제공"
+      },
+      training: {
+        title: "교육 지원",
+        description: "정기적인 온/오프라인 교육으로 업계 트렌드와 운영 경험 공유"
+      },
+      protection: {
+        title: "스토어 보호",
+        description: "완벽한 지적재산권 보호 메커니즘으로 공정한 비즈니스 환경 조성"
+      }
+    },
+    stats: {
+      logisticsPartners: {
+        number: "200+",
+        label: "물류 파트너"
+      },
+      activeSellers: {
+        number: "50만+",
+        label: "활성 판매자"
+      },
+      monthlyUsers: {
+        number: "1억+",
+        label: "월간 활성 사용자"
+      },
+      countries: {
+        number: "150+",
+        label: "서비스 국가"
+      }
+    }
   }
 }; 
