@@ -2,8 +2,10 @@ import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@
 import Image from "next/image";
 import { useState } from "react";
 import MobileMenu from "./MobileMenu";
-import { useTranslations, useLocale, useRouter } from 'next-intl';
-import Link from 'next-intl/link';
+import { useTranslations, useLocale } from 'next-intl';
+import { useRouter } from 'next/router';
+
+import Link from 'next/link';
 import { locales } from '@/config/i18n';
 
 const Header = () => {
@@ -21,7 +23,7 @@ const Header = () => {
   ];
 
   const handleLanguageChange = (lang: string) => {
-    router.replace('/', { locale: lang });
+    router.replace('/', { });
   };
 
   return (

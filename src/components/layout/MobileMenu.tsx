@@ -1,7 +1,7 @@
 import { Modal, Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 
 interface Language {
   key: string;

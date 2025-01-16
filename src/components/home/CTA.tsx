@@ -1,6 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
-import { useRouter, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/router';
 
 const CTA = () => {
   const router = useRouter();
