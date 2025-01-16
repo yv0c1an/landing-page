@@ -85,36 +85,48 @@ export default {
     }
   },
   sellerCases: {
-    title: "成功事例",
-    subtitle: "他のセラーの成功事例をご覧ください",
-    items: {
+    title: "優秀セラー事例",
+    cases: {
       1: {
-        title: "電子機器カテゴリー",
-        description: "月間売上100万ドル突破",
+        name: "LOVEVOOK",
+        description: "LOVEVOOKは世界で最も人気のあるバッグブランド企業になることをビジョンとし、欧米市場に深く根ざしており、TikTok Shopはそのブランドアップグレードとグローバル化プロセスを加速させました。2023年12月の参入後、TikTok Shopのバッグ市場への正確な洞察により、既存のバッグ特別商品を投入して市場を素早く占有し、バックパックカテゴリーで売上高No.1のスター商品を生み出し、2024年3月からは米国バッグカテゴリーのGMVトップ3に入りました。",
         stats: {
-          growth: "300%",
-          markets: "20+",
-          revenue: "100万ドル+"
+          views: {
+            value: ">3000万",
+            label: "総動画視聴回数"
+          },
+          orders: {
+            value: ">3.6万",
+            label: "総注文数"
+          },
+          gmv: {
+            value: ">150万ドル",
+            label: "総GMV"
+          }
         }
       },
       2: {
-        title: "ファッションカテゴリー",
-        description: "米国・EU市場に成功裏に参入",
+        name: "優品デジタル",
+        description: "高品質なデジタルアクセサリーの研究開発と生産に特化し、プラットフォームのグローバルチャネルを通じて欧米および東南アジア市場に成功裏に参入。優れた製品品質と革新的なデザインにより、多くの海外ユーザーから高い評価と認知を得ています。",
         stats: {
-          growth: "200%",
-          markets: "15+",
-          revenue: "80万ドル+"
-        }
-      },
-      3: {
-        title: "ホームグッズカテゴリー",
-        description: "年間成長率200%以上",
-        stats: {
-          growth: "200%",
-          markets: "10+",
-          revenue: "50万ドル+"
+          views: {
+            value: ">2000万",
+            label: "総動画視聴回数"
+          },
+          orders: {
+            value: ">2.8万",
+            label: "総注文数"
+          },
+          gmv: {
+            value: ">120万ドル",
+            label: "総GMV"
+          }
         }
       }
+    },
+    controls: {
+      prev: "前へ",
+      next: "次へ"
     }
   },
   cta: {

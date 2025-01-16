@@ -2,43 +2,48 @@ import { Card } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
-const cases = [
-  {
-    id: 1,
-    name: "LOVEVOOK",
-    image: "/cases/case1.jpg",
-    description: "LOVEVOOK以成为全球最受欢迎的箱包品牌公司为愿景，深度耕耘欧美市场，而TikTok Shop加速了其品牌升级和全球化进程。2023年12月入驻后，凭借对TikTok Shop箱包市场的精准洞察，品牌推出既有箱包特产品快速占领市场，打造背包包类目销量第一的明星产品，2024年3月起成功跻身美区箱包类目GMV前三名。",
-    stats: {
-      views: ">3000万",
-      orders: ">3.6万",
-      gmv: ">150万美金",
-    },
-  },
-  {
-    id: 2,
-    name: "优品数码",
-    image: "/cases/case2.jpg",
-    description: "专注高品质数码配件研发和生产，通过平台的全球化渠道，成功打入欧美及东南亚市场。凭借优质的产品质量和创新的设计，获得了大量海外用户的好评和认可。",
-    stats: {
-      views: ">2000万",
-      orders: ">2.8万",
-      gmv: ">120万美金",
-    },
-  },
-  // 可以继续添加更多案例...
-];
+interface CaseData {
+  name: string;
+  description: string;
+  stats: {
+    views: {
+      value: string;
+      label: string;
+    };
+    orders: {
+      value: string;
+      label: string;
+    };
+    gmv: {
+      value: string;
+      label: string;
+    };
+  };
+}
 
 const SellerCases = () => {
+  const t = useTranslations("sellerCases");
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // 自动轮播
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % cases.length);
+      setCurrentSlide((prev) => (prev + 1) % 2); // 只有2个案例
     }, 5000);
     return () => clearInterval(timer);
   }, []);
+
+  // 获取翻译数据
+  const casesData = t.raw("cases") as Record<string, CaseData>;
+  const cases = Object.entries(casesData).map(([id, data]) => ({
+    id,
+    name: data.name,
+    image: `/cases/case${id}.jpg`,
+    description: data.description,
+    stats: data.stats,
+  }));
 
   return (
     <section className="py-20 bg-gray-50">
@@ -50,7 +55,7 @@ const SellerCases = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4">优秀商家案例</h2>
+          <h2 className="text-4xl font-bold mb-4">{t("title")}</h2>
         </motion.div>
 
         <div className="relative">
@@ -61,7 +66,7 @@ const SellerCases = () => {
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="flex"
             >
-              {cases.map((case_, index) => (
+              {cases.map((case_) => (
                 <div key={case_.id} className="w-full flex-shrink-0">
                   {/* 图片区域 */}
                   <div className="relative h-[400px]">
@@ -84,21 +89,27 @@ const SellerCases = () => {
                     <div className="grid grid-cols-3 gap-6">
                       <div className="p-4 bg-gray-50 rounded-lg text-center">
                         <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.views}
+                          {case_.stats.views.value}
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">累计视频观看量</div>
+                        <div className="text-sm text-gray-500 mt-1">
+                          {case_.stats.views.label}
+                        </div>
                       </div>
                       <div className="p-4 bg-gray-50 rounded-lg text-center">
                         <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.orders}
+                          {case_.stats.orders.value}
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">累计订单总量</div>
+                        <div className="text-sm text-gray-500 mt-1">
+                          {case_.stats.orders.label}
+                        </div>
                       </div>
                       <div className="p-4 bg-gray-50 rounded-lg text-center">
                         <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.gmv}
+                          {case_.stats.gmv.value}
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">GMV总量</div>
+                        <div className="text-sm text-gray-500 mt-1">
+                          {case_.stats.gmv.label}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -107,40 +118,51 @@ const SellerCases = () => {
             </motion.div>
           </div>
 
-          {/* 轮播控制按钮 */}
+          {/* 导航按钮 */}
           <button
-            className="absolute left-4 top-[200px] p-2 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors"
-            onClick={() => setCurrentSlide((prev) => (prev - 1 + cases.length) % cases.length)}
+            onClick={() => setCurrentSlide((prev) => (prev - 1 + 2) % 2)}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg"
+            aria-label={t("controls.prev")}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            className="absolute right-4 top-[200px] p-2 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors"
-            onClick={() => setCurrentSlide((prev) => (prev + 1) % cases.length)}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* 轮播指示器 */}
-          <div className="flex justify-center mt-4 gap-2">
-            {cases.map((_, index) => (
-              <button
-                key={index}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  currentSlide === index ? "bg-primary-500" : "bg-gray-300"
-                }`}
-                onClick={() => setCurrentSlide(index)}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
               />
-            ))}
-          </div>
+            </svg>
+          </button>
+          <button
+            onClick={() => setCurrentSlide((prev) => (prev + 1) % 2)}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg"
+            aria-label={t("controls.next")}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
   );
 };
 
-export default SellerCases; 
+export default SellerCases;

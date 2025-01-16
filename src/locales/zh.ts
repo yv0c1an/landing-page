@@ -95,36 +95,48 @@ export default {
     }
   },
   sellerCases: {
-    title: "成功案例",
-    subtitle: "看看其他卖家是如何成功的",
-    items: {
+    title: "优秀商家案例",
+    cases: {
       1: {
-        title: "电子产品类目",
-        description: "月销售额突破100万美元",
+        name: "LOVEVOOK",
+        description: "LOVEVOOK以成为全球最受欢迎的箱包品牌公司为愿景，深度耕耘欧美市场，而TikTok Shop加速了其品牌升级和全球化进程。2023年12月入驻后，凭借对TikTok Shop箱包市场的精准洞察，品牌推出既有箱包特产品快速占领市场，打造背包包类目销量第一的明星产品，2024年3月起成功跻身美区箱包类目GMV前三名。",
         stats: {
-          growth: "300%",
-          markets: "20+",
-          revenue: "100万+"
+          views: {
+            value: ">3000万",
+            label: "累计视频观看量"
+          },
+          orders: {
+            value: ">3.6万",
+            label: "累计订单总量"
+          },
+          gmv: {
+            value: ">150万美金",
+            label: "GMV总量"
+          }
         }
       },
       2: {
-        title: "服装类目",
-        description: "成功打入欧美市场",
+        name: "优品数码",
+        description: "专注高品质数码配件研发和生产，通过平台的全球化渠道，成功打入欧美及东南亚市场。凭借优质的产品质量和创新的设计，获得了大量海外用户的好评和认可。",
         stats: {
-          growth: "200%",
-          markets: "15+",
-          revenue: "80万+"
-        }
-      },
-      3: {
-        title: "家居用品类目",
-        description: "年增长率超过200%",
-        stats: {
-          growth: "200%",
-          markets: "10+",
-          revenue: "50万+"
+          views: {
+            value: ">2000万",
+            label: "累计视频观看量"
+          },
+          orders: {
+            value: ">2.8万",
+            label: "累计订单总量"
+          },
+          gmv: {
+            value: ">120万美金",
+            label: "GMV总量"
+          }
         }
       }
+    },
+    controls: {
+      prev: "上一个",
+      next: "下一个"
     }
   },
   sellerBenefits: {

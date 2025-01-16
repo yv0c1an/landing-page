@@ -85,42 +85,49 @@ export default {
     }
   },
   sellerCases: {
-    title: "성공 사례",
-    subtitle: "다른 셀러들의 성공 스토리를 확인하세요",
-    items: {
+    title: "우수 판매자 사례",
+    cases: {
       1: {
-        title: "전자제품 카테고리",
-        description: "월 매출 100만 달러 돌파",
+        name: "LOVEVOOK",
+        description: "LOVEVOOK은 세계에서 가장 인기 있는 가방 브랜드 기업이 되는 것을 비전으로 삼고 유럽과 미국 시장을 깊이 있게 개척하고 있으며, TikTok Shop은 브랜드 업그레이드와 글로벌화 과정을 가속화했습니다. 2023년 12월 입점 후, TikTok Shop 가방 시장에 대한 정확한 통찰력으로 기존 가방 특별 제품을 출시하여 시장을 빠르게 점유하고, 백팩 카테고리 판매량 1위의 스타 제품을 만들어 2024년 3월부터 미국 가방 카테고리 GMV 상위 3위에 성공적으로 진입했습니다.",
         stats: {
-          growth: "300%",
-          markets: "20+",
-          revenue: "100만 달러+"
+          views: {
+            value: ">3000만",
+            label: "총 동영상 조회수"
+          },
+          orders: {
+            value: ">3.6만",
+            label: "총 주문수"
+          },
+          gmv: {
+            value: ">150만 달러",
+            label: "총 GMV"
+          }
         }
       },
       2: {
-        title: "패션 카테고리",
-        description: "미국 및 EU 시장 성공적 진출",
+        name: "우품디지털",
+        description: "고품질 디지털 액세서리 연구 개발 및 생산에 집중하며, 플랫폼의 글로벌 채널을 통해 유럽, 미국 및 동남아시아 시장에 성공적으로 진출했습니다. 우수한 제품 품질과 혁신적인 디자인으로 많은 해외 사용자들로부터 호평과 인정을 받았습니다.",
         stats: {
-          growth: "200%",
-          markets: "15+",
-          revenue: "80만 달러+"
-        }
-      },
-      3: {
-        title: "홈굿즈 카테고리",
-        description: "연간 성장률 200% 이상",
-        stats: {
-          growth: "200%",
-          markets: "10+",
-          revenue: "50만 달러+"
+          views: {
+            value: ">2000만",
+            label: "총 동영상 조회수"
+          },
+          orders: {
+            value: ">2.8만",
+            label: "총 주문수"
+          },
+          gmv: {
+            value: ">120만 달러",
+            label: "총 GMV"
+          }
         }
       }
+    },
+    controls: {
+      prev: "이전",
+      next: "다음"
     }
-  },
-  cta: {
-    title: "크로스보더 이커머스 여정을 시작하세요",
-    subtitle: "지금 등록하고 전문적인 크로스보더 이커머스 서비스를 이용하세요",
-    button: "시작하기"
   },
   platformInfo: {
     sellerBackend: {

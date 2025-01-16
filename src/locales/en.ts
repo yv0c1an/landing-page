@@ -85,36 +85,48 @@ export default {
     }
   },
   sellerCases: {
-    title: "Success Stories",
-    subtitle: "See How Other Sellers Succeeded",
-    items: {
+    title: "Outstanding Seller Cases",
+    cases: {
       1: {
-        title: "Electronics Category",
-        description: "Monthly sales exceeding $1 million",
+        name: "LOVEVOOK",
+        description: "With the vision of becoming the world's most popular bag brand company, LOVEVOOK has deeply cultivated the European and American markets, and TikTok Shop has accelerated its brand upgrade and globalization process. After joining in December 2023, with accurate insights into the TikTok Shop bag market, the brand launched existing bag special products to quickly occupy the market, creating a star product with the highest sales volume in the backpack category, and successfully ranked among the top three GMV in the US bag category since March 2024.",
         stats: {
-          growth: "300%",
-          markets: "20+",
-          revenue: "$1M+"
+          views: {
+            value: ">30M",
+            label: "Total Video Views"
+          },
+          orders: {
+            value: ">36K",
+            label: "Total Orders"
+          },
+          gmv: {
+            value: ">$1.5M",
+            label: "Total GMV"
+          }
         }
       },
       2: {
-        title: "Fashion Category",
-        description: "Successfully entered US & EU markets",
+        name: "Premium Digital",
+        description: "Focusing on the development and production of high-quality digital accessories, successfully entered the European, American and Southeast Asian markets through the platform's global channels. With excellent product quality and innovative design, it has won praise and recognition from many overseas users.",
         stats: {
-          growth: "200%",
-          markets: "15+",
-          revenue: "$800K+"
-        }
-      },
-      3: {
-        title: "Home Goods Category",
-        description: "Annual growth rate over 200%",
-        stats: {
-          growth: "200%",
-          markets: "10+",
-          revenue: "$500K+"
+          views: {
+            value: ">20M",
+            label: "Total Video Views"
+          },
+          orders: {
+            value: ">28K",
+            label: "Total Orders"
+          },
+          gmv: {
+            value: ">$1.2M",
+            label: "Total GMV"
+          }
         }
       }
+    },
+    controls: {
+      prev: "Previous",
+      next: "Next"
     }
   },
   cta: {
