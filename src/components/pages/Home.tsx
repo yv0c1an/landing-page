@@ -1,4 +1,3 @@
-import { GetServerSideProps } from 'next';
 import Head from "next/head";
 import Header from "@/components/layout/Header";
 import Hero from "@/components/home/Hero";
@@ -11,15 +10,26 @@ import SellerBenefits from "@/components/home/SellerBenefits";
 import RegistrationSteps from "@/components/home/RegistrationSteps";
 import SellerCases from "@/components/home/SellerCases";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    redirect: {
-      destination: '/zh',
-      permanent: false,
-    },
-  };
-};
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>CrossBorder - 全球跨境电商平台</title>
+        <meta name="description" content="连接全球买家和卖家，提供一站式跨境电商解决方案。" />
+      </Head>
 
-export default function Index() {
-  return null;
+      <Header />
+      <main>
+        <Hero />
+        <PlatformInfo />
+        <SellerBenefits />
+        <RegistrationSteps />
+        <Features />
+        <Testimonials />
+        <SellerCases />
+        <CTA />
+      </main>
+      <Footer />
+    </>
+  );
 }

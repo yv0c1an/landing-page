@@ -31,8 +31,7 @@ const Header = () => {
 
   const handleLanguageChange = (lang: string) => {
     const newPathname = pathname.replace(/^\/[^\/]+/, '') || '/';
-    const newUrl = `/${lang}${newPathname}`;
-    router.push(newUrl);
+    router.push(`/${lang}${newPathname}`);
   };
 
   return (
@@ -83,11 +82,10 @@ const Header = () => {
               <DropdownMenu
                 aria-label={t('nav.selectLanguage')}
                 selectionMode="single"
-                selectedKeys={new Set([locale])}
-                onSelectionChange={(keys) => {
-                  const selectedLang = Array.from(keys)[0] as string;
-                  if (selectedLang) {
-                    handleLanguageChange(selectedLang);
+                selectedKeys={[locale]}
+                onAction={(key) => {
+                  if (typeof key === 'string') {
+                    handleLanguageChange(key);
                   }
                 }}
               >

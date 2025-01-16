@@ -5,10 +5,6 @@ const config = {
   reactStrictMode: true,
   swcMinify: true,
   transpilePackages: ['@nextui-org/react'],
-  i18n: {
-    locales: ['zh', 'en', 'ja', 'th', 'ko'],
-    defaultLocale: 'zh'
-  },
   images: {
     remotePatterns: [
       {
@@ -19,4 +15,4 @@ const config = {
   },
 };
 
-module.exports = withNextIntl(config); 
+module.exports = withNextIntl(config);
