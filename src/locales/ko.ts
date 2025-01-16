@@ -121,5 +121,15 @@ export default {
     title: "크로스보더 이커머스 여정을 시작하세요",
     subtitle: "지금 등록하고 전문적인 크로스보더 이커머스 서비스를 이용하세요",
     button: "시작하기"
+  },
+  platformInfo: {
+    sellerBackend: {
+      title: "강력한 판매자 백엔드 관리 시스템",
+      features: {
+        orderManagement: "주문, 재고, 물류를 손쉽게 처리하는 원스톱 매장 관리",
+        pricingSystem: "시장 데이터를 기반으로 제품 가격을 최적화하는 스마트 가격 책정 시스템",
+        customerService: "효율적인 구매자 지원을 위한 다국어 고객 서비스 시스템"
+      }
+    }
   }
 }; 

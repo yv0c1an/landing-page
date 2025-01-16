@@ -68,7 +68,7 @@ export default {
     subtitle: "Real Feedback from Global Sellers",
     items: {
       1: {
-        content: "Through this platform, our products successfully entered the US and European markets, increasing sales by 300%.",
+        content: "Through this platform, our products successfully entered the US and European markets, increasing sales by 300%. ",
         author: "Mr. Zhang",
         role: "Electronics Seller"
       },
@@ -121,5 +121,15 @@ export default {
     title: "Start Your Cross-border E-commerce Journey",
     subtitle: "Register now for professional cross-border e-commerce services",
     button: "Get Started"
+  },
+  platformInfo: {
+    sellerBackend: {
+      title: "Powerful Seller Backend Management System",
+      features: {
+        orderManagement: "One-stop shop management for orders, inventory, and logistics",
+        pricingSystem: "Smart pricing system optimizing your product prices based on market data",
+        customerService: "Multi-language customer service system for efficient buyer support"
+      }
+    }
   }
-}; 
+};

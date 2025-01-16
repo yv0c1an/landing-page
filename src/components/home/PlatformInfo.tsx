@@ -7,22 +7,22 @@ const PlatformInfo = () => {
 
   const features = [
     {
-      icon: "🌍",
+      icon: "",
       titleKey: "features.items.1.title",
       descriptionKey: "features.items.1.description",
     },
     {
-      icon: "🚀",
+      icon: "",
       titleKey: "features.items.2.title",
       descriptionKey: "features.items.2.description",
     },
     {
-      icon: "💳",
+      icon: "",
       titleKey: "features.items.3.title",
       descriptionKey: "features.items.3.description",
     },
     {
-      icon: "📊",
+      icon: "",
       titleKey: "features.items.4.title",
       descriptionKey: "features.items.4.description",
     },
@@ -31,7 +31,7 @@ const PlatformInfo = () => {
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        {/* 标题部分 */}
+        {/* */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -47,7 +47,7 @@ const PlatformInfo = () => {
           </p>
         </motion.div>
 
-        {/* 平台特点 */}
+        {/* */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
           {features.map((feature, index) => (
             <motion.div
@@ -65,7 +65,7 @@ const PlatformInfo = () => {
           ))}
         </div>
 
-        {/* 平台截图展示 */}
+        {/* */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ x: -50, opacity: 0 }}
@@ -75,7 +75,7 @@ const PlatformInfo = () => {
             className="space-y-6"
           >
             <h3 className="text-2xl md:text-3xl font-bold">
-              强大的卖家后台管理系统
+              {t("platformInfo.sellerBackend.title")}
             </h3>
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
@@ -83,7 +83,7 @@ const PlatformInfo = () => {
                   ✓
                 </div>
                 <p className="text-gray-600">
-                  一站式店铺管理，轻松处理订单、库存和物流
+                  {t("platformInfo.sellerBackend.features.orderManagement")}
                 </p>
               </div>
               <div className="flex items-start space-x-3">
@@ -91,7 +91,7 @@ const PlatformInfo = () => {
                   ✓
                 </div>
                 <p className="text-gray-600">
-                  智能定价系统，基于市场数据优化您的产品价格
+                  {t("platformInfo.sellerBackend.features.pricingSystem")}
                 </p>
               </div>
               <div className="flex items-start space-x-3">
@@ -99,7 +99,7 @@ const PlatformInfo = () => {
                   ✓
                 </div>
                 <p className="text-gray-600">
-                  多语言客服系统，高效处理买家咨询
+                  {t("platformInfo.sellerBackend.features.customerService")}
                 </p>
               </div>
             </div>
@@ -120,11 +120,11 @@ const PlatformInfo = () => {
                 width={600}
                 height={400}
               />
-              {/* 装饰元素 */}
+              {/* */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/10 rounded-full blur-2xl" />
             </div>
-            {/* 浮动的小截图 */}
+            {/* */}
             <div className="absolute -bottom-6 -left-12 w-48 rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="/platform/mobile.png"
@@ -141,4 +141,4 @@ const PlatformInfo = () => {
   );
 };
 
-export default PlatformInfo; 
+export default PlatformInfo;

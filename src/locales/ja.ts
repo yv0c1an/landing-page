@@ -121,5 +121,15 @@ export default {
     title: "越境ECの旅を始めましょう",
     subtitle: "今すぐ登録して、プロフェッショナルな越境ECサービスをご利用ください",
     button: "始める"
+  },
+  platformInfo: {
+    sellerBackend: {
+      title: "パワフルな販売者バックエンド管理システム",
+      features: {
+        orderManagement: "ワンストップの店舗管理で、注文、在庫、物流を簡単に処理",
+        pricingSystem: "市場データに基づいて商品価格を最適化するスマート価格設定システム",
+        customerService: "効率的な買い手サポートのための多言語カスタマーサービスシステム"
+      }
+    }
   }
 }; 

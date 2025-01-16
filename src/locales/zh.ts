@@ -63,6 +63,16 @@ export default {
       }
     }
   },
+  platformInfo: {
+    sellerBackend: {
+      title: "强大的卖家后台管理系统",
+      features: {
+        orderManagement: "一站式店铺管理，轻松处理订单、库存和物流",
+        pricingSystem: "智能定价系统，基于市场数据优化您的产品价格",
+        customerService: "多语言客服系统，高效处理买家咨询"
+      }
+    }
+  },
   testimonials: {
     title: "客户评价",
     subtitle: "来自全球卖家的真实反馈",
