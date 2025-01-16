@@ -47,6 +47,7 @@ const Header = () => {
               height={40}
               className="w-10 h-10"
               loading="eager"
+              priority
             />
             <span className="text-xl font-bold">CrossBorder</span>
           </Link>
