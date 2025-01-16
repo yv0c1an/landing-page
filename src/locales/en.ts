@@ -180,5 +180,59 @@ export default {
         label: "Countries Covered"
       }
     }
+  },
+  registrationSteps: {
+    title: "Become a Seller in 4 Steps",
+    subtitle: "Simple and quick registration process with professional support team guidance",
+    steps: {
+      1: {
+        number: "01",
+        title: "Account Registration",
+        description: "Fill in basic information to create your cross-border e-commerce account",
+        details: [
+          "Business/Personal Email",
+          "Contact Number",
+          "Basic Information"
+        ]
+      },
+      2: {
+        number: "02",
+        title: "Qualification Verification",
+        description: "Upload necessary qualification documents for verification",
+        details: [
+          "Business License",
+          "Legal Representative ID",
+          "Bank Account Certificate",
+          "Trademark Certificate (if any)"
+        ]
+      },
+      3: {
+        number: "03",
+        title: "Store Setup",
+        description: "Complete store information and payment settings",
+        details: [
+          "Store Name and Logo",
+          "Business Category Selection",
+          "Payment Account Setup"
+        ]
+      },
+      4: {
+        number: "04",
+        title: "Training Certification",
+        description: "Participate in platform seller training and pass the assessment",
+        details: [
+          "Platform Rules Learning",
+          "System Operation Training",
+          "Online Certification Test"
+        ]
+      }
+    },
+    contact: {
+      title: "Registration Inquiry",
+      phone: "Contact Phone: 400-888-8888",
+      email: "Business Email: business@crossborder.com",
+      note1: "Platform will complete the review within 3 working days after receiving complete application materials",
+      note2: "After approval, our operations team will contact you to assist with store setup"
+    }
   }
 };

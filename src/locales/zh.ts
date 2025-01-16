@@ -176,6 +176,60 @@ export default {
       }
     }
   },
+  registrationSteps: {
+    title: "成为商家只需四步",
+    subtitle: "简单快捷的入驻流程，专业的支持团队为您保驾护航",
+    steps: {
+      1: {
+        number: "01",
+        title: "注册账号",
+        description: "填写基本信息，创建跨境电商账号",
+        details: [
+          "企业/个人邮箱",
+          "联系电话",
+          "基本信息"
+        ]
+      },
+      2: {
+        number: "02",
+        title: "资质认证",
+        description: "上传必要的资质文件进行认证",
+        details: [
+          "营业执照",
+          "法人身份证",
+          "银行开户证明",
+          "商标证书（如有）"
+        ]
+      },
+      3: {
+        number: "03",
+        title: "店铺设置",
+        description: "完善店铺信息和支付设置",
+        details: [
+          "店铺名称和LOGO",
+          "经营类目选择",
+          "支付账户设置"
+        ]
+      },
+      4: {
+        number: "04",
+        title: "培训认证",
+        description: "参加平台商家培训并通过考核",
+        details: [
+          "平台规则学习",
+          "操作系统培训",
+          "在线考核认证"
+        ]
+      }
+    },
+    contact: {
+      title: "入驻咨询",
+      phone: "咨询电话：400-888-8888",
+      email: "商务邮箱：business@crossborder.com",
+      note1: "平台将在收到完整申请材料后的3个工作日内完成审核",
+      note2: "审核通过后，运营团队将与您联系，协助完成后续店铺设置"
+    }
+  },
   cta: {
     title: "开启您的跨境电商之旅",
     subtitle: "立即注册，享受专业的跨境电商服务",

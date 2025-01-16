@@ -1,51 +1,17 @@
 import { Card } from "@nextui-org/react";
 import { motion } from "framer-motion";
-
-const steps = [
-  {
-    number: "01",
-    title: "注册账号",
-    description: "填写基本信息，创建跨境电商账号",
-    details: [
-      "企业/个人邮箱",
-      "联系电话",
-      "基本信息",
-    ],
-  },
-  {
-    number: "02",
-    title: "资质认证",
-    description: "上传必要的资质文件进行认证",
-    details: [
-      "营业执照",
-      "法人身份证",
-      "银行开户证明",
-      "商标证书（如有）",
-    ],
-  },
-  {
-    number: "03",
-    title: "店铺设置",
-    description: "完善店铺信息和支付设置",
-    details: [
-      "店铺名称和LOGO",
-      "经营类目选择",
-      "支付账户设置",
-    ],
-  },
-  {
-    number: "04",
-    title: "培训认证",
-    description: "参加平台商家培训并通过考核",
-    details: [
-      "平台规则学习",
-      "操作系统培训",
-      "在线考核认证",
-    ],
-  },
-];
+import { useTranslations } from "next-intl";
 
 const RegistrationSteps = () => {
+  const t = useTranslations();
+
+  const steps = [1, 2, 3, 4].map(num => ({
+    number: t(`registrationSteps.steps.${num}.number`),
+    title: t(`registrationSteps.steps.${num}.title`),
+    description: t(`registrationSteps.steps.${num}.description`),
+    details: t.raw(`registrationSteps.steps.${num}.details`) as string[],
+  }));
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -58,10 +24,10 @@ const RegistrationSteps = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            成为商家只需四步
+            {t("registrationSteps.title")}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            简单快捷的入驻流程，专业的支持团队为您保驾护航
+            {t("registrationSteps.subtitle")}
           </p>
         </motion.div>
 
@@ -109,7 +75,7 @@ const RegistrationSteps = () => {
         >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="text-2xl font-bold mb-4">入驻咨询</h3>
+              <h3 className="text-2xl font-bold mb-4">{t("registrationSteps.contact.title")}</h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-2">
                   <svg
@@ -125,7 +91,7 @@ const RegistrationSteps = () => {
                       d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                     />
                   </svg>
-                  <span>咨询电话：400-888-8888</span>
+                  <span>{t("registrationSteps.contact.phone")}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <svg
@@ -141,16 +107,16 @@ const RegistrationSteps = () => {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  <span>商务邮箱：business@crossborder.com</span>
+                  <span>{t("registrationSteps.contact.email")}</span>
                 </div>
               </div>
             </div>
             <div className="text-gray-600">
               <p className="mb-2">
-                * 平台将在收到完整申请材料后的3个工作日内完成审核
+                * {t("registrationSteps.contact.note1")}
               </p>
               <p>
-                * 审核通过后，运营团队将与您联系，协助完成后续店铺设置
+                * {t("registrationSteps.contact.note2")}
               </p>
             </div>
           </div>
@@ -160,4 +126,4 @@ const RegistrationSteps = () => {
   );
 };
 
-export default RegistrationSteps; 
+export default RegistrationSteps;
