@@ -32,6 +32,7 @@ export const RedirectModal: React.FC<RedirectModalProps> = ({
       isOpen={isOpen} 
       onClose={onClose}
       hideCloseButton
+      isDismissable={false}
       className="bg-white/70 backdrop-blur-md"
       motionProps={{
         variants: {
