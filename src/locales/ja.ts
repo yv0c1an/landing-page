@@ -2,7 +2,7 @@ export default {
   common: {
     login: "ログイン",
     register: "登録",
-    sellerCenter: "セラーセンター",
+    sellerCenter: "出品者センター",
     goShopping: "ショッピング",
     contactUs: "お問い合わせ",
     // 日文
@@ -242,11 +242,14 @@ export default {
       }
     },
     contact: {
-      title: "出店お問い合わせ",
-      phone: "お問い合わせ電話：400-888-8888",
-      email: "ビジネスメール：business@crossborder.com",
+      title: "出店に関する注意事項",
       note1: "プラットフォームは、完全な申請書類を受け取ってから3営業日以内に審査を完了します",
       note2: "承認後、運営チームがご連絡し、店舗設定のサポートをさせていただきます"
     }
-  }
+  },
+  header: {
+    sellerCenter: '出品者センター',
+    shopping: 'ショッピング',
+    contactUs: 'お問い合わせ',
+  },
 }; 

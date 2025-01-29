@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Landing Page
 
-## Getting Started
+这是一个使用 [Next.js](https://nextjs.org) 构建的多语言落地页项目。
 
-First, run the development server:
+## 技术栈
+
+- Next.js 14.2.4
+- React 18.2.0
+- TypeScript
+- TailwindCSS
+- NextUI 组件库
+- next-intl（国际化支持）
+- Framer Motion（动画效果）
+- React Hook Form（表单处理）
+- Zod（数据验证）
+
+## 功能特点
+
+- 🌐 多语言支持
+  - 中文
+  - 英文
+  - 日文
+  - 韩文
+  - 泰文
+
+- 📱 响应式设计
+  - 完美适配移动端和桌面端
+
+- 🎨 模块化组件
+  - Header/Footer 布局组件
+  - Hero 主横幅区域
+  - Features 特性展示
+  - Testimonials 用户评价
+  - PlatformInfo 平台信息
+  - SellerBenefits 卖家权益
+  - RegistrationSteps 注册步骤
+  - SellerCases 卖家案例
+
+## 项目结构
+
+```
+src/
+├── components/     # 组件目录
+├── config/        # 配置文件
+├── contexts/      # React Context
+├── hooks/         # 自定义 Hooks
+├── locales/       # 多语言文件
+├── styles/        # 样式文件
+└── utils/         # 工具函数
+```
+
+## 开始使用
+
+1. 安装依赖：
+
+```bash
+npm install
+# 或
+yarn install
+# 或
+pnpm install
+```
+
+2. 配置环境变量：
+
+```bash
+cp .env.example .env
+```
+然后根据需要修改 `.env` 文件中的配置。
+
+3. 运行开发服务器：
 
 ```bash
 npm run dev
-# or
+# 或
 yarn dev
-# or
+# 或
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+在浏览器中打开 [http://localhost:3000](http://localhost:3000) 查看结果。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 构建和部署
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. 构建生产版本：
 
-## Learn More
+```bash
+npm run build
+# 或
+yarn build
+# 或
+pnpm build
+```
 
-To learn more about Next.js, take a look at the following resources:
+2. 运行生产版本：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run start
+# 或
+yarn start
+# 或
+pnpm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 开发工具
 
-## Deploy on Vercel
+- ESLint - 代码检查
+- PostCSS - CSS 处理
+- 环境变量支持
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 贡献指南
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Fork 本项目
+2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交你的改动 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 提交 Pull Request
+
+## 许可证
+
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情

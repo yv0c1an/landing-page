@@ -14,8 +14,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>CrossBorder - 全球跨境电商平台</title>
-        <meta name="description" content="连接全球买家和卖家，提供一站式跨境电商解决方案。" />
+        <title>Thryza -  Rise Above Shopping</title>
+        <meta name="description" content="Explore Thryza, your gateway to a new era of shopping where convenience, quality, and innovation meet" />
+        <link rel="icon" sizes="32x32" href="/logo.svg" />
       </Head>
 
       <Header />

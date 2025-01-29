@@ -5,6 +5,7 @@ export default {
     sellerCenter: "Seller Center",
     goShopping: "Shop Now",
     contactUs: "Contact Us",
+    promote:"Merchants settle in",
     redirectTitle: "Redirecting to {modalName}..."
   },
   nav: {
@@ -241,11 +242,14 @@ export default {
       }
     },
     contact: {
-      title: "Registration Inquiry",
-      phone: "Contact Phone: 400-888-8888",
-      email: "Business Email: business@crossborder.com",
+      title: "Registration Notice",
       note1: "Platform will complete the review within 3 working days after receiving complete application materials",
       note2: "After approval, our operations team will contact you to assist with store setup"
     }
-  }
+  },
+  header: {
+    sellerCenter: 'Seller Center',
+    shopping: 'Shopping',
+    contactUs: 'Contact Us',
+  },
 };

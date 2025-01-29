@@ -5,6 +5,7 @@ export default {
     sellerCenter: "卖家中心",
     goShopping: "去购物",
     contactUs: "联系我们",
+    promote: "商家入驻",
     redirectTitle: "即将跳转到{modalName}..." 
   },
   nav: {
@@ -99,8 +100,8 @@ export default {
     title: "优秀商家案例",
     cases: {
       1: {
-        name: "LOVEVOOK",
-        description: "LOVEVOOK以成为全球最受欢迎的箱包品牌公司为愿景，深度耕耘欧美市场，而TikTok Shop加速了其品牌升级和全球化进程。2023年12月入驻后，凭借对TikTok Shop箱包市场的精准洞察，品牌推出既有箱包特产品快速占领市场，打造背包包类目销量第一的明星产品，2024年3月起成功跻身美区箱包类目GMV前三名。",
+        name: "Velora",
+        description: "Velora 为女性时尚带来了全新的理念，其经典单品既百搭又舒适，时尚感十足。从精致的办公服装到优雅的晚礼服，Velora 专为追求时尚和功能的女性而设计。",
         stats: {
           views: {
             value: ">3000万",
@@ -117,8 +118,26 @@ export default {
         }
       },
       2: {
-        name: "优品数码",
-        description: "专注高品质数码配件研发和生产，通过平台的全球化渠道，成功打入欧美及东南亚市场。凭借优质的产品质量和创新的设计，获得了大量海外用户的好评和认可。",
+        name: "Solara Living",
+        description: "Solara Living 提供精致的家居装饰系列，将现代设计与自然元素融为一体。无论是舒适的毯子还是引人注目的艺术品，Solara 都能为任何空间带来温暖和个性。",
+        stats: {
+          views: {
+            value: ">2000万",
+            label: "累计视频观看量"
+          },
+          orders: {
+            value: ">2.8万",
+            label: "累计订单总量"
+          },
+          gmv: {
+            value: ">120万美金",
+            label: "GMV总量"
+          }
+        }
+      },
+      3: {
+        name: "Innovora",
+        description: "Innovora 为那些想要保持领先地位的人提供最先进的电子产品和小工具。从智能设备到尖端配件，Innovora 是您通往未来科技的大门。",
         stats: {
           views: {
             value: ">2000万",
@@ -236,7 +255,7 @@ export default {
       }
     },
     contact: {
-      title: "入驻咨询",
+      title: "入驻须知",
       phone: "咨询电话：400-888-8888",
       email: "商务邮箱：business@crossborder.com",
       note1: "平台将在收到完整申请材料后的3个工作日内完成审核",
@@ -247,5 +266,10 @@ export default {
     title: "开启您的跨境电商之旅",
     subtitle: "立即注册，享受专业的跨境电商服务",
     button: "立即开始"
-  }
+  },
+  header: {
+    sellerCenter: '卖家中心',
+    shopping: '购物',
+    contactUs: '联系我们',
+  },
 }; 

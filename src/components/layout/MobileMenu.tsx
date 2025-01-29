@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
 import { locales } from '@/config/i18n';
 import { externalLinks } from '@/config/externalConfig';
+import Image from "next/image";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -11,6 +12,16 @@ interface MobileMenuProps {
   onLanguageChange: (lang: string) => void;
   onExternalClick: (linkKey: keyof typeof externalLinks) => void;
 }
+
+type ExternalLinkType = "sellerCenter" | "goShopping" | "contactUs" | "login";
+
+const languageFlags: Record<string, string> = {
+  en: "/flags/en.svg",
+  zh: "/flags/zh.svg",
+  ja: "/flags/ja.svg",
+  ko: "/flags/ko.svg",
+  th: "/flags/th.svg"
+};
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ 
   isOpen, 
@@ -23,13 +34,23 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 
   const languages = locales.map(lang => ({
     key: lang,
-    label: t(`nav.languages.${lang}`)
+    label: t(`nav.languages.${lang}`),
+    flag: languageFlags[lang]
   }));
 
-  const menuItems = [
-    { key: 'sellerCenter', name: t('common.sellerCenter') },
-    { key: 'shopping', name: t('common.goShopping') },
-    { key: 'contactUs', name: t('common.contactUs') },
+  const items = [
+    {
+      key: "sellerCenter" as ExternalLinkType,
+      label: t("common.sellerCenter")
+    },
+    {
+      key: "goShopping" as ExternalLinkType,
+      label: t("common.goShopping")
+    },
+    {
+      key: "contactUs" as ExternalLinkType,
+      label: t("common.contactUs")
+    }
   ] as const;
 
   return (
@@ -61,7 +82,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     >
       <div className="p-6">
         <nav className="space-y-4">
-          {menuItems.map((item) => (
+          {items.map((item) => (
             <motion.div
               key={item.key}
               whileTap={{ scale: 0.98 }}
@@ -73,20 +94,20 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                   onClose();
                 }}
               >
-                {item.name}
+                {item.label}
               </button>
             </motion.div>
           ))}
         </nav>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-6">
           <div className="px-4 py-2">
             <p className="text-sm text-gray-500 mb-2">{t('nav.selectLanguage')}</p>
             <div className="space-y-2">
               {languages.map((lang) => (
                 <button
                   key={lang.key}
-                  className={`w-full text-left px-3 py-2 rounded ${
+                  className={`w-full text-left px-3 py-2 rounded flex items-center gap-2 ${
                     locale === lang.key ? 'bg-primary/10 text-primary' : 'text-gray-700 hover:bg-gray-100'
                   }`}
                   onClick={() => {
@@ -94,23 +115,17 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                     onClose();
                   }}
                 >
+                  <Image 
+                    src={languageFlags[lang.key]} 
+                    alt={`${lang.key} flag`}
+                    width={24}
+                    height={16}
+                    className="rounded"
+                  />
                   {lang.label}
                 </button>
               ))}
             </div>
-          </div>
-
-          <div className="px-4 py-2">
-            <Button 
-              color="primary" 
-              className="w-full"
-              onPress={() => {
-                onExternalClick('login');
-                onClose();
-              }}
-            >
-              {t('common.login')}
-            </Button>
           </div>
         </div>
       </div>

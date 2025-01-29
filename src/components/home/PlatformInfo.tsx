@@ -1,9 +1,18 @@
-import { Image } from "@nextui-org/react";
+import { Image, Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
+import { useExternalLink } from '@/hooks/useExternalLink';
+import { RedirectModal } from '@/components/common/RedirectModal';
 
 const PlatformInfo = () => {
   const t = useTranslations();
+  const { 
+    handleExternalClick, 
+    isRedirectModalOpen, 
+    currentLink,
+    handleRedirect,
+    handleClose 
+  } = useExternalLink();
 
   const features = [
     {
@@ -136,6 +145,32 @@ const PlatformInfo = () => {
             </div>
           </motion.div>
         </div>
+
+        <div className="text-center max-w-3xl mx-auto mt-16">
+          <h2 className="text-4xl font-bold mb-4">
+            {t('cta.title')}
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            {t('cta.subtitle')}
+          </p>
+          <Button 
+            color="primary" 
+            size="lg"
+            onPress={() => handleExternalClick('promote')}
+          >
+            {t('cta.button')}
+          </Button>
+        </div>
+
+        {/* 添加 RedirectModal */}
+        {currentLink && (
+          <RedirectModal
+            isOpen={isRedirectModalOpen}
+            onClose={handleClose}
+            onRedirect={handleRedirect}
+            title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
+          />
+        )}
       </div>
     </section>
   );

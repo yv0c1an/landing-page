@@ -8,13 +8,23 @@ const config = {
   swcMinify: true,
   transpilePackages: ['@nextui-org/react'],
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: '**',
       },
+      {
+        protocol: 'http',
+        hostname: '**',
+      }
     ],
   },
+  output: 'standalone',
+  experimental: {
+    isrMemoryCacheSize: 0,
+    serverActions: true,
+  }
 };
 
 module.exports = withNextIntl(config);

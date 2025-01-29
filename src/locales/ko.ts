@@ -5,7 +5,7 @@ export default {
     sellerCenter: "셀러센터",
     goShopping: "쇼핑하기",
     contactUs: "문의하기",
-    redirectTitle: "이동中 {modalName}..."
+    redirectTitle: "{modalName}로 이동 중..."
   },
   nav: {
     selectLanguage: "언어 선택",
@@ -241,9 +241,7 @@ export default {
       }
     },
     contact: {
-      title: "입점 문의",
-      phone: "문의 전화: 400-888-8888",
-      email: "비즈니스 이메일: business@crossborder.com",
+      title: "입점 안내",
       note1: "플랫폼은 완전한 신청 서류를 받은 후 3영업일 이내에 심사를 완료합니다",
       note2: "승인 후, 운영팀이 연락하여 스토어 설정을 도와드립니다"
     }

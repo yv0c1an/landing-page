@@ -12,8 +12,9 @@ export const useExternalLink = () => {
 
   const handleRedirect = () => {
     if (currentLink) {
-      window.location.href = externalLinks[currentLink].url;
+      window.location.href = externalLinks[currentLink];
     }
+    setIsRedirectModalOpen(false);
   };
 
   const handleClose = () => {
@@ -26,6 +27,6 @@ export const useExternalLink = () => {
     currentLink,
     handleExternalClick,
     handleRedirect,
-    handleClose,
+    handleClose
   };
 };

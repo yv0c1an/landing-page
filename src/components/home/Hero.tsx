@@ -97,35 +97,35 @@ const Hero = () => {
       </div>
 
       {/* 登录注册框 */}
-      <div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[380px] bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-xl">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold">{t('hero.registerTitle')}</h2>
-          <p className="text-gray-600 mt-2">{t('hero.registerSubtitle')}</p>
-        </div>
-        <form className="space-y-4">
-          <Input
-            type="email"
-            label={t('hero.email')}
-            placeholder={t('hero.emailPlaceholder')}
-            variant="bordered"
-          />
-          <Input
-            type="password"
-            label={t('hero.password')}
-            placeholder={t('hero.passwordPlaceholder')}
-            variant="bordered"
-          />
-          <Button color="primary" className="w-full">
-            {t('hero.registerButton')}
-          </Button>
-          <div className="text-center text-sm text-gray-600">
-            {t('hero.hasAccount')}
-            <Button variant="light" className="px-2">
-              {t('hero.loginButton')}
-            </Button>
-          </div>
-        </form>
-      </div>
+      {/*<div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[380px] bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-xl">*/}
+      {/*  <div className="text-center mb-6">*/}
+      {/*    <h2 className="text-2xl font-bold">{t('hero.registerTitle')}</h2>*/}
+      {/*    <p className="text-gray-600 mt-2">{t('hero.registerSubtitle')}</p>*/}
+      {/*  </div>*/}
+      {/*  <form className="space-y-4">*/}
+      {/*    <Input*/}
+      {/*      type="email"*/}
+      {/*      label={t('hero.email')}*/}
+      {/*      placeholder={t('hero.emailPlaceholder')}*/}
+      {/*      variant="bordered"*/}
+      {/*    />*/}
+      {/*    <Input*/}
+      {/*      type="password"*/}
+      {/*      label={t('hero.password')}*/}
+      {/*      placeholder={t('hero.passwordPlaceholder')}*/}
+      {/*      variant="bordered"*/}
+      {/*    />*/}
+      {/*    <Button color="primary" className="w-full">*/}
+      {/*      {t('hero.registerButton')}*/}
+      {/*    </Button>*/}
+      {/*    <div className="text-center text-sm text-gray-600">*/}
+      {/*      {t('hero.hasAccount')}*/}
+      {/*      <Button variant="light" className="px-2">*/}
+      {/*        {t('hero.loginButton')}*/}
+      {/*      </Button>*/}
+      {/*    </div>*/}
+      {/*  </form>*/}
+      {/*</div>*/}
 
       {/* 轮播指示器 */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">

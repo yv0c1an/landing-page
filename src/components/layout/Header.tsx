@@ -10,12 +10,21 @@ import { externalLinks } from '@/config/externalConfig';
 import { useExternalLink } from '@/hooks/useExternalLink';
 import { RedirectModal } from '@/components/common/RedirectModal';
 
+const languageFlags: Record<string, string> = {
+  en: "/flags/en.svg",
+  zh: "/flags/zh.svg",
+  ja: "/flags/ja.svg",
+  ko: "/flags/ko.svg",
+  th: "/flags/th.svg"
+};
+
 const Header = () => {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
   const { 
     isRedirectModalOpen, 
     currentLink, 
@@ -26,7 +35,8 @@ const Header = () => {
 
   const languages = locales.map(lang => ({
     key: lang,
-    label: t(`nav.languages.${lang}`)
+    label: t(`nav.languages.${lang}`),
+    flag: languageFlags[lang]
   }));
 
   const handleLanguageChange = (lang: string) => {
@@ -41,15 +51,15 @@ const Header = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/logo.svg"
-              alt="CrossBorder Logo"
-              width={40}
-              height={40}
-              className="w-10 h-10"
-              loading="eager"
-              priority
+                src="/logo.svg"
+                alt={`${appName} Logo`}
+                width={40}
+                height={40}
+                className="w-10 h-10"
+                loading="eager"
+                priority
             />
-            <span className="text-xl font-bold">CrossBorder</span>
+            <span className="text-xl font-bold">{appName}</span>
           </Link>
 
           {/* Navigation */}
@@ -76,7 +86,19 @@ const Header = () => {
             {/* Language Selector */}
             <Dropdown>
               <DropdownTrigger>
-                <Button variant="light" className="capitalize">
+                <Button 
+                  variant="light" 
+                  className="capitalize min-w-[120px]"
+                  startContent={
+                    <Image 
+                      src={languageFlags[locale]} 
+                      alt={`${locale} flag`}
+                      width={24}
+                      height={16}
+                      className="rounded"
+                    />
+                  }
+                >
                   {t(`nav.languages.${locale}`)}
                 </Button>
               </DropdownTrigger>
@@ -91,19 +113,23 @@ const Header = () => {
                 }}
               >
                 {languages.map((lang) => (
-                  <DropdownItem key={lang.key}>{lang.label}</DropdownItem>
+                  <DropdownItem 
+                    key={lang.key}
+                    startContent={
+                      <Image 
+                        src={languageFlags[lang.key]} 
+                        alt={`${lang.key} flag`}
+                        width={24}
+                        height={16}
+                        className="rounded"
+                      />
+                    }
+                  >
+                    {lang.label}
+                  </DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>
-
-            {/* Login Button */}
-            <Button 
-              color="primary" 
-              variant="flat"
-              onPress={() => handleExternalClick('login')}
-            >
-              {t('common.login')}
-            </Button>
           </nav>
 
           {/* Mobile Menu Button */}
