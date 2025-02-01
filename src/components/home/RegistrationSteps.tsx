@@ -1,4 +1,10 @@
-import { Card } from "@nextui-org/react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
@@ -41,16 +47,19 @@ const RegistrationSteps = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 h-full hover:shadow-lg transition-shadow relative overflow-hidden">
-                {/* 背景数字 */}
-                <div className="absolute -right-4 -top-4 text-8xl font-bold text-gray-100">
-                  {step.number}
-                </div>
-                
-                <div className="relative z-10">
-                  <div className="text-xl font-semibold mb-4">{step.title}</div>
-                  <p className="text-gray-600 mb-4">{step.description}</p>
-                  
+              <Card className="h-full">
+                <CardHeader>
+                  <div className="absolute -right-4 -top-4 text-8xl font-bold text-gray-100">
+                    {step.number}
+                  </div>
+                  <CardTitle className="text-xl font-semibold mb-4">
+                    {step.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-gray-600 mb-4">
+                    {step.description}
+                  </CardDescription>
                   <ul className="space-y-2">
                     {step.details.map((detail, idx) => (
                       <li key={idx} className="flex items-center text-sm text-gray-600">
@@ -59,7 +68,7 @@ const RegistrationSteps = () => {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </CardContent>
               </Card>
             </motion.div>
           ))}

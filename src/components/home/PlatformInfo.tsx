@@ -1,39 +1,35 @@
-import { Image, Button } from "@nextui-org/react";
-import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
 import { useExternalLink } from '@/hooks/useExternalLink';
 import { RedirectModal } from '@/components/common/RedirectModal';
+import { Globe, Truck, Wallet, BarChart } from 'lucide-react';
+import Image from 'next/image';
+import { motion } from "framer-motion";
 
 const PlatformInfo = () => {
   const t = useTranslations();
-  const { 
-    handleExternalClick, 
-    isRedirectModalOpen, 
-    currentLink,
-    handleRedirect,
-    handleClose 
-  } = useExternalLink();
+  const { handleExternalLink, showRedirectModal, setShowRedirectModal, selectedUrl } = useExternalLink();
 
   const features = [
     {
-      icon: "",
-      titleKey: "features.items.1.title",
-      descriptionKey: "features.items.1.description",
+      icon: <Globe className="w-8 h-8 text-primary-500" />,
+      title: t('features.items.1.title'),
+      description: t('features.items.1.description'),
     },
     {
-      icon: "",
-      titleKey: "features.items.2.title",
-      descriptionKey: "features.items.2.description",
+      icon: <Truck className="w-8 h-8 text-primary-500" />,
+      title: t('features.items.2.title'),
+      description: t('features.items.2.description'),
     },
     {
-      icon: "",
-      titleKey: "features.items.3.title",
-      descriptionKey: "features.items.3.description",
+      icon: <Wallet className="w-8 h-8 text-primary-500" />,
+      title: t('features.items.3.title'),
+      description: t('features.items.3.description'),
     },
     {
-      icon: "",
-      titleKey: "features.items.4.title",
-      descriptionKey: "features.items.4.description",
+      icon: <BarChart className="w-8 h-8 text-primary-500" />,
+      title: t('features.items.4.title'),
+      description: t('features.items.4.description'),
     },
   ];
 
@@ -68,8 +64,8 @@ const PlatformInfo = () => {
               className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{t(feature.titleKey)}</h3>
-              <p className="text-gray-600">{t(feature.descriptionKey)}</p>
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-gray-600">{feature.description}</p>
             </motion.div>
           ))}
         </div>
@@ -125,9 +121,11 @@ const PlatformInfo = () => {
               <Image
                 src="/platform/dashboard.png"
                 alt="Platform Dashboard"
-                className="w-full"
                 width={600}
                 height={400}
+                className="w-full h-auto"
+                priority
+                unoptimized
               />
               {/* */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
@@ -138,9 +136,10 @@ const PlatformInfo = () => {
               <Image
                 src="/platform/mobile.png"
                 alt="Mobile App"
-                className="w-full"
                 width={200}
                 height={400}
+                className="w-full h-auto"
+                unoptimized
               />
             </div>
           </motion.div>
@@ -154,23 +153,21 @@ const PlatformInfo = () => {
             {t('cta.subtitle')}
           </p>
           <Button 
-            color="primary" 
             size="lg"
-            onPress={() => handleExternalClick('promote')}
+            onClick={() => handleExternalLink('promote')}
           >
             {t('cta.button')}
           </Button>
         </div>
 
-        {/* 添加 RedirectModal */}
-        {currentLink && (
+        {showRedirectModal && selectedUrl && (
           <RedirectModal
-            isOpen={isRedirectModalOpen}
-            onClose={handleClose}
-            onRedirect={handleRedirect}
-            title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
+            isOpen={showRedirectModal}
+            onClose={() => setShowRedirectModal(false)}
+            url={selectedUrl}
           />
         )}
+        
       </div>
     </section>
   );

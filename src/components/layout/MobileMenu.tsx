@@ -1,19 +1,22 @@
-import { Modal, Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
 import { locales } from '@/config/i18n';
 import { externalLinks } from '@/config/externalConfig';
 import Image from "next/image";
+import Link from "next/link";
+import { useExternalLink } from "@/hooks/useExternalLink";
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  locale: string;
-  onLanguageChange: (lang: string) => void;
-  onExternalClick: (linkKey: keyof typeof externalLinks) => void;
 }
-
-type ExternalLinkType = "sellerCenter" | "goShopping" | "contactUs" | "login";
 
 const languageFlags: Record<string, string> = {
   en: "/flags/en.svg",
@@ -23,113 +26,88 @@ const languageFlags: Record<string, string> = {
   th: "/flags/th.svg"
 };
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ 
-  isOpen, 
-  onClose, 
-  locale, 
-  onLanguageChange,
-  onExternalClick
-}) => {
-  const t = useTranslations();
+const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
+  const t = useTranslations('common');
+  const { handleExternalLink } = useExternalLink();
 
-  const languages = locales.map(lang => ({
-    key: lang,
-    label: t(`nav.languages.${lang}`),
-    flag: languageFlags[lang]
-  }));
+  const menuItems = [
+    { label: t('sellerCenter'), href: "#" },
+    { label: t('goShopping'), href: "#" },
+    { label: t('contactUs'), href: "#" },
+  ];
 
-  const items = [
-    {
-      key: "sellerCenter" as ExternalLinkType,
-      label: t("common.sellerCenter")
-    },
-    {
-      key: "goShopping" as ExternalLinkType,
-      label: t("common.goShopping")
-    },
-    {
-      key: "contactUs" as ExternalLinkType,
-      label: t("common.contactUs")
-    }
-  ] as const;
-
+  
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={onClose}
-      className="bg-white rounded-t-2xl"
-      placement="bottom"
-      motionProps={{
-        variants: {
-          enter: {
-            y: 0,
-            opacity: 1,
-            transition: {
-              duration: 0.3,
-              ease: "easeOut",
-            },
-          },
-          exit: {
-            y: 20,
-            opacity: 0,
-            transition: {
-              duration: 0.2,
-              ease: "easeIn",
-            },
-          },
-        },
-      }}
-    >
-      <div className="p-6">
-        <nav className="space-y-4">
-          {items.map((item) => (
-            <motion.div
-              key={item.key}
-              whileTap={{ scale: 0.98 }}
-            >
-              <button
-                className="block w-full px-4 py-2 text-lg text-left text-gray-700 hover:text-primary"
-                onClick={() => {
-                  onExternalClick(item.key);
-                  onClose();
-                }}
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="h-[100dvh] max-w-[100vw] mt-0 rounded-none sm:max-w-sm">
+        <DialogHeader>
+          <DialogTitle>{t('nav.menu')}</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-col gap-4">
+          <nav className="flex flex-col gap-2">
+            {menuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-lg px-4 py-2 hover:bg-accent rounded-md"
+                onClick={onClose}
               >
                 {item.label}
-              </button>
-            </motion.div>
-          ))}
-        </nav>
+              </Link>
+            ))}
+          </nav>
 
-        <div className="mt-6">
-          <div className="px-4 py-2">
-            <p className="text-sm text-gray-500 mb-2">{t('nav.selectLanguage')}</p>
-            <div className="space-y-2">
-              {languages.map((lang) => (
-                <button
-                  key={lang.key}
-                  className={`w-full text-left px-3 py-2 rounded flex items-center gap-2 ${
-                    locale === lang.key ? 'bg-primary/10 text-primary' : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+          <div className="flex flex-col gap-2 mt-4">
+            <Button
+              variant="ghost"
+              className="w-full justify-start"
+              onClick={() => {
+                handleExternalLink(externalLinks.login);
+                onClose();
+              }}
+            >
+              {t('login')}
+            </Button>
+            <Button
+              className="w-full justify-start"
+              onClick={() => {
+                handleExternalLink(externalLinks.register);
+                onClose();
+              }}
+            >
+              {t('register')}
+            </Button>
+          </div>
+
+          <div className="mt-4">
+            <h3 className="text-sm font-medium mb-2">{t('nav.languages.title')}</h3>
+            <div className="grid grid-cols-3 gap-2">
+              {locales.map((locale) => (
+                <Button
+                  key={locale}
+                  variant="ghost"
+                  className="h-9 px-2 min-w-[60px]"
                   onClick={() => {
-                    onLanguageChange(lang.key);
-                    onClose();
+                    const segments = window.location.pathname.split('/');
+                    segments[1] = locale;
+                    window.location.pathname = segments.join('/');
                   }}
                 >
-                  <Image 
-                    src={languageFlags[lang.key]} 
-                    alt={`${lang.key} flag`}
-                    width={24}
-                    height={16}
-                    className="rounded"
+                  <Image
+                    src={languageFlags[locale]}
+                    alt={locale}
+                    width={20}
+                    height={20}
+                    className="mr-1"
                   />
-                  {lang.label}
-                </button>
+                  <span className="uppercase text-xs">{locale}</span>
+                </Button>
               ))}
             </div>
           </div>
         </div>
-      </div>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 

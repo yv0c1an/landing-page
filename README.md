@@ -1,4 +1,4 @@
-# My Landing Page
+# 我的落地页
 
 这是一个使用 [Next.js](https://nextjs.org) 构建的多语言落地页项目。
 
@@ -36,32 +36,56 @@
   - RegistrationSteps 注册步骤
   - SellerCases 卖家案例
 
-## Internationalization (i18n) Updates
+## 功能更新
 
-### Language Support
-The application now supports multiple languages with improved switching functionality:
-- English (en)
-- Chinese (zh)
-- Japanese (ja)
-- Korean (ko)
-- Thai (th)
+### 多语言支持
+本次更新完善了多语言支持功能，现支持以下语言：
+- 英语 (en)
+- 中文 (zh)
+- 日语 (ja)
+- 韩语 (ko)
+- 泰语 (th)
 
-### Key Features
-- **Instant Language Switching**: Improved UI response when changing languages
-- **Persistent Language Selection**: Language preference is maintained across page reloads
-- **Enhanced Translations**: Updated translations for all supported languages including:
-  - Login and registration flows
-  - Seller center information
-  - Shopping experience
-  - Marketing content
-  - Success stories
-  - Platform features
+### 主要功能
+- **即时语言切换**：优化了语言切换的用户体验，切换后立即更新界面
+- **语言选择记忆**：保持用户的语言选择，页面刷新后依然保持所选语言
+- **完善的翻译内容**：更新了所有支持语言的翻译，包括：
+  - 登录和注册流程
+  - 卖家中心信息
+  - 购物体验
+  - 营销内容
+  - 成功案例
+  - 平台特色
 
-### Technical Improvements
-- Fixed language switcher in header to immediately reflect selected language
-- Optimized routing for language changes using `next-intl`
-- Enhanced state management for current locale
-- Improved SEO with proper language meta tags
+### 技术改进
+- 修复了头部导航栏语言切换器，现在可以立即显示所选语言
+- 使用 `next-intl` 优化了语言路由切换
+- 增强了当前语言状态管理
+- 改进了SEO相关的语言元标签
+
+### 界面优化
+- **导航栏改进**
+  - 优化了移动端菜单布局
+  - 改进了语言切换下拉菜单的交互体验
+  - 更新了导航链接的显示效果
+
+- **首页更新**
+  - 优化了英雄区域的视觉效果
+  - 更新了功能展示区的内容布局
+  - 改进了卖家案例展示部分
+  - 优化了注册流程说明
+  - 更新了平台优势展示
+
+- **响应式设计**
+  - 优化了所有组件在移动端的显示效果
+  - 改进了图片加载和显示策略
+  - 更新了字体大小和间距的响应式调整
+
+### 性能优化
+- 优化了图片资源加载
+- 改进了组件渲染性能
+- 优化了路由切换速度
+- 提升了多语言切换的响应速度
 
 ## 项目结构
 

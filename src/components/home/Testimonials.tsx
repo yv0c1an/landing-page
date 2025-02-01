@@ -1,7 +1,14 @@
-import { Card } from "@nextui-org/react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
+import Image from "next/image";
 
 const Testimonials = () => {
   const t = useTranslations();
@@ -60,20 +67,30 @@ const Testimonials = () => {
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="w-full flex-shrink-0">
                   <Card className="p-8 mx-4">
-                    <div className="flex items-center mb-6">
-                      <img
-                        src={testimonial.avatar}
-                        alt={t(testimonial.nameKey)}
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                      <div className="ml-4">
-                        <div className="font-semibold">{t(testimonial.nameKey)}</div>
-                        <div className="text-sm text-gray-500">{t(testimonial.roleKey)}</div>
+                    <CardHeader>
+                      <div className="flex items-center mb-6">
+                        <Image
+                          src={testimonial.avatar}
+                          alt={t(testimonial.nameKey)}
+                          width={48}
+                          height={48}
+                          className="rounded-full"
+                        />
+                        <div className="ml-4">
+                          <CardTitle className="text-lg font-semibold">
+                            {t(testimonial.nameKey)}
+                          </CardTitle>
+                          <CardDescription>
+                            {t(testimonial.roleKey)}
+                          </CardDescription>
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-gray-600 leading-relaxed">
-                      {t(testimonial.contentKey)}
-                    </p>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600 leading-relaxed">
+                        {t(testimonial.contentKey)}
+                      </p>
+                    </CardContent>
                   </Card>
                 </div>
               ))}
@@ -116,4 +133,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials; 
+export default Testimonials;

@@ -1,4 +1,10 @@
-import { Card } from "@nextui-org/react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -79,40 +85,45 @@ const SellerCases = () => {
                   </div>
                   
                   {/* 内容区域 */}
-                  <div className="bg-white p-8">
-                    <h3 className="text-2xl font-bold mb-4">{case_.name}</h3>
-                    <p className="text-gray-600 mb-8 text-left">
-                      {case_.description}
-                    </p>
-                    
-                    {/* 数据统计 */}
-                    <div className="grid grid-cols-3 gap-6">
-                      <div className="p-4 bg-gray-50 rounded-lg text-center">
-                        <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.views.value}
+                  <Card className="bg-white p-8">
+                    <CardHeader>
+                      <CardTitle className="text-2xl font-bold mb-4">
+                        {case_.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="mb-6 text-left">
+                        {case_.description}
+                      </CardDescription>
+                      {/* 数据统计 */}
+                      <div className="grid grid-cols-3 gap-6">
+                        <div className="p-4 bg-gray-50 rounded-lg text-center">
+                          <div className="text-xl font-bold text-primary-600">
+                            {case_.stats.views.value}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">
+                            {case_.stats.views.label}
+                          </div>
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          {case_.stats.views.label}
+                        <div className="p-4 bg-gray-50 rounded-lg text-center">
+                          <div className="text-xl font-bold text-primary-600">
+                            {case_.stats.orders.value}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">
+                            {case_.stats.orders.label}
+                          </div>
+                        </div>
+                        <div className="p-4 bg-gray-50 rounded-lg text-center">
+                          <div className="text-xl font-bold text-primary-600">
+                            {case_.stats.gmv.value}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">
+                            {case_.stats.gmv.label}
+                          </div>
                         </div>
                       </div>
-                      <div className="p-4 bg-gray-50 rounded-lg text-center">
-                        <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.orders.value}
-                        </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          {case_.stats.orders.label}
-                        </div>
-                      </div>
-                      <div className="p-4 bg-gray-50 rounded-lg text-center">
-                        <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.gmv.value}
-                        </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          {case_.stats.gmv.label}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    </CardContent>
+                  </Card>
                 </div>
               ))}
             </motion.div>

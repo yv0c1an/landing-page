@@ -6,7 +6,8 @@ export const externalLinks = {
   goShopping: process.env.NEXT_PUBLIC_SHOPPING_URL || 'https://thryzae.com/ww',
   contactUs: process.env.NEXT_PUBLIC_AUTH_URL || 'https://thryzae.com/wap/',
   login: process.env.NEXT_PUBLIC_AUTH_URL || 'https://thryzae.com/wap/',
-  promote: process.env.NEXT_PUBLIC_PROMOTE || 'https://thryzae.com/promote/'
+  promote: process.env.NEXT_PUBLIC_PROMOTE || 'https://thryzae.com/promote/',
+  register: process.env.NEXT_PUBLIC_REGISTER_URL || 'https://thryzae.com/wap/register'
 } as const;
 
 export type ExternalLink = {
@@ -20,7 +21,8 @@ const defaultUrls = {
   goShopping: 'https://thryzae.com/ww',
   contactUs: 'https://thryzae.com/wap/',
   login: 'https://thryzae.com/wap/',
-  promote: 'https://thryzae.com/promote/'
+  promote: 'https://thryzae.com/promote/',
+  register: 'https://thryzae.com/wap/register'
 };
 
 // 动态 URL 管理
@@ -52,7 +54,8 @@ class ExternalLinksManager {
           goShopping: `${domain}/ww`,
           contactUs: `${domain}/wap/`,
           login: `${domain}/wap/`,
-          promote: `${domain}/promote/`
+          promote: `${domain}/promote/`,
+          register: `${domain}/wap/register`
         };
       }
     } catch (error) {

@@ -1,32 +1,24 @@
 import { useState } from 'react';
 import { externalLinks } from '@/config/externalConfig';
 
+export type ExternalLinkKey = keyof typeof externalLinks;
+
 export const useExternalLink = () => {
-  const [isRedirectModalOpen, setIsRedirectModalOpen] = useState(false);
-  const [currentLink, setCurrentLink] = useState<keyof typeof externalLinks | null>(null);
+  const [showRedirectModal, setShowRedirectModal] = useState(false);
+  const [selectedUrl, setSelectedUrl] = useState('');
 
-  const handleExternalClick = (linkKey: keyof typeof externalLinks) => {
-    setCurrentLink(linkKey);
-    setIsRedirectModalOpen(true);
-  };
-
-  const handleRedirect = () => {
-    if (currentLink) {
-      window.location.href = externalLinks[currentLink];
+  const handleExternalLink = (linkKey: ExternalLinkKey) => {
+    const url = externalLinks[linkKey];
+    if (url) {
+      setSelectedUrl(url);
+      setShowRedirectModal(true);
     }
-    setIsRedirectModalOpen(false);
-  };
-
-  const handleClose = () => {
-    setIsRedirectModalOpen(false);
-    setCurrentLink(null);
   };
 
   return {
-    isRedirectModalOpen,
-    currentLink,
-    handleExternalClick,
-    handleRedirect,
-    handleClose
+    showRedirectModal,
+    setShowRedirectModal,
+    selectedUrl,
+    handleExternalLink,
   };
 };

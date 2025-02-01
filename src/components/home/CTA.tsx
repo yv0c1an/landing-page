@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
 import { useExternalLink } from '@/hooks/useExternalLink';
@@ -6,13 +6,7 @@ import { RedirectModal } from '@/components/common/RedirectModal';
 
 const CTA = () => {
   const t = useTranslations();
-  const { 
-    handleExternalClick, 
-    isRedirectModalOpen, 
-    currentLink,
-    handleRedirect,
-    handleClose 
-  } = useExternalLink();
+  const { handleExternalLink, showRedirectModal, setShowRedirectModal, selectedUrl } = useExternalLink();
 
   return (
     <section className="py-20">
@@ -31,21 +25,18 @@ const CTA = () => {
             {t('cta.subtitle')}
           </p>
           <Button 
-            color="primary" 
             size="lg"
-            onPress={() => handleExternalClick('promote')}
+            onClick={() => handleExternalLink('promote')}
           >
             {t('cta.button')}
           </Button>
         </motion.div>
 
-        {/* 添加 RedirectModal */}
-        {currentLink && (
+        {showRedirectModal && selectedUrl && (
           <RedirectModal
-            isOpen={isRedirectModalOpen}
-            onClose={handleClose}
-            onRedirect={handleRedirect}
-            title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
+            isOpen={showRedirectModal}
+            onClose={() => setShowRedirectModal(false)}
+            url={selectedUrl}
           />
         )}
       </div>
@@ -53,4 +44,4 @@ const CTA = () => {
   );
 };
 
-export default CTA; 
+export default CTA;

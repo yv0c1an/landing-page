@@ -1,4 +1,10 @@
-import { Card } from "@nextui-org/react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
@@ -74,20 +80,20 @@ const SellerBenefits = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card
-                className={`p-6 h-full ${benefit.color} hover:shadow-lg transition-shadow`}
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="text-4xl">{benefit.icon}</div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">
-                      {t(`sellerBenefits.benefits.${benefit.key}.title`)}
-                    </h3>
-                    <p className="text-gray-600">
-                      {t(`sellerBenefits.benefits.${benefit.key}.description`)}
-                    </p>
+              <Card className={`h-full ${benefit.color} hover:shadow-lg transition-shadow`}>
+                <CardHeader>
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-2xl mb-4`}>
+                    {benefit.icon}
                   </div>
-                </div>
+                  <CardTitle className="text-xl font-semibold">
+                    {t(`sellerBenefits.benefits.${benefit.key}.title`)}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    {t(`sellerBenefits.benefits.${benefit.key}.description`)}
+                  </CardDescription>
+                </CardContent>
               </Card>
             </motion.div>
           ))}

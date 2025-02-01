@@ -1,7 +1,7 @@
-import { NextUIProvider } from "@nextui-org/react";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
+import { useRouter } from "next/router";
 import "../src/styles/globals.css";
 import Head from 'next/head'
 import { useEffect } from 'react';
@@ -14,6 +14,9 @@ type PageProps = {
 };
 
 export default function App({ Component, pageProps }: AppProps<PageProps & { locale: string }>) {
+  const router = useRouter();
+  const locale = router.locale || 'zh';
+
   useEffect(() => {
     // 应用启动时更新 URLs
     updateExternalLinks();
@@ -35,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps<PageProps & { loc
       </Head>
       <NextIntlClientProvider 
         messages={pageProps.messages} 
-        locale={pageProps.locale || 'zh'}
+        locale={locale}
         timeZone="Asia/Shanghai"
         onError={(error) => {
           if (process.env.NODE_ENV === 'development') {
@@ -43,12 +46,10 @@ export default function App({ Component, pageProps }: AppProps<PageProps & { loc
           }
         }}
       >
-        <NextUIProvider>
-          <main className={inter.className}>
-            <Component {...pageProps} />
-          </main>
-        </NextUIProvider>
+        <main className={`${inter.className} min-h-screen bg-background`}>
+          <Component {...pageProps} />
+        </main>
       </NextIntlClientProvider>
     </>
   );
-} 
+}

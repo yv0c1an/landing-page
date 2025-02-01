@@ -1,66 +1,50 @@
-import { Modal, ModalContent, ModalBody, Spinner } from "@nextui-org/react";
-import { useEffect } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useTranslations } from "next-intl";
 
 interface RedirectModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onRedirect: () => void;
-  title: string;
-  redirectDelay?: number; // 延迟时间，默认 1.5 秒
+  url: string;
 }
 
-export const RedirectModal: React.FC<RedirectModalProps> = ({
-  isOpen,
-  onClose,
-  onRedirect,
-  title,
-  redirectDelay = 1500
-}) => {
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isOpen) {
-      timer = setTimeout(() => {
-        onRedirect();
-        onClose();
-      }, redirectDelay);
+export const RedirectModal = ({ isOpen, onClose, url }: RedirectModalProps) => {
+  const t = useTranslations('common');
+
+  const handleConfirm = () => {
+    if (url) {
+      window.location.href = url;
     }
-    return () => clearTimeout(timer);
-  }, [isOpen, onRedirect, onClose, redirectDelay]);
+    onClose();
+  };
 
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={onClose}
-      hideCloseButton
-      isDismissable={false}
-      className="bg-white/70 backdrop-blur-md"
-      motionProps={{
-        variants: {
-          enter: {
-            y: 0,
-            opacity: 1,
-            transition: {
-              duration: 0.3,
-              ease: "easeOut",
-            },
-          },
-          exit: {
-            y: 20,
-            opacity: 0,
-            transition: {
-              duration: 0.2,
-              ease: "easeIn",
-            },
-          },
-        },
-      }}
-    >
-      <ModalContent>
-        <ModalBody className="py-8 flex flex-col items-center gap-4">
-          <Spinner color="primary" size="lg" />
-          <p className="text-lg text-center">{title}</p>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+    <AlertDialog open={isOpen} onOpenChange={onClose}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{t('redirectModal.title')}</AlertDialogTitle>
+          <AlertDialogDescription>
+            {t('redirectModal.description')}
+            <div className="mt-2 p-2 bg-gray-100 rounded break-all">
+              {url}
+            </div>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>{t('redirectModal.cancel')}</AlertDialogCancel>
+          <AlertDialogAction onClick={handleConfirm}>
+            {t('redirectModal.confirm')}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
