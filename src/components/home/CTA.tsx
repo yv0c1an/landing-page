@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
 import { useExternalLink } from '@/hooks/useExternalLink';
@@ -31,9 +31,8 @@ const CTA = () => {
             {t('cta.subtitle')}
           </p>
           <Button 
-            color="primary" 
-            size="lg"
-            onPress={() => handleExternalClick('promote')}
+            color="default" 
+            onClick={() => handleExternalClick('promote')}
           >
             {t('cta.button')}
           </Button>

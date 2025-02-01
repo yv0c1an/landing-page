@@ -1,4 +1,5 @@
-import { Image, Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
 import { useExternalLink } from '@/hooks/useExternalLink';
@@ -154,9 +155,7 @@ const PlatformInfo = () => {
             {t('cta.subtitle')}
           </p>
           <Button 
-            color="primary" 
-            size="lg"
-            onPress={() => handleExternalClick('promote')}
+            onClick={() => handleExternalClick('promote')}
           >
             {t('cta.button')}
           </Button>

@@ -1,4 +1,4 @@
-import { Card } from "@nextui-org/react";
+import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';

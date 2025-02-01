@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const config = {
   reactStrictMode: true,
   swcMinify: true,
-  transpilePackages: ['@nextui-org/react'],
+  transpilePackages: ['@heroui/react'],
   images: {
     unoptimized: true,
     remotePatterns: [

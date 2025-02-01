@@ -1,13 +1,26 @@
-import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
-import Image from "next/image";
-import { useState } from "react";
-import MobileMenu from "./MobileMenu";
-import { useTranslations, useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
+import { Menu } from 'lucide-react';
 import { locales } from '@/config/i18n';
 import { externalLinks } from '@/config/externalConfig';
 import { useExternalLink } from '@/hooks/useExternalLink';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { RedirectModal } from '@/components/common/RedirectModal';
 
 const languageFlags: Record<string, string> = {
@@ -18,20 +31,18 @@ const languageFlags: Record<string, string> = {
   th: "/flags/th.svg"
 };
 
-const Header = () => {
-  const t = useTranslations();
+type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+
+export default function Header() {
   const router = useRouter();
-  const pathname = usePathname();
-  const locale = useLocale();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
-  const { 
-    isRedirectModalOpen, 
-    currentLink, 
-    handleExternalClick, 
-    handleRedirect, 
-    handleClose 
-  } = useExternalLink();
+  const t = useTranslations();
+  const { locale, pathname, asPath, query } = router;
+  const [currentLocale, setCurrentLocale] = useState(locale || 'en');
+  const { handleExternalClick, handleRedirect, handleClose, isRedirectModalOpen, currentLink } = useExternalLink();
+
+  useEffect(() => {
+    setCurrentLocale(locale || 'en');
+  }, [locale]);
 
   const languages = locales.map(lang => ({
     key: lang,
@@ -39,141 +50,158 @@ const Header = () => {
     flag: languageFlags[lang]
   }));
 
-  const handleLanguageChange = (lang: string) => {
-    const newPathname = pathname.replace(/^\/[^\/]+/, '') || '/';
-    router.push(`/${lang}${newPathname}`);
+  const handleLanguageChange = (newLocale: string) => {
+    // 移除路径中的所有语言前缀
+    let cleanPath = asPath || pathname;
+    locales.forEach(loc => {
+      cleanPath = cleanPath.replace(`/${loc}`, '');
+    });
+    
+    // 如果清理后的路径为空，设置为根路径
+    if (!cleanPath || cleanPath === '/') {
+      cleanPath = '/';
+    }
+    
+    // 构建新的路径
+    const newPath = cleanPath === '/' ? `/${newLocale}` : `/${newLocale}${cleanPath}`;
+    setCurrentLocale(newLocale);
+    router.push(newPath);
   };
 
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+    <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href={`/${currentLocale}`} className="flex items-center gap-2">
             <Image
-                src="/logo.svg"
-                alt={`${appName} Logo`}
-                width={40}
-                height={40}
-                className="w-10 h-10"
-                loading="eager"
-                priority
+              src="/logo.svg"
+              alt="Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8"
             />
-            <span className="text-xl font-bold">{appName}</span>
+            <span className="text-xl font-bold text-gray-900">
+              {appName}
+            </span>
           </Link>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <button 
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-4">
+            <Button
+              variant="ghost"
               onClick={() => handleExternalClick('sellerCenter')}
-              className="text-gray-700 hover:text-primary"
             >
               {t('common.sellerCenter')}
-            </button>
-            <button 
+            </Button>
+            <Button
+              variant="ghost"
               onClick={() => handleExternalClick('goShopping')}
-              className="text-gray-700 hover:text-primary"
             >
               {t('common.goShopping')}
-            </button>
-            <button 
+            </Button>
+            <Button
+              variant="ghost"
               onClick={() => handleExternalClick('contactUs')}
-              className="text-gray-700 hover:text-primary"
             >
               {t('common.contactUs')}
-            </button>
-            
-            {/* Language Selector */}
-            <Dropdown>
-              <DropdownTrigger>
-                <Button 
-                  variant="light" 
-                  className="capitalize min-w-[120px]"
-                  startContent={
-                    <Image 
-                      src={languageFlags[locale]} 
-                      alt={`${locale} flag`}
-                      width={24}
-                      height={16}
-                      className="rounded"
-                    />
-                  }
-                >
-                  {t(`nav.languages.${locale}`)}
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label={t('nav.selectLanguage')}
-                selectionMode="single"
-                selectedKeys={[locale]}
-                onAction={(key) => {
-                  if (typeof key === 'string') {
-                    handleLanguageChange(key);
-                  }
-                }}
-              >
-                {languages.map((lang) => (
-                  <DropdownItem 
-                    key={lang.key}
-                    startContent={
-                      <Image 
-                        src={languageFlags[lang.key]} 
-                        alt={`${lang.key} flag`}
-                        width={24}
-                        height={16}
-                        className="rounded"
-                      />
-                    }
-                  >
-                    {lang.label}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
+            </Button>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden p-2"
-            onClick={() => setIsMobileMenuOpen(true)}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
+          {/* Right Section */}
+          <div className="flex items-center gap-2">
+            {/* Language Selector */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="flex items-center gap-2"
+                >
+                  <Image 
+                    src={languageFlags[currentLocale]} 
+                    alt={`${currentLocale} flag`}
+                    width={20}
+                    height={15}
+                    className="rounded"
+                  />
+                  <span className="hidden md:inline">
+                    {t(`nav.languages.${currentLocale}`)}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.key}
+                    onClick={() => handleLanguageChange(lang.key)}
+                    className="flex items-center gap-2"
+                  >
+                    <Image 
+                      src={lang.flag} 
+                      alt={lang.key}
+                      width={20}
+                      height={15}
+                      className="rounded"
+                    />
+                    <span>{lang.label}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Mobile Menu */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="md:hidden"
+                >
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <SheetHeader>
+                  <SheetTitle>{appName}</SheetTitle>
+                </SheetHeader>
+                <div className="mt-6 flex flex-col gap-4">
+                  <Button
+                    variant="ghost"
+                    className="justify-start"
+                    onClick={() => handleExternalClick('sellerCenter')}
+                  >
+                    {t('common.sellerCenter')}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="justify-start"
+                    onClick={() => handleExternalClick('goShopping')}
+                  >
+                    {t('common.goShopping')}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="justify-start"
+                    onClick={() => handleExternalClick('contactUs')}
+                  >
+                    {t('common.contactUs')}
+                  </Button>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <MobileMenu
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-        locale={locale}
-        onLanguageChange={handleLanguageChange}
-        onExternalClick={handleExternalClick}
-      />
-
       {/* Redirect Modal */}
-      {currentLink && (
-        <RedirectModal
-          isOpen={isRedirectModalOpen}
-          onClose={handleClose}
-          onRedirect={handleRedirect}
-          title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
+      <RedirectModal
+        isOpen={isRedirectModalOpen}
+        onClose={handleClose}
+        onRedirect={handleRedirect}
+        title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
         />
-      )}
     </header>
   );
-};
-
-export default Header;
+}

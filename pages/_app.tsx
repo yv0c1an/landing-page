@@ -1,4 +1,3 @@
-import { NextUIProvider } from "@nextui-org/react";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
@@ -43,11 +42,9 @@ export default function App({ Component, pageProps }: AppProps<PageProps & { loc
           }
         }}
       >
-        <NextUIProvider>
-          <main className={inter.className}>
-            <Component {...pageProps} />
-          </main>
-        </NextUIProvider>
+        <main className={inter.className}>
+          <Component {...pageProps} />
+        </main>
       </NextIntlClientProvider>
     </>
   );
