@@ -36,6 +36,33 @@
   - RegistrationSteps 注册步骤
   - SellerCases 卖家案例
 
+## Internationalization (i18n) Updates
+
+### Language Support
+The application now supports multiple languages with improved switching functionality:
+- English (en)
+- Chinese (zh)
+- Japanese (ja)
+- Korean (ko)
+- Thai (th)
+
+### Key Features
+- **Instant Language Switching**: Improved UI response when changing languages
+- **Persistent Language Selection**: Language preference is maintained across page reloads
+- **Enhanced Translations**: Updated translations for all supported languages including:
+  - Login and registration flows
+  - Seller center information
+  - Shopping experience
+  - Marketing content
+  - Success stories
+  - Platform features
+
+### Technical Improvements
+- Fixed language switcher in header to immediately reflect selected language
+- Optimized routing for language changes using `next-intl`
+- Enhanced state management for current locale
+- Improved SEO with proper language meta tags
+
 ## 项目结构
 
 ```
