@@ -1,18 +1,26 @@
-import { useState } from 'react';
-import { externalLinks } from '@/config/externalConfig';
+import { useState, useEffect } from 'react';
+import { ExternalLink } from '@/config/externalConfig';
+import { useUrlStore } from '@/store/urlStore';
+import { linkPaths } from '@/config/externalConfig';
 
 export const useExternalLink = () => {
   const [isRedirectModalOpen, setIsRedirectModalOpen] = useState(false);
-  const [currentLink, setCurrentLink] = useState<keyof typeof externalLinks | null>(null);
+  const [currentLink, setCurrentLink] = useState<ExternalLink | null>(null);
+  const { safeUrl, initializeUrl } = useUrlStore();
 
-  const handleExternalClick = (linkKey: keyof typeof externalLinks) => {
+  useEffect(() => {
+    initializeUrl();
+  }, []);
+
+  const handleExternalClick = (linkKey: ExternalLink) => {
     setCurrentLink(linkKey);
     setIsRedirectModalOpen(true);
   };
 
   const handleRedirect = () => {
-    if (currentLink) {
-      window.location.href = externalLinks[currentLink];
+    if (currentLink && safeUrl) {
+      const path = linkPaths[currentLink];
+      window.location.href = `${safeUrl}${path}`;
     }
     setIsRedirectModalOpen(false);
   };
@@ -23,10 +31,10 @@ export const useExternalLink = () => {
   };
 
   return {
-    isRedirectModalOpen,
-    currentLink,
     handleExternalClick,
     handleRedirect,
-    handleClose
+    handleClose,
+    isRedirectModalOpen,
+    currentLink
   };
 };

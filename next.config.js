@@ -6,7 +6,6 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const config = {
   reactStrictMode: true,
   swcMinify: true,
-  transpilePackages: ['@heroui/react'],
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -20,11 +19,7 @@ const config = {
       }
     ],
   },
-  output: 'standalone',
-  experimental: {
-    isrMemoryCacheSize: 0,
-    serverActions: true,
-  }
+  output: 'standalone'
 };
 
 module.exports = withNextIntl(config);

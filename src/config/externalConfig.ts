@@ -1,75 +1,86 @@
 import { UrlManager } from '@/utils/UrlManager';
 
-// 外部链接配置
-export const externalLinks = {
-  sellerCenter: process.env.NEXT_PUBLIC_SELLER_URL || 'https://thryzae.com/',
-  goShopping: process.env.NEXT_PUBLIC_SHOPPING_URL || 'https://thryzae.com/ww',
-  contactUs: process.env.NEXT_PUBLIC_AUTH_URL || 'https://thryzae.com/wap/',
-  login: process.env.NEXT_PUBLIC_AUTH_URL || 'https://thryzae.com/wap/',
-  promote: process.env.NEXT_PUBLIC_PROMOTE || 'https://thryzae.com/promote/'
-} as const;
+// 外部链接类型
+export type ExternalLink = 'sellerCenter' | 'goShopping' | 'contactUs' | 'login' | 'promote';
 
-export type ExternalLink = {
-  url: string;
-  redirectTitle: string;
+// 链接路径配置
+export const linkPaths: Record<ExternalLink, string> = {
+  sellerCenter: '/ww',
+  goShopping: '/',
+  contactUs: '/',
+  login: '/#/login',
+  promote: '/promote'
 };
 
 // 初始默认值
 const defaultUrls = {
-  sellerCenter: 'https://thryzae.com/',
-  goShopping: 'https://thryzae.com/ww',
-  contactUs: 'https://thryzae.com/wap/',
-  login: 'https://thryzae.com/wap/',
-  promote: 'https://thryzae.com/promote/'
+  sellerCenter: '/ww',
+  goShopping: '/',
+  contactUs: '/',
+  login: '/#/login',
+  promote: '/promote/'
 };
 
 // 动态 URL 管理
 class ExternalLinksManager {
   private static instance: ExternalLinksManager;
   private urls: typeof defaultUrls;
+  private initialized: boolean = false;
 
   private constructor() {
     this.urls = { ...defaultUrls };
   }
 
-  static getInstance() {
-    if (!this.instance) {
-      this.instance = new ExternalLinksManager();
+  public static getInstance(): ExternalLinksManager {
+    if (!ExternalLinksManager.instance) {
+      ExternalLinksManager.instance = new ExternalLinksManager();
     }
-    return this.instance;
+    return ExternalLinksManager.instance;
   }
 
-  async updateUrls() {
+  // 更新 URLs
+  public async updateUrls(safeUrl: string | null): Promise<void> {
+    if (!safeUrl || this.initialized) return;
+
     try {
-      const safeUrl = await UrlManager.getRandomSafeUrl();
-      if (safeUrl) {
-        // 更新所有链接使用新的安全域名
-        const urlObj = new URL(safeUrl);
-        const domain = `${urlObj.protocol}//${urlObj.hostname}`;
-        
-        this.urls = {
-          sellerCenter: `${domain}/`,
-          goShopping: `${domain}/ww`,
-          contactUs: `${domain}/wap/`,
-          login: `${domain}/wap/`,
-          promote: `${domain}/promote/`
-        };
-      }
+      const urlObj = new URL(safeUrl);
+      const domain = `${urlObj.protocol}//${urlObj.hostname}`;
+      
+      // 更新 URLs
+      this.urls = {
+        sellerCenter: `${domain}/ww`,
+        goShopping: `${domain}/`,
+        contactUs: `${domain}/`,
+        login: `${domain}/#/login`,
+        promote: `${domain}/promote/`
+      };
+
+      // 更新 externalLinks 对象
+      Object.keys(this.urls).forEach((key) => {
+        (linkPaths as any)[key as ExternalLink] = this.urls[key as keyof typeof defaultUrls];
+      });
+
+      this.initialized = true;
     } catch (error) {
       console.error('Error updating URLs:', error);
     }
   }
 
-  getUrls() {
-    return this.urls;
+  // 获取 URL
+  public getUrl(key: ExternalLink): string {
+    return this.urls[key] || defaultUrls[key];
+  }
+
+  // 获取所有 URLs
+  public getAllUrls(): typeof defaultUrls {
+    return { ...this.urls };
+  }
+
+  // 重置为默认值
+  public reset(): void {
+    this.urls = { ...defaultUrls };
+    this.initialized = false;
   }
 }
 
-// 导出当前链接配置
-export const externalLinksManager = ExternalLinksManager.getInstance().getUrls();
-
-// 提供更新方法
-export const updateExternalLinks = async () => {
-  await ExternalLinksManager.getInstance().updateUrls();
-  return ExternalLinksManager.getInstance().getUrls();
-};
+export const urlManager = ExternalLinksManager.getInstance();

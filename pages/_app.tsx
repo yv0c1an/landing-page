@@ -1,46 +1,41 @@
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
+import { useUrlStore } from '@/store/urlStore';
 import "../src/styles/globals.css";
-import Head from 'next/head'
+import Head from 'next/head';
 import { useEffect } from 'react';
-import { updateExternalLinks } from '@/config/externalConfig';
+import { defaultLocale } from '@/config/i18n';
 
 const inter = Inter({ subsets: ["latin"] });
 
 type PageProps = {
-  messages: any;
+  messages: Record<string, string>;
+  locale: string;
 };
 
-export default function App({ Component, pageProps }: AppProps<PageProps & { locale: string }>) {
+export default function App({ Component, pageProps }: AppProps<PageProps>) {
+  const initializeUrl = useUrlStore(state => state.initializeUrl);
+
   useEffect(() => {
-    // 应用启动时更新 URLs
-    updateExternalLinks();
-    
-    // 设置定期更新
-    const interval = setInterval(updateExternalLinks, 1000 * 60 * 60); // 每小时更新一次
-    
-    return () => clearInterval(interval);
+    initializeUrl();
   }, []);
 
   return (
     <>
       <Head>
-        <title>{process.env.NEXT_PUBLIC_APP_TITLE || 'Default Title'}</title>
-        <meta 
-          name="description" 
-          content={process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'Default Description'} 
+        <title>{process.env.NEXT_PUBLIC_TITLE}</title>
+        <meta
+          name="description"
+          content={process.env.NEXT_PUBLIC_DESCRIPTION}
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NextIntlClientProvider 
-        messages={pageProps.messages} 
-        locale={pageProps.locale || 'zh'}
+      <NextIntlClientProvider
+        messages={pageProps.messages}
+        locale={pageProps.locale || defaultLocale}
         timeZone="Asia/Shanghai"
-        onError={(error) => {
-          if (process.env.NODE_ENV === 'development') {
-            console.error('Translation error:', error);
-          }
-        }}
       >
         <main className={inter.className}>
           <Component {...pageProps} />
@@ -48,4 +43,4 @@ export default function App({ Component, pageProps }: AppProps<PageProps & { loc
       </NextIntlClientProvider>
     </>
   );
-} 
+}

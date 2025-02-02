@@ -155,6 +155,7 @@ const PlatformInfo = () => {
             {t('cta.subtitle')}
           </p>
           <Button 
+          color="default"
             onClick={() => handleExternalClick('promote')}
           >
             {t('cta.button')}

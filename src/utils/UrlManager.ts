@@ -1,32 +1,32 @@
 import axios from 'axios';
-import { SafeBrowsingCheck } from './SafeBrowsingCheck';
 
 export class UrlManager {
-  private static urls: string[] = [];
-  private static readonly URL_LIST_ENDPOINT = process.env.NEXT_PUBLIC_URL_LIST_ENDPOINT;
-
-  static async loadUrls(): Promise<void> {
-    try {
-      // @ts-ignore
-      const response = await axios.get(this.URL_LIST_ENDPOINT);
-      const text = response.data;
-      // 为域名添加 https:// 前缀
-      this.urls = text.split('\n')
-        .filter((domain: string) => domain.trim())
-        .map((domain: string) => `https://${domain.trim()}`);
-    } catch (error) {
-      console.error('Error loading URLs:', error);
-      this.urls = [];
-    }
-  }
+  private static currentUrl: string | null = null;
 
   static async getRandomSafeUrl(): Promise<string | null> {
     try {
+      // 如果已经有一个当前使用的 URL，直接返回
+      if (this.currentUrl) {
+        return this.currentUrl;
+      }
+
+      // 从 API 获取安全的 URL
       const response = await axios.get('/api/urls');
-      return response.data.url;
+      const url = response.data.url;
+
+      if (url) {
+        this.currentUrl = url;
+        return url;
+      }
+
+      return null;
     } catch (error) {
       console.error('Error getting safe URL:', error);
       return null;
     }
   }
-} 
+
+  static resetCurrentUrl(): void {
+    this.currentUrl = null;
+  }
+}

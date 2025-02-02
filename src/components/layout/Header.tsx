@@ -31,8 +31,6 @@ const languageFlags: Record<string, string> = {
   th: "/flags/th.svg"
 };
 
-type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-
 export default function Header() {
   const router = useRouter();
   const t = useTranslations();
@@ -51,24 +49,23 @@ export default function Header() {
   }));
 
   const handleLanguageChange = (newLocale: string) => {
-    // 移除路径中的所有语言前缀
     let cleanPath = asPath || pathname;
     locales.forEach(loc => {
       cleanPath = cleanPath.replace(`/${loc}`, '');
     });
-    
-    // 如果清理后的路径为空，设置为根路径
+
     if (!cleanPath || cleanPath === '/') {
       cleanPath = '/';
     }
-    
-    // 构建新的路径
+
     const newPath = cleanPath === '/' ? `/${newLocale}` : `/${newLocale}${cleanPath}`;
     setCurrentLocale(newLocale);
     router.push(newPath);
   };
 
   const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
+
+  const buttonClassName = "hover:border hover:border-blue-500 focus:border-blue-500 transition-colors";
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-gray-100">
@@ -91,19 +88,22 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-4">
             <Button
-              variant="ghost"
+              color="ghost"
+              className={buttonClassName}
               onClick={() => handleExternalClick('sellerCenter')}
             >
               {t('common.sellerCenter')}
             </Button>
             <Button
-              variant="ghost"
+              color="ghost"
+              className={buttonClassName}
               onClick={() => handleExternalClick('goShopping')}
             >
               {t('common.goShopping')}
             </Button>
             <Button
-              variant="ghost"
+              color="ghost"
+              className={buttonClassName}
               onClick={() => handleExternalClick('contactUs')}
             >
               {t('common.contactUs')}
@@ -115,12 +115,12 @@ export default function Header() {
             {/* Language Selector */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  className="flex items-center gap-2"
+                <Button
+                  color="ghost"
+                  className={`flex items-center gap-2 ${buttonClassName}`}
                 >
-                  <Image 
-                    src={languageFlags[currentLocale]} 
+                  <Image
+                    src={languageFlags[currentLocale]}
                     alt={`${currentLocale} flag`}
                     width={20}
                     height={15}
@@ -138,8 +138,8 @@ export default function Header() {
                     onClick={() => handleLanguageChange(lang.key)}
                     className="flex items-center gap-2"
                   >
-                    <Image 
-                      src={lang.flag} 
+                    <Image
+                      src={lang.flag}
                       alt={lang.key}
                       width={20}
                       height={15}
@@ -154,10 +154,10 @@ export default function Header() {
             {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  color="ghost"
                   size="icon"
-                  className="md:hidden"
+                  className={`md:hidden ${buttonClassName}`}
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
@@ -168,22 +168,22 @@ export default function Header() {
                 </SheetHeader>
                 <div className="mt-6 flex flex-col gap-4">
                   <Button
-                    variant="ghost"
-                    className="justify-start"
+                    color="ghost"
+                    className={`justify-start ${buttonClassName}`}
                     onClick={() => handleExternalClick('sellerCenter')}
                   >
                     {t('common.sellerCenter')}
                   </Button>
                   <Button
-                    variant="ghost"
-                    className="justify-start"
+                    color="ghost"
+                    className={`justify-start ${buttonClassName}`}
                     onClick={() => handleExternalClick('goShopping')}
                   >
                     {t('common.goShopping')}
                   </Button>
                   <Button
-                    variant="ghost"
-                    className="justify-start"
+                    color="ghost"
+                    className={`justify-start ${buttonClassName}`}
                     onClick={() => handleExternalClick('contactUs')}
                   >
                     {t('common.contactUs')}
@@ -200,8 +200,8 @@ export default function Header() {
         isOpen={isRedirectModalOpen}
         onClose={handleClose}
         onRedirect={handleRedirect}
-        title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
-        />
+        title={currentLink ? t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) }) : ''}
+      />
     </header>
   );
 }
