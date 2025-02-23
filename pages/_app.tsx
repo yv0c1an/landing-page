@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps<PageProps>) {
           content={process.env.NEXT_PUBLIC_DESCRIPTION}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.svg" />
       </Head>
       <NextIntlClientProvider
         messages={pageProps.messages}
