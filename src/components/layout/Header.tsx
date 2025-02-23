@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { Menu } from 'lucide-react';
 import { locales } from '@/config/i18n';
-import { externalLinks } from '@/config/externalConfig';
 import { useExternalLink } from '@/hooks/useExternalLink';
 import { Button } from '@/components/ui/button';
 import {
@@ -156,13 +155,12 @@ export default function Header() {
               <SheetTrigger asChild>
                 <Button
                   color="ghost"
-                  size="icon"
                   className={`md:hidden ${buttonClassName}`}
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right">
+              <SheetContent>
                 <SheetHeader>
                   <SheetTitle>{appName}</SheetTitle>
                 </SheetHeader>
