@@ -14,8 +14,6 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Thryza -  Rise Above Shopping</title>
-        <meta name="description" content="Explore Thryza, your gateway to a new era of shopping where convenience, quality, and innovation meet" />
         <link rel="icon" sizes="32x32" href="/logo.svg" />
       </Head>
 
