@@ -1,0 +1,27 @@
+--2025-03-27 16:26:01--  https://images.unsplash.com/photo-1451187580459-43490279c0fa
+正在解析主机 images.unsplash.com (images.unsplash.com)... 146.75.114.208
+正在连接 images.unsplash.com (images.unsplash.com)|146.75.114.208|:443... 失败：Operation timed out。
+重试中。
+
+--2025-03-27 16:26:01--  (尝试次数： 2)  https://images.unsplash.com/photo-1451187580459-43490279c0fa
+正在连接 images.unsplash.com (images.unsplash.com)|146.75.114.208|:443... 失败：Operation timed out。
+重试中。
+
+--2025-03-27 16:26:01--  (尝试次数： 3)  https://images.unsplash.com/photo-1451187580459-43490279c0fa
+正在连接 images.unsplash.com (images.unsplash.com)|146.75.114.208|:443... 失败：Operation timed out。
+重试中。
+
+--2025-03-27 16:26:01--  (尝试次数： 4)  https://images.unsplash.com/photo-1451187580459-43490279c0fa
+正在连接 images.unsplash.com (images.unsplash.com)|146.75.114.208|:443... 失败：Operation timed out。
+重试中。
+
+--2025-03-27 16:26:01--  (尝试次数： 5)  https://images.unsplash.com/photo-1451187580459-43490279c0fa
+正在连接 images.unsplash.com (images.unsplash.com)|146.75.114.208|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：882780 (862K) [image/jpeg]
+正在保存至: “global-market.jpg”
+
+global-market.jpg                 18%[=========>                                                 ] 158.01K  49.1KB/s  剩余 14s     global-market.jpg                 22%[============>                                              ] 190.01K  54.7KB/s  剩余 14s     global-market.jpg                 25%[==============>                                            ] 222.01K  60.0KB/s  剩余 14s     global-market.jpg                 31%[=================>                                         ] 270.01K  68.2KB/s  剩余 14s     global-market.jpg                 36%[====================>                                      ] 318.01K  79.1KB/s  剩余 14s     global-market.jpg                 42%[========================>                                  ] 366.01K  89.4KB/s  剩余 6s      global-market.jpg                 49%[============================>                              ] 430.01K   107KB/s  剩余 6s      global-market.jpg                 57%[================================>                          ] 494.01K   120KB/s  剩余 6s      global-market.jpg                 66%[======================================>                    ] 574.01K   138KB/s  剩余 6s      global-market.jpg                 77%[============================================>              ] 670.01K   158KB/s  剩余 6s      global-market.jpg                 90%[====================================================>      ] 782.01K   187KB/s  剩余 1s      global-market.jpg                100%[==========================================================>] 862.09K   200KB/s  用时 5.6s    
+
+2025-03-27 16:26:12 (153 KB/s) - 已保存 “global-market.jpg” [882780/882780])
+

@@ -4,13 +4,16 @@
 
 @layer base {
   :root {
+    /* 自定义颜色变量 */
+    --color-core-blue-100: #0071dc;
+    
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 211 100% 43%;  /* 更新为--color-core-blue-100的HSL值 */
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -22,7 +25,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 211 100% 43%;  /* 更新为--color-core-blue-100的HSL值 */
     --radius: 0.5rem;
   }
 
@@ -33,7 +36,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 211 100% 43%;  /* 更新为--color-core-blue-100的HSL值 */
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -45,8 +48,25 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 211 100% 43%;  /* 更新为--color-core-blue-100的HSL值 */
   }
+}
+
+/* 设置字体 */
+@font-face {
+  font-family: 'Bogle';
+  src: url('/fonts/Bogle-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bogle';
+  src: url('/fonts/Bogle-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* 平滑滚动 */
@@ -79,6 +99,7 @@ html {
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: var(--font-family-default, Bogle, "Helvetica Neue", Helvetica, Arial, sans-serif);
   }
 }
 
@@ -86,4 +107,16 @@ html {
   .container {
     @apply mx-auto px-4 max-w-7xl;
   }
+}
+
+.bg-primary-blue {
+  background-color: var(--color-core-blue-100);
+}
+
+.text-primary-blue {
+  color: var(--color-core-blue-100);
+}
+
+.border-primary-blue {
+  border-color: var(--color-core-blue-100);
 }

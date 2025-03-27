@@ -6,16 +6,14 @@ export default {
     goShopping: "Shop Now",
     contactUs: "Contact Us",
     promote:"Merchants settle in",
-    redirectTitle: "Redirecting to {modalName}..."
+    redirectTitle: "Redirecting to {modalName}...",
+    codeOfConduct: "Code of Conduct"
   },
   nav: {
     selectLanguage: "Select Language",
     languages: {
       zh: "简体中文",
-      en: "English",
-      ja: "日本語",
-      th: "ภาษาไทย",
-      ko: "한국어",
+      en: "English"
     },
   },
   hero: {
@@ -43,25 +41,55 @@ export default {
     hasAccount: "Already have an account?",
     loginButton: "Login Now",
   },
+  serviceFeatures: {
+    freeDelivery: {
+      title: "Free Delivery",
+      description: "For all orders over $99"
+    },
+    returnPolicy: {
+      title: "90 Days Return",
+      description: "If goods have problems"
+    },
+    securePayment: {
+      title: "Secure Payment",
+      description: "100% secure payment"
+    },
+    support: {
+      title: "24/7 Support",
+      description: "Dedicated support team"
+    },
+    giftService: {
+      title: "Gift Service",
+      description: "Support gift service"
+    }
+  },
   features: {
     title: "Why Choose Us",
-    subtitle: "Comprehensive Cross-border E-commerce Solutions",
+    subtitle: "Global Leading Cross-border E-commerce Solutions for Seamless International Expansion",
     items: {
       1: {
-        title: "Global Market Coverage",
-        description: "Covering 200+ countries and regions, reaching global buyers"
+        title: "Global Market Network",
+        description: "Coverage across North America, Europe, APAC and 200+ countries - reach global consumers through a single platform"
       },
       2: {
-        title: "Smart Logistics",
-        description: "Multi-channel logistics solutions with real-time tracking"
+        title: "Intelligent Supply Chain",
+        description: "Advanced logistics tracking with 15+ optimized shipping channels, delivering to major markets in as fast as 48 hours"
       },
       3: {
-        title: "Multi-language Support",
-        description: "Multiple language interfaces for global communication"
+        title: "Localization Support",
+        description: "30+ language support with professional teams assisting product localization to improve conversion rates"
       },
       4: {
-        title: "Secure Payment",
-        description: "Multiple payment methods with guaranteed security"
+        title: "Compliance & Security",
+        description: "Comprehensive payment security, automated tax filing services, and intellectual property protection"
+      },
+      5: {
+        title: "Data-Driven Decisions",
+        description: "Real-time market analysis, AI-assisted pricing, and targeted marketing recommendations to maximize ROI"
+      },
+      6: {
+        title: "Integrated SaaS Platform",
+        description: "Seamless integration with ERP, CRM, WMS and other systems to streamline cross-border operations"
       }
     }
   },
@@ -87,7 +115,8 @@ export default {
     }
   },
   sellerCases: {
-    title: "Outstanding Seller Cases",
+    title: "Success Stories",
+    subtitle: "Discover how leading global brands achieve breakthrough growth using our cross-border e-commerce platform",
     cases: {
       1: {
         name: "LOVEVOOK",
@@ -128,13 +157,44 @@ export default {
     },
     controls: {
       prev: "Previous",
-      next: "Next"
-    }
+      next: "Next",
+      details: "View Details"
+    },
+    challenges: "Business Challenges",
+    solutions: "Our Solutions",
+    resultsTitle: "Results & Benefits",
+    results: {
+      growth: "Growth Rate",
+      revenue: "Annual Revenue",
+      customers: "Customer Coverage"
+    },
+    quarterlyPerformance: "Quarterly Performance"
   },
   cta: {
     title: "Start Your Cross-border E-commerce Journey",
-    subtitle: "Register now for professional cross-border e-commerce services",
-    button: "Get Started"
+    subtitle: "Capture Global E-commerce Growth Opportunities and Build Your International Brand",
+    description: "The global e-commerce market is projected to reach $7.4 trillion by 2025, with cross-border e-commerce growing twice as fast as overall e-commerce. Thryza helps you quickly enter global markets, reduce international operational barriers, and achieve exponential business growth.",
+    features: [
+      "Rapid store setup with global presence in 7 days",
+      "One-stop solution for cross-border payments, logistics, and compliance",
+      "Professional teams providing market insights and growth strategies",
+      "AI tools to enhance product optimization and marketing efficiency"
+    ],
+    button: "Get Started Now",
+    stats: {
+      markets: {
+        number: "200+",
+        label: "Markets Covered"
+      },
+      merchants: {
+        number: "500K+",
+        label: "Global Merchants"
+      },
+      growth: {
+        number: "145%",
+        label: "Average Annual Growth"
+      }
+    }
   },
   platformInfo: {
     sellerBackend: {
@@ -148,50 +208,58 @@ export default {
   },
   sellerBenefits: {
     title: "Exclusive Seller Benefits",
-    subtitle: "Join our platform and enjoy comprehensive seller support policies",
-    disclaimer: "Specific benefits may vary depending on store type and region. Please contact customer service for details",
+    subtitle: "Comprehensive Support to Propel Your Cross-border Business Success",
+    disclaimer: "We provide customized support plans based on merchant type and region. Contact your dedicated account manager for details",
     benefits: {
       lowFee: {
-        title: "Low Commission Rate",
-        description: "Platform commission as low as 3%, new stores enjoy 3 months commission-free privilege"
+        title: "Industry-Leading Commission Structure",
+        description: "Commissions as low as 2%, special rates for new merchants during first 6 months, zero monthly fees, zero listing fees"
       },
       traffic: {
         title: "Targeted Traffic Support",
-        description: "New stores get homepage featured spots, quickly gaining targeted traffic"
+        description: "Free platform-exclusive traffic packages, precision advertising guidance, featured homepage placement for new stores"
       },
       operation: {
-        title: "Operational Guidance",
-        description: "1-on-1 guidance from professional operation team to help you master cross-border e-commerce"
+        title: "Expert Operational Support",
+        description: "VIP merchants receive dedicated 1-on-1 account managers, market data analysis, and competitive strategy development"
       },
       logistics: {
-        title: "Logistics Subsidy",
-        description: "Partnerships with global logistics providers, enjoy exclusive rates and shipping subsidies"
+        title: "International Shipping Advantages",
+        description: "Deep partnerships with global logistics leaders like DHL and FedEx, exclusive discounts saving up to 35% on shipping"
       },
       training: {
-        title: "Training Support",
-        description: "Regular online and offline training sessions, sharing industry trends and operational experience"
+        title: "Business Academy Ecosystem",
+        description: "Free online courses, industry summits, and expert workshops to master the latest global e-commerce trends"
       },
       protection: {
-        title: "Store Protection",
-        description: "Comprehensive IP protection mechanism for a fair business environment"
+        title: "Comprehensive Rights Protection",
+        description: "Intellectual property protection, cross-border dispute resolution, brand reputation monitoring, anti-fraud systems"
+      },
+      funding: {
+        title: "Growth Capital Support",
+        description: "Eligible merchants can apply for unsecured loans up to $1 million with flexible repayment terms to fuel expansion"
+      },
+      localization: {
+        title: "Localization Assistance",
+        description: "Product translation in 30+ languages, local market research, and cultural adaptation consulting services"
       }
     },
     stats: {
       logisticsPartners: {
-        number: "200+",
+        number: "50+",
         label: "Logistics Partners"
       },
       activeSellers: {
         number: "500K+",
-        label: "Active Sellers"
+        label: "Active Platform Merchants"
       },
       monthlyUsers: {
-        number: "100M+",
-        label: "Monthly Active Users"
+        number: "150M+",
+        label: "Global Monthly Active Users"
       },
       countries: {
-        number: "150+",
-        label: "Countries Covered"
+        number: "200+",
+        label: "Countries/Regions Served"
       }
     }
   },
@@ -252,4 +320,88 @@ export default {
     shopping: 'Shopping',
     contactUs: 'Contact Us',
   },
+  codeOfConduct: {
+    title: "Code of Business Conduct",
+    subtitle: "Our commitment to ethical business practices",
+    introduction: {
+      title: "Introduction",
+      content: "At Thryza, we are committed to conducting business with the highest standards of ethics, integrity, and compliance with applicable laws and regulations. This Code of Business Conduct outlines the principles that guide our actions and decisions as we work towards our mission of connecting global buyers and sellers."
+    },
+    core_values: {
+      title: "Core Values",
+      integrity: {
+        title: "Integrity",
+        content: "We act with honesty and adhere to the highest ethical standards in all business dealings. We are transparent in our communications and trustworthy in our actions."
+      },
+      respect: {
+        title: "Respect",
+        content: "We treat all individuals with dignity and respect. We value diversity and create an inclusive environment where everyone feels welcome and appreciated."
+      },
+      accountability: {
+        title: "Accountability",
+        content: "We take responsibility for our actions and decisions. We honor our commitments and strive to exceed expectations in everything we do."
+      },
+      innovation: {
+        title: "Innovation",
+        content: "We embrace change and continuously seek new and better ways to serve our customers and partners. We encourage creativity and forward-thinking at all levels of our organization."
+      }
+    },
+    business_practices: {
+      title: "Ethical Business Practices",
+      fair_dealing: {
+        title: "Fair Dealing",
+        content: "We engage in fair competition and deal honestly with our customers, suppliers, competitors, and employees. We do not take unfair advantage through manipulation, concealment, abuse of privileged information, misrepresentation of material facts, or any other unfair dealing practice."
+      },
+      anti_corruption: {
+        title: "Anti-Corruption",
+        content: "We prohibit all forms of corruption, including bribery and kickbacks. We do not offer, give, or accept anything of value to improperly influence a business decision or to gain an unfair business advantage."
+      },
+      conflict_of_interest: {
+        title: "Conflict of Interest",
+        content: "We avoid situations where personal interests may conflict with the interests of our company. We disclose potential conflicts of interest and take appropriate steps to address them."
+      },
+      confidentiality: {
+        title: "Confidentiality",
+        content: "We protect confidential information of our company, customers, partners, and employees. We use such information only for legitimate business purposes and take appropriate measures to prevent unauthorized disclosure."
+      }
+    },
+    marketplace_conduct: {
+      title: "Marketplace Conduct",
+      product_quality: {
+        title: "Product Quality and Safety",
+        content: "We are committed to providing products and services that meet or exceed customer expectations for quality and safety. We comply with all applicable laws and regulations regarding product quality, safety, and labeling."
+      },
+      marketing: {
+        title: "Marketing and Advertising",
+        content: "We promote our products and services truthfully and accurately. We do not engage in false, misleading, or deceptive advertising or marketing practices."
+      },
+      fair_competition: {
+        title: "Fair Competition",
+        content: "We compete vigorously but fairly. We comply with antitrust and competition laws and do not engage in anticompetitive behavior, such as price fixing, bid rigging, or market allocation."
+      },
+      intellectual_property: {
+        title: "Intellectual Property",
+        content: "We respect the intellectual property rights of others and expect others to respect our intellectual property rights. We do not infringe on patents, trademarks, copyrights, or other proprietary rights."
+      }
+    },
+    compliance: {
+      title: "Compliance and Reporting",
+      laws: {
+        title: "Compliance with Laws",
+        content: "We comply with all applicable laws, regulations, and policies in the jurisdictions where we operate. We stay informed about legal and regulatory developments that may affect our business."
+      },
+      reporting: {
+        title: "Reporting Violations",
+        content: "We encourage the reporting of suspected violations of this Code or other unethical behavior. We provide multiple channels for reporting concerns and prohibit retaliation against anyone who reports a suspected violation in good faith."
+      },
+      investigation: {
+        title: "Investigation and Enforcement",
+        content: "We take all reports of suspected violations seriously and investigate them promptly and thoroughly. We take appropriate disciplinary action for violations of this Code, up to and including termination of employment or business relationship."
+      }
+    },
+    conclusion: {
+      title: "Conclusion",
+      content: "This Code of Business Conduct is a guide to help us make ethical decisions in our daily business activities. It is not intended to cover every situation that may arise, but rather to provide general principles to guide our conduct. We expect all employees, officers, directors, and business partners to adhere to this Code and to seek guidance when faced with ethical dilemmas. By upholding the highest standards of ethical conduct, we not only comply with laws and regulations but also build trust with our customers, partners, and the communities we serve."
+    }
+  }
 };

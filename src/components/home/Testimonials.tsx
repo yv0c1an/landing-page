@@ -82,7 +82,7 @@ const Testimonials = () => {
 
           {/* 轮播控制按钮 */}
           <button
-            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50"
+            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
             onClick={() => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,7 +90,7 @@ const Testimonials = () => {
             </svg>
           </button>
           <button
-            className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50"
+            className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
             onClick={() => setCurrentIndex((prev) => (prev + 1) % testimonials.length)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +104,7 @@ const Testimonials = () => {
               <button
                 key={index}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  currentIndex === index ? "bg-primary-500" : "bg-gray-300"
+                  currentIndex === index ? "bg-primary-blue" : "bg-gray-300"
                 }`}
                 onClick={() => setCurrentIndex(index)}
               />

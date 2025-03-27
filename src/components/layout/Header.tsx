@@ -24,10 +24,7 @@ import { RedirectModal } from '@/components/common/RedirectModal';
 
 const languageFlags: Record<string, string> = {
   en: "/flags/en.svg",
-  zh: "/flags/zh.svg",
-  ja: "/flags/ja.svg",
-  ko: "/flags/ko.svg",
-  th: "/flags/th.svg"
+  zh: "/flags/zh.svg"
 };
 
 export default function Header() {
@@ -64,10 +61,10 @@ export default function Header() {
 
   const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
 
-  const buttonClassName = "hover:border hover:border-blue-500 focus:border-blue-500 transition-colors";
+  const buttonClassName = "hover:bg-blue-700 hover:text-white focus:bg-blue-700 transition-colors text-white";
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <header className="sticky top-0 z-40 w-full bg-primary-blue backdrop-blur-md border-b border-blue-600">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -79,7 +76,7 @@ export default function Header() {
               height={32}
               className="w-8 h-8"
             />
-            <span className="text-xl font-bold text-gray-900">
+            <span className="text-xl font-bold text-white">
               {appName}
             </span>
           </Link>
@@ -107,6 +104,14 @@ export default function Header() {
             >
               {t('common.contactUs')}
             </Button>
+            <Link href={`/${currentLocale}/code-of-conduct`} passHref>
+              <Button
+                color="ghost"
+                className={buttonClassName}
+              >
+                {t('common.codeOfConduct')}
+              </Button>
+            </Link>
           </nav>
 
           {/* Right Section */}
@@ -155,7 +160,7 @@ export default function Header() {
               <SheetTrigger asChild>
                 <Button
                   color="ghost"
-                  className={`md:hidden ${buttonClassName}`}
+                  className={`md:hidden text-white ${buttonClassName}`}
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
@@ -186,6 +191,14 @@ export default function Header() {
                   >
                     {t('common.contactUs')}
                   </Button>
+                  <Link href={`/${currentLocale}/code-of-conduct`} passHref>
+                    <Button
+                      color="ghost"
+                      className={`justify-start ${buttonClassName}`}
+                    >
+                      {t('common.codeOfConduct')}
+                    </Button>
+                  </Link>
                 </div>
               </SheetContent>
             </Sheet>

@@ -6,16 +6,18 @@ export default {
     goShopping: "去购物",
     contactUs: "联系我们",
     promote: "商家入驻",
-    redirectTitle: "即将跳转到{modalName}..." 
+    redirectTitle: "即将跳转到{modalName}...",
+    codeOfConduct: "商业行为准则",
+    about: '关于我们',
+    privacy: '隐私政策',
+    terms: '服务条款',
+    allRightsReserved: '保留所有权利',
   },
   nav: {
     selectLanguage: "选择语言",
     languages: {
       zh: "简体中文",
-      en: "English",
-      ja: "日本語",
-      th: "ภาษาไทย",
-      ko: "한국어",
+      en: "English"
     },
   },
   hero: {
@@ -43,25 +45,55 @@ export default {
     hasAccount: "已有账号？",
     loginButton: "立即登录",
   },
+  serviceFeatures: {
+    freeDelivery: {
+      title: "免费配送",
+      description: "订单满$99免费送货"
+    },
+    returnPolicy: {
+      title: "90天退货",
+      description: "商品有问题可退货"
+    },
+    securePayment: {
+      title: "安全支付",
+      description: "100%安全支付保障"
+    },
+    support: {
+      title: "24/7支持",
+      description: "专业客服随时待命"
+    },
+    giftService: {
+      title: "礼品服务",
+      description: "专业礼品包装服务"
+    }
+  },
   features: {
     title: "为什么选择我们",
-    subtitle: "提供全方位的跨境电商解决方案",
+    subtitle: "全球领先的跨境电商解决方案，助您无忧出海",
     items: {
       1: {
-        title: "全球市场覆盖",
-        description: "覆盖200+国家和地区，让您的产品触达全球买家"
+        title: "全球市场网络",
+        description: "覆盖北美、欧洲、亚太等200+国家和地区，一站式触达全球消费者"
       },
       2: {
-        title: "智能物流系统",
-        description: "多渠道物流方案，实时追踪，确保货物安全准时送达"
+        title: "智能供应链",
+        description: "集成先进物流追踪系统，15+物流渠道优化，最快48小时送达主要市场"
       },
       3: {
-        title: "多语言支持",
-        description: "支持多语言界面，轻松与全球买家沟通"
+        title: "本地化运营支持",
+        description: "30+语言支持，专业团队协助产品本地化适配，提升转化率"
       },
       4: {
-        title: "安全支付",
-        description: "支持多种支付方式，资金安全有保障"
+        title: "合规与安全",
+        description: "全面的支付安全与合规服务，自动化税务申报，知识产权保护"
+      },
+      5: {
+        title: "数据驱动决策",
+        description: "实时市场分析，AI辅助定价，精准营销投放建议，提升ROI"
+      },
+      6: {
+        title: "一体化SaaS平台",
+        description: "集成ERP、CRM、WMS等系统，简化跨境业务流程，提升运营效率"
       }
     }
   },
@@ -97,7 +129,8 @@ export default {
     }
   },
   sellerCases: {
-    title: "优秀商家案例",
+    title: "成功案例",
+    subtitle: "了解全球顶尖品牌如何利用我们的平台实现跨境电商业务的突破性增长",
     cases: {
       1: {
         name: "Velora",
@@ -156,55 +189,73 @@ export default {
     },
     controls: {
       prev: "上一个",
-      next: "下一个"
-    }
+      next: "下一个",
+      details: "查看详情"
+    },
+    challenges: "业务挑战",
+    solutions: "我们的解决方案",
+    resultsTitle: "结果与收益",
+    results: {
+      growth: "增长率",
+      revenue: "年收入",
+      customers: "客户覆盖"
+    },
+    quarterlyPerformance: "季度业绩表现"
   },
   sellerBenefits: {
     title: "商家专属权益",
-    subtitle: "加入我们的平台，享受全方位的商家扶持政策",
-    disclaimer: "具体权益可能因店铺类型和地区不同而有所差异，详情请咨询客服",
+    subtitle: "为卖家提供全方位支持，助力您的跨境业务腾飞",
+    disclaimer: "我们根据不同商家类型和地区提供个性化支持方案，详情请联系您的专属客户经理",
     benefits: {
       lowFee: {
-        title: "低费率政策",
-        description: "平台佣金低至3%，新店铺还可享受3个月免佣金特权"
+        title: "行业领先佣金政策",
+        description: "佣金低至2%，新商家享首6个月特别费率，零月租，零上架费"
       },
       traffic: {
         title: "精准流量扶持",
-        description: "新店铺可获得平台首页推荐位展示，快速获取精准流量"
+        description: "免费获得平台专属流量包，精准广告投放指导，新店铺专属首页推荐位"
       },
       operation: {
-        title: "运营指导",
-        description: "专业运营团队1对1指导，助您快速掌握跨境电商运营技巧"
+        title: "专家级运营支持",
+        description: "VIP商家享专属客户经理1对1服务，市场数据分析，竞争策略制定"
       },
       logistics: {
-        title: "物流补贴",
-        description: "与全球知名物流商合作，享受专属价格和运费补贴"
+        title: "国际物流优惠",
+        description: "与DHL、FedEx等全球物流巨头深度合作，享专属折扣，最高可省35%运费"
       },
       training: {
-        title: "培训支持",
-        description: "定期举办线上线下培训，分享行业趋势和运营经验"
+        title: "商学院培训体系",
+        description: "免费线上课程+行业峰会+专家研讨会，掌握最新全球电商趋势和运营技巧"
       },
       protection: {
-        title: "店铺保护",
-        description: "完善的知识产权保护机制，打造公平的经营环境"
+        title: "全方位权益保障",
+        description: "知识产权保护机制，跨境纠纷解决方案，品牌声誉监控，防欺诈系统"
+      },
+      funding: {
+        title: "成长资金支持",
+        description: "合格商家可申请无抵押贷款，最高100万美元，灵活还款，助力业务扩张"
+      },
+      localization: {
+        title: "本地化支持",
+        description: "提供30+语言的产品翻译、本地市场调研、文化适应性建议服务"
       }
     },
     stats: {
       logisticsPartners: {
-        number: "200+",
-        label: "合作物流商"
+        number: "50+",
+        label: "物流合作伙伴"
       },
       activeSellers: {
         number: "50万+",
-        label: "活跃商家"
+        label: "平台活跃商家"
       },
       monthlyUsers: {
-        number: "1亿+",
-        label: "月活用户"
+        number: "1.5亿+",
+        label: "全球月活用户"
       },
       countries: {
-        number: "150+",
-        label: "覆盖国家"
+        number: "200+",
+        label: "服务国家/地区"
       }
     }
   },
@@ -264,12 +315,117 @@ export default {
   },
   cta: {
     title: "开启您的跨境电商之旅",
-    subtitle: "立即注册，享受专业的跨境电商服务",
-    button: "立即开始"
+    subtitle: "抓住全球电商增长机遇，打造您的国际品牌",
+    description: "全球电商市场规模预计2025年将达到7.4万亿美元，跨境电商增速是整体电商的2倍。Thryza助您快速切入全球市场，降低国际化运营壁垒，实现业务的指数级增长。",
+    features: [
+      "快速开店，7天内完成全球布局",
+      "一站式解决跨境支付、物流、合规等难题",
+      "专业团队提供市场洞察和增长策略",
+      "AI工具助力产品优化和营销效率提升"
+    ],
+    button: "立即开始",
+    stats: {
+      markets: {
+        number: "200+",
+        label: "覆盖市场"
+      },
+      merchants: {
+        number: "50万+",
+        label: "全球商家"
+      },
+      growth: {
+        number: "145%",
+        label: "平均年增长率"
+      }
+    }
   },
   header: {
     sellerCenter: '卖家中心',
     shopping: '购物',
     contactUs: '联系我们',
   },
+  codeOfConduct: {
+    title: "商业行为准则",
+    subtitle: "我们对道德商业实践的承诺",
+    introduction: {
+      title: "引言",
+      content: "在Thryza，我们致力于以最高标准的道德、诚信和遵守适用法律法规的方式开展业务。本商业行为准则概述了指导我们在实现连接全球买家和卖家使命过程中的行动和决策的原则。"
+    },
+    core_values: {
+      title: "核心价值观",
+      integrity: {
+        title: "诚信",
+        content: "我们在所有商业往来中诚实行事并遵守最高道德标准。我们在沟通中保持透明，在行动中值得信赖。"
+      },
+      respect: {
+        title: "尊重",
+        content: "我们以尊严和尊重对待所有个人。我们重视多样性并创造一个包容的环境，让每个人都感到受欢迎和被重视。"
+      },
+      accountability: {
+        title: "责任",
+        content: "我们对自己的行动和决策负责。我们信守承诺并努力在所做的一切事情中超越期望。"
+      },
+      innovation: {
+        title: "创新",
+        content: "我们拥抱变化并不断寻求新的更好的方式来服务我们的客户和合作伙伴。我们鼓励组织各级的创造力和前瞻性思维。"
+      }
+    },
+    business_practices: {
+      title: "道德商业实践",
+      fair_dealing: {
+        title: "公平交易",
+        content: "我们进行公平竞争，并诚实对待我们的客户、供应商、竞争对手和员工。我们不通过操纵、隐瞒、滥用特权信息、歪曲重要事实或任何其他不公平交易行为来获取不公平优势。"
+      },
+      anti_corruption: {
+        title: "反腐败",
+        content: "我们禁止一切形式的腐败，包括贿赂和回扣。我们不提供、给予或接受任何有价值的东西来不当影响商业决策或获取不公平的商业优势。"
+      },
+      conflict_of_interest: {
+        title: "利益冲突",
+        content: "我们避免个人利益可能与公司利益冲突的情况。我们披露潜在的利益冲突并采取适当措施解决它们。"
+      },
+      confidentiality: {
+        title: "保密",
+        content: "我们保护公司、客户、合作伙伴和员工的机密信息。我们仅将此类信息用于合法的商业目的，并采取适当措施防止未经授权的披露。"
+      }
+    },
+    marketplace_conduct: {
+      title: "市场行为",
+      product_quality: {
+        title: "产品质量和安全",
+        content: "我们致力于提供满足或超过客户对质量和安全期望的产品和服务。我们遵守所有关于产品质量、安全和标签的适用法律法规。"
+      },
+      marketing: {
+        title: "营销和广告",
+        content: "我们真实准确地宣传我们的产品和服务。我们不参与虚假、误导或欺骗性的广告或营销行为。"
+      },
+      fair_competition: {
+        title: "公平竞争",
+        content: "我们竞争激烈但公平。我们遵守反垄断和竞争法律，不参与反竞争行为，如固定价格、操纵投标或市场分配。"
+      },
+      intellectual_property: {
+        title: "知识产权",
+        content: "我们尊重他人的知识产权，并期望他人尊重我们的知识产权。我们不侵犯专利、商标、版权或其他所有权。"
+      }
+    },
+    compliance: {
+      title: "合规和举报",
+      laws: {
+        title: "遵守法律",
+        content: "我们遵守我们经营所在司法管辖区的所有适用法律、法规和政策。我们及时了解可能影响我们业务的法律和监管发展。"
+      },
+      reporting: {
+        title: "举报违规行为",
+        content: "我们鼓励举报涉嫌违反本准则或其他不道德行为的情况。我们提供多种渠道用于报告问题，并禁止对任何善意举报涉嫌违规行为的人进行报复。"
+      },
+      investigation: {
+        title: "调查和执行",
+        content: "我们认真对待所有涉嫌违规的报告，并及时彻底地进行调查。我们对违反本准则的行为采取适当的纪律处分，最严重的情况可能包括终止雇佣或业务关系。"
+      }
+    },
+    conclusion: {
+      title: "结论",
+      content: "本商业行为准则旨在帮助我们在日常商业活动中做出道德决策的指南。它并非旨在涵盖可能出现的每一种情况，而是提供指导我们行为的一般原则。我们期望所有员工、高管、董事和业务伙伴遵守本准则，并在面临道德困境时寻求指导。通过坚持最高标准的道德行为，我们不仅遵守法律法规，还建立与客户、合作伙伴和我们服务的社区之间的信任。"
+    }
+  }
 }; 

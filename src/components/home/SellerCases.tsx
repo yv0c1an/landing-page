@@ -1,165 +1,199 @@
-import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { ArrowRight, TrendingUp, Users, DollarSign } from "lucide-react";
+import { caseStudiesData } from "@/config/caseStudies"; // 使用相对路径导入
 
-interface CaseData {
-  name: string;
-  description: string;
-  stats: {
-    views: {
-      value: string;
-      label: string;
-    };
-    orders: {
-      value: string;
-      label: string;
-    };
-    gmv: {
-      value: string;
-      label: string;
-    };
-  };
-}
+type LocaleType = 'zh' | 'en';
 
 const SellerCases = () => {
   const t = useTranslations("sellerCases");
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const locale = useLocale() as LocaleType;
+  const [activeCase, setActiveCase] = useState(0);
 
-  // 自动轮播
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % 2); // 只有2个案例
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // 获取翻译数据
-  const casesData = t.raw("cases") as Record<string, CaseData>;
-  const cases = Object.entries(casesData).map(([id, data]) => ({
-    id,
-    name: data.name,
-    image: `/cases/case${id}.jpg`,
-    description: data.description,
-    stats: data.stats,
-  }));
+  // 使用配置的案例数据
+  const caseStudies = caseStudiesData;
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-12 bg-blue-50/50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <h2 className="text-4xl font-bold mb-4">{t("title")}</h2>
+          <h2 className="text-4xl font-bold mb-4 text-primary-blue">{t("title")}</h2>
+          <p className="text-gray-600 max-w-3xl mx-auto">
+            {t("subtitle")}
+          </p>
         </motion.div>
 
-        <div className="relative">
-          {/* 轮播图区域 */}
-          <div className="overflow-hidden rounded-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          {caseStudies.map((caseItem, index) => (
             <motion.div
-              animate={{ x: `-${currentSlide * 100}%` }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="flex"
+              key={index}
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className={`cursor-pointer rounded-lg overflow-hidden transition-all duration-300 shadow-md hover:shadow-lg ${
+                activeCase === index 
+                  ? "border-2 border-primary-blue bg-blue-50" 
+                  : "border border-gray-200 bg-white"
+              }`}
+              onClick={() => setActiveCase(index)}
             >
-              {cases.map((case_) => (
-                <div key={case_.id} className="w-full flex-shrink-0">
-                  {/* 图片区域 */}
-                  <div className="relative h-[400px]">
-                    <Image
-                      src={case_.image}
-                      alt={case_.name}
-                      fill
-                      className="object-cover"
-                    />
+              <div className="relative h-48">
+                <Image
+                  src={`/cases/case${index+1}.jpg`}
+                  alt={caseItem.name}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                  <div className="p-4 text-white">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="text-xs px-2 py-1 bg-primary-blue rounded-full">
+                        {caseItem.content[locale].industry}
+                      </span>
+                      <span className="text-xs">{caseItem.content[locale].location}</span>
+                    </div>
+                    <h3 className="text-xl font-bold">{caseItem.name}</h3>
                   </div>
-                  
-                  {/* 内容区域 */}
-                  <div className="bg-white p-8">
-                    <h3 className="text-2xl font-bold mb-4">{case_.name}</h3>
-                    <p className="text-gray-600 mb-8 text-left">
-                      {case_.description}
-                    </p>
-                    
-                    {/* 数据统计 */}
-                    <div className="grid grid-cols-3 gap-6">
-                      <div className="p-4 bg-gray-50 rounded-lg text-center">
-                        <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.views.value}
-                        </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          {case_.stats.views.label}
-                        </div>
-                      </div>
-                      <div className="p-4 bg-gray-50 rounded-lg text-center">
-                        <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.orders.value}
-                        </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          {case_.stats.orders.label}
-                        </div>
-                      </div>
-                      <div className="p-4 bg-gray-50 rounded-lg text-center">
-                        <div className="text-xl font-bold text-primary-600">
-                          {case_.stats.gmv.value}
-                        </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          {case_.stats.gmv.label}
-                        </div>
-                      </div>
+                </div>
+              </div>
+              <div className="p-4">
+                <p className="text-gray-600 mb-3 line-clamp-2">{caseItem.content[locale].description}</p>
+                <div className="flex items-center text-primary-blue">
+                  <span className="text-sm font-medium">{t("controls.details")}</span>
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* 详细案例信息 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white rounded-lg p-8 shadow-md mb-6"
+        >
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-primary-blue mb-2">
+                  {caseStudies[activeCase].name}
+                </h3>
+                <p className="text-gray-600">
+                  {caseStudies[activeCase].content[locale].description}
+                </p>
+              </div>
+
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold mb-3 text-primary-blue">{t("challenges")}</h4>
+                <ul className="space-y-2">
+                  {caseStudies[activeCase].content[locale].challenges.map((challenge, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <div className="mt-1 mr-2 w-1.5 h-1.5 rounded-full bg-primary-blue flex-shrink-0"></div>
+                      <span className="text-gray-600">{challenge}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold mb-3 text-primary-blue">{t("solutions")}</h4>
+                <ul className="space-y-2">
+                  {caseStudies[activeCase].content[locale].solutions.map((solution, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <div className="mt-1 mr-2 w-1.5 h-1.5 rounded-full bg-primary-blue flex-shrink-0"></div>
+                      <span className="text-gray-600">{solution}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <div className="mb-8">
+                <h4 className="text-lg font-semibold mb-3 text-primary-blue">{t("resultsTitle")}</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-blue-50 p-4 rounded-lg shadow-sm border border-blue-100">
+                    <div className="flex items-center mb-2">
+                      <TrendingUp className="w-5 h-5 text-primary-blue mr-2" />
+                      <span className="text-sm text-gray-600">{t("results.growth")}</span>
+                    </div>
+                    <div className="text-2xl font-bold text-primary-blue">
+                      {caseStudies[activeCase].content[locale].results.growth}
+                    </div>
+                  </div>
+                  <div className="bg-blue-50 p-4 rounded-lg shadow-sm border border-blue-100">
+                    <div className="flex items-center mb-2">
+                      <DollarSign className="w-5 h-5 text-primary-blue mr-2" />
+                      <span className="text-sm text-gray-600">{t("results.revenue")}</span>
+                    </div>
+                    <div className="text-2xl font-bold text-primary-blue">
+                      {caseStudies[activeCase].content[locale].results.revenue}
+                    </div>
+                  </div>
+                  <div className="bg-blue-50 p-4 rounded-lg shadow-sm border border-blue-100">
+                    <div className="flex items-center mb-2">
+                      <Users className="w-5 h-5 text-primary-blue mr-2" />
+                      <span className="text-sm text-gray-600">{t("results.customers")}</span>
+                    </div>
+                    <div className="text-2xl font-bold text-primary-blue">
+                      {caseStudies[activeCase].content[locale].results.customers}
                     </div>
                   </div>
                 </div>
-              ))}
-            </motion.div>
-          </div>
+              </div>
 
-          {/* 导航按钮 */}
-          <button
-            onClick={() => setCurrentSlide((prev) => (prev - 1 + 2) % 2)}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg"
-            aria-label={t("controls.prev")}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
-            </svg>
-          </button>
-          <button
-            onClick={() => setCurrentSlide((prev) => (prev + 1) % 2)}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg"
-            aria-label={t("controls.next")}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
-          </button>
-        </div>
+              <div className="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-100">
+                <h4 className="text-lg font-semibold mb-3 text-primary-blue">{t("quarterlyPerformance")}</h4>
+                <div className="relative h-60">
+                  <div className="absolute bottom-0 left-0 w-full h-40 flex items-end space-x-4 px-6">
+                    {caseStudies[activeCase].quarterlyData && (
+                      <>
+                        <div className="w-1/4 bg-primary-blue h-[30%] rounded-t-md relative group" style={{ height: `${caseStudies[activeCase].quarterlyData?.q1 || 30}%` }}>
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-primary-blue invisible group-hover:visible">
+                            Q1
+                          </div>
+                        </div>
+                        <div className="w-1/4 bg-primary-blue/90 h-[55%] rounded-t-md relative group" style={{ height: `${caseStudies[activeCase].quarterlyData?.q2 || 55}%` }}>
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-primary-blue invisible group-hover:visible">
+                            Q2
+                          </div>
+                        </div>
+                        <div className="w-1/4 bg-primary-blue/80 h-[65%] rounded-t-md relative group" style={{ height: `${caseStudies[activeCase].quarterlyData?.q3 || 65}%` }}>
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-primary-blue invisible group-hover:visible">
+                            Q3
+                          </div>
+                        </div>
+                        <div className="w-1/4 bg-primary-blue/70 h-[85%] rounded-t-md relative group" style={{ height: `${caseStudies[activeCase].quarterlyData?.q4 || 85}%` }}>
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-primary-blue invisible group-hover:visible">
+                            Q4
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  <div className="absolute bottom-0 left-0 w-full border-t border-blue-200"></div>
+                </div>
+                <div className="flex justify-between text-xs text-primary-blue font-medium mt-2">
+                  <span>Q1</span>
+                  <span>Q2</span>
+                  <span>Q3</span>
+                  <span>Q4</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

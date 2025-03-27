@@ -10,22 +10,15 @@ interface PlatformResponse {
   };
 }
 
+// 检查 URL 可用性
 async function checkUrlAvailability(url: string): Promise<boolean> {
   try {
-    const response = await axios.get<PlatformResponse>(
-      `${url}/wap/api/syspara!getSyspara.action`,
-      {
-        params: {
-          code: 'platform_name',
-          lang: 'en'
-        },
-        timeout: 5000 // 5秒超时
-      }
-    );
-    
-    return response.data.code === '0';
+    const response = await axios.get(url, {
+      timeout: 3000
+    });
+    return response.status === 200;
   } catch (error) {
-    console.error('Error checking URL availability:', error);
+    console.error(`URL ${url} is not available:`, error);
     return false;
   }
 }
@@ -40,7 +33,8 @@ export default async function handler(
 
   try {
     // 获取 URL 列表
-    const response = await axios.get(process.env.NEXT_PUBLIC_URL_LIST_ENDPOINT as string);
+    const urlListEndpoint = process.env.NEXT_PUBLIC_URL_LIST_ENDPOINT || 'https://api.thryza.com/api/urls';
+    const response = await axios.get(urlListEndpoint);
     const text = response.data;
     
     // 处理域名列表

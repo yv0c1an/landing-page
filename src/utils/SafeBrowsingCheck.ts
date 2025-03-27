@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export class SafeBrowsingCheck {
-  private static readonly API_KEY = process.env.NEXT_PUBLIC_GOOGLE_SAFE_BROWSING_API_KEY;
+  private static readonly API_KEY = process.env.NEXT_PUBLIC_GOOGLE_SAFE_BROWSING_API_KEY || '';
   private static readonly API_URL = 'https://safebrowsing.googleapis.com/v4/threatMatches:find';
 
   static async checkUrl(url: string): Promise<boolean> {

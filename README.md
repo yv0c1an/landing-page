@@ -237,3 +237,36 @@ pages/
 - 确保 Google Safe Browsing API 密钥配置正确
 - 开发时注意检查 URL 安全性
 - 添加新语言时需要在 i18n 配置中注册
+
+## 环境变量配置
+
+项目使用环境变量来存储配置信息。请按照以下步骤设置环境变量：
+
+1. 复制 `.env.example` 文件并重命名为 `.env.local`：
+
+```bash
+cp .env.example .env.local
+```
+
+2. 编辑 `.env.local` 文件，根据实际情况修改配置项：
+
+### 主要配置项说明
+
+| 变量名 | 说明 | 示例值 |
+|-------|------|-------|
+| NEXT_PUBLIC_APP_NAME | 应用名称 | Thryza |
+| NEXT_PUBLIC_TITLE | 网站标题 | Thryza - 全球跨境电商平台 |
+| NEXT_PUBLIC_API_URL | API 服务器地址 | https://api.thryza.com |
+| NEXT_PUBLIC_BASE_URL | 网站根地址 | https://www.thryza.com |
+| NEXT_PUBLIC_SELLER_CENTER_URL | 卖家中心地址 | https://seller.thryza.com |
+| NEXT_PUBLIC_SHOPPING_URL | 购物网站地址 | https://shop.thryza.com |
+| NEXT_PUBLIC_CONTACT_URL | 联系页面地址 | https://www.thryza.com/contact |
+| DATABASE_URL | 数据库连接字符串 | postgres://username:password@localhost:5432/thryza |
+
+### 开发环境
+
+在开发环境中，你可以使用 `.env.local` 文件。该文件不会被提交到版本控制系统中。
+
+### 生产环境
+
+在生产环境中，应该使用服务器的环境变量系统或 CI/CD 工具的密钥管理功能来设置这些变量。
