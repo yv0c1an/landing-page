@@ -33,18 +33,23 @@ export default async function handler(
 
   try {
     // 获取 URL 列表
-    const urlListEndpoint = process.env.NEXT_PUBLIC_URL_LIST_ENDPOINT || 'https://api.thryza.com/api/urls';
+    const urlListEndpoint = process.env.NEXT_PUBLIC_URL_LIST_ENDPOINT || '';
+    if (urlListEndpoint === '') {
+      return res.status(404).json({ message: 'URL list endpoint not found' });
+    }
+    console.log(urlListEndpoint);
     const response = await axios.get(urlListEndpoint);
+    console.log(`response`, response.data);
     const text = response.data;
-    
+
     // 处理域名列表
     const urls = text.split('\n')
       .filter((domain: string) => domain.trim())
       .map((domain: string) => `https://${domain.trim()}`);
-    
+
     // 随机打乱顺序
     const shuffledUrls = [...urls].sort(() => Math.random() - 0.5);
-
+    console.log(`shuffledUrls`, shuffledUrls);
     // 尝试找到一个可用且安全的 URL
     for (const url of shuffledUrls) {
       // 首先检查 URL 是否安全

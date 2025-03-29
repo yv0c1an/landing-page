@@ -7,7 +7,11 @@ export default {
     contactUs: "Contact Us",
     promote:"Merchants settle in",
     redirectTitle: "Redirecting to {modalName}...",
-    codeOfConduct: "Code of Conduct"
+    codeOfConduct: "Code of Conduct",
+    about: 'About Us',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Service',
+    allRightsReserved: 'All Rights Reserved',
   },
   nav: {
     selectLanguage: "Select Language",

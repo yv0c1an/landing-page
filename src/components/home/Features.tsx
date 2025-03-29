@@ -51,6 +51,7 @@ const Features = () => {
     }
   ];
 
+
   return (
     <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
@@ -111,7 +112,7 @@ const Features = () => {
           <div className="inline-flex items-center justify-center p-1 rounded-full bg-blue-100 text-primary-blue font-medium">
             <span className="px-4 py-2">{t('features.title')}</span>
             <span className="bg-primary-blue text-white px-4 py-2 rounded-full">
-              Thryza
+              {process.env.NEXT_PUBLIC_APP_NAME}
             </span>
           </div>
         </motion.div>

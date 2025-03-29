@@ -7,18 +7,18 @@ export default function LocalizedPage() {
   return (
     <>
       <Head>
-        <title>{process.env.NEXT_PUBLIC_TITLE || 'Thryza - 全球跨境电商平台'}</title>
-        <meta name="description" content={process.env.NEXT_PUBLIC_DESCRIPTION || '连接全球买家和卖家，开启您的跨境贸易之旅'} />
+        <title>{process.env.NEXT_PUBLIC_TITLE || ''}</title>
+        <meta name="description" content={process.env.NEXT_PUBLIC_DESCRIPTION ||''} />
         
         {/* SEO tags */}
-        <meta property="og:title" content={process.env.NEXT_PUBLIC_TITLE || 'Thryza - 全球跨境电商平台'} />
-        <meta property="og:description" content={process.env.NEXT_PUBLIC_DESCRIPTION || '连接全球买家和卖家，开启您的跨境贸易之旅'} />
+        <meta property="og:title" content={process.env.NEXT_PUBLIC_TITLE || ''} />
+        <meta property="og:description" content={process.env.NEXT_PUBLIC_DESCRIPTION || ''} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.NEXT_PUBLIC_API_URL || 'https://api.thryza.com'} />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_API_URL ||''} />
         
         <meta name="keywords" content="your,keywords,here" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href={process.env.NEXT_PUBLIC_BASE_URL || 'https://www.thryza.com'} />
+        <link rel="canonical" href={process.env.NEXT_PUBLIC_BASE_URL || ''} />
       </Head>
       <Home />
     </>
