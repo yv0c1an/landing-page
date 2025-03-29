@@ -24,10 +24,10 @@ export default function App({ Component, pageProps }: AppProps<PageProps>) {
   return (
     <>
       <Head>
-        <title>{process.env.NEXT_PUBLIC_TITLE || 'Thryza - 全球跨境电商平台'}</title>
+        <title>{process.env.NEXT_PUBLIC_TITLE}</title>
         <meta
           name="description"
-          content={process.env.NEXT_PUBLIC_DESCRIPTION || '连接全球买家和卖家，开启您的跨境贸易之旅'}
+          content={process.env.NEXT_PUBLIC_DESCRIPTION }
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.svg" />

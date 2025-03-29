@@ -7,7 +7,7 @@ import Footer from '@/components/layout/Footer';
 
 export default function CodeOfConduct() {
   const t = useTranslations('codeOfConduct');
-  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
+  const appName = process.env.NEXT_PUBLIC_APP_NAME ;
 
   return (
     <>

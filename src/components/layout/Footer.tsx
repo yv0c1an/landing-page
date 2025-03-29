@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 const Footer = () => {
   const t = useTranslations();
   const currentYear = new Date().getFullYear();
-  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
+  const appName = process.env.NEXT_PUBLIC_APP_NAME ;
   const description = process.env.NEXT_PUBLIC_SITEINFO || '';
 
   return (
@@ -19,7 +19,7 @@ const Footer = () => {
                 src="/logo-white.svg"
                 width={40}
                 height={40}
-                alt={appName}
+                alt={appName || ''}
                 className="w-10 h-10"
               />
               <span className="text-xl font-bold text-white">{appName}</span>

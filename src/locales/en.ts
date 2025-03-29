@@ -177,7 +177,7 @@ export default {
   cta: {
     title: "Start Your Cross-border E-commerce Journey",
     subtitle: "Capture Global E-commerce Growth Opportunities and Build Your International Brand",
-    description: "The global e-commerce market is projected to reach $7.4 trillion by 2025, with cross-border e-commerce growing twice as fast as overall e-commerce. Thryza helps you quickly enter global markets, reduce international operational barriers, and achieve exponential business growth.",
+    description: "The global e-commerce market is projected to reach $7.4 trillion by 2025, with cross-border e-commerce growing twice as fast as overall e-commerce.  helps you quickly enter global markets, reduce international operational barriers, and achieve exponential business growth.",
     features: [
       "Rapid store setup with global presence in 7 days",
       "One-stop solution for cross-border payments, logistics, and compliance",

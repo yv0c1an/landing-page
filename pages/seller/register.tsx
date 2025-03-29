@@ -4,7 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 const SellerRegister: NextPage = () => {
-  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
+  const appName = process.env.NEXT_PUBLIC_APP_NAME ;
   
   return (
     <>

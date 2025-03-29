@@ -59,7 +59,7 @@ export default function Header() {
     router.push(newPath);
   };
 
-  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Thryza';
+  const appName = process.env.NEXT_PUBLIC_APP_NAME ;
 
   const buttonClassName = "hover:bg-blue-700 hover:text-white focus:bg-blue-700 transition-colors text-white";
 
