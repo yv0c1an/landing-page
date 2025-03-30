@@ -331,7 +331,7 @@ export default {
       title: "Introduction",
       content: "At Thryza, we are committed to conducting business with the highest standards of ethics, integrity, and compliance with applicable laws and regulations. This Code of Business Conduct outlines the principles that guide our actions and decisions as we work towards our mission of connecting global buyers and sellers."
     },
-    core_values: {
+    coreValues: {
       title: "Core Values",
       integrity: {
         title: "Integrity",
@@ -341,13 +341,13 @@ export default {
         title: "Respect",
         content: "We treat all individuals with dignity and respect. We value diversity and create an inclusive environment where everyone feels welcome and appreciated."
       },
-      accountability: {
-        title: "Accountability",
-        content: "We take responsibility for our actions and decisions. We honor our commitments and strive to exceed expectations in everything we do."
+      "compliance": {
+        "title": "Compliance",
+        "content": "We strictly adhere to laws and regulations of all countries and platform rules, including but not limited to trade regulations, data privacy laws, and consumer protection laws. We proactively learn and adapt to legal requirements in different markets."
       },
-      innovation: {
-        title: "Innovation",
-        content: "We embrace change and continuously seek new and better ways to serve our customers and partners. We encourage creativity and forward-thinking at all levels of our organization."
+      "fairness": {
+        "title": "Fairness",
+        "content": "We compete fairly, not engaging in price manipulation, false advertising, or other unfair competition practices. We establish fair partnerships with suppliers without abusing market position."
       }
     },
     business_practices: {

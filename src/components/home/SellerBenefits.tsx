@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { 
-  BadgeDollarSign, 
-  BarChart, 
-  Users, 
-  TruckIcon, 
-  Lightbulb, 
+import { useExternalLink } from '@/hooks/useExternalLink';
+import { RedirectModal } from '@/components/common/RedirectModal';
+import { Button } from '@/components/ui/button';
+import {
+  BadgeDollarSign,
+  BarChart,
+  Users,
+  TruckIcon,
+  Lightbulb,
   ShieldCheck,
   PiggyBank,
   GlobeIcon,
@@ -15,7 +18,16 @@ import {
   Map
 } from "lucide-react";
 
+
+
 const SellerBenefits = () => {
+  const {
+    handleExternalClick,
+    isRedirectModalOpen,
+    currentLink,
+    handleRedirect,
+    handleClose
+  } = useExternalLink();
   const t = useTranslations();
 
   const benefits = [
@@ -70,22 +82,22 @@ const SellerBenefits = () => {
   ];
 
   const stats = [
-    { 
+    {
       key: "logisticsPartners",
       icon: <Building2 className="w-8 h-8 text-blue-500" />,
       bgColor: "bg-gradient-to-br from-blue-50 to-white"
     },
-    { 
+    {
       key: "activeSellers",
       icon: <UserCheck className="w-8 h-8 text-green-500" />,
       bgColor: "bg-gradient-to-br from-green-50 to-white"
     },
-    { 
+    {
       key: "monthlyUsers",
       icon: <Users2 className="w-8 h-8 text-yellow-500" />,
       bgColor: "bg-gradient-to-br from-yellow-50 to-white"
     },
-    { 
+    {
       key: "countries",
       icon: <Map className="w-8 h-8 text-purple-500" />,
       bgColor: "bg-gradient-to-br from-purple-50 to-white"
@@ -93,11 +105,11 @@ const SellerBenefits = () => {
   ];
 
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden">
+    <section className="py-10 bg-slate-50 relative overflow-hidden">
       {/* 背景装饰 */}
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-100 rounded-full opacity-50"></div>
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-green-100 rounded-full opacity-50"></div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         {/* 标题部分 */}
         <motion.div
@@ -107,9 +119,7 @@ const SellerBenefits = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary-blue/10 text-primary-blue font-medium mb-4">
-            {t("common.promote")}
-          </span>
+
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
             {t("sellerBenefits.title")}
           </h2>
@@ -194,12 +204,24 @@ const SellerBenefits = () => {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <a 
-            href="#" 
+
+          <Button
             className="inline-flex items-center justify-center px-8 py-3 bg-primary-blue hover:bg-blue-700 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+            onClick={() => handleExternalClick('promote')}
           >
-            {t("common.promote")}
-          </a>
+            {t('common.promote')}
+            {/* <ArrowRight className="ml-2" /> */}
+          </Button>
+          {/* 重定向模态框 */}
+          {currentLink && (
+            <RedirectModal
+              isOpen={isRedirectModalOpen}
+              onClose={handleClose}
+              onRedirect={handleRedirect}
+              title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
+            />
+          )}
+         
         </motion.div>
       </div>
     </section>

@@ -112,6 +112,13 @@ export default function Header() {
                 {t('common.codeOfConduct')}
               </Button>
             </Link>
+            <Button
+              color="ghost"
+              className={buttonClassName}
+              onClick={() => handleExternalClick('promote')}
+            >
+              {t('common.promote')}
+            </Button>
           </nav>
 
           {/* Right Section */}
