@@ -180,7 +180,7 @@ export default function Header() {
                   <Button
                     color="default"
                     className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('/www/')}
+                    onClick={() => handleExternalClick('/ww/')}
                   >
                     {t('common.sellerCenter')}
                   </Button>
