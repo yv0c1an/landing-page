@@ -7,6 +7,7 @@ export default {
     contactUs: "Contact Us",
     promote:"Merchants settle in",
     redirectTitle: "Redirecting to {modalName}...",
+    redirecting: "Redirecting...",
     codeOfConduct: "Code of Conduct",
     about: 'About Us',
     privacy: 'Privacy Policy',
@@ -185,6 +186,7 @@ export default {
       "AI tools to enhance product optimization and marketing efficiency"
     ],
     button: "Get Started Now",
+    registerNow: "Register Now",
     stats: {
       markets: {
         number: "200+",
@@ -214,6 +216,7 @@ export default {
     title: "Exclusive Seller Benefits",
     subtitle: "Comprehensive Support to Propel Your Cross-border Business Success",
     disclaimer: "We provide customized support plans based on merchant type and region. Contact your dedicated account manager for details",
+    startNow: "Join Now",
     benefits: {
       lowFee: {
         title: "Industry-Leading Commission Structure",

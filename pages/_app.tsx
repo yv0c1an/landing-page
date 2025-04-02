@@ -1,10 +1,8 @@
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
-import { useUrlStore } from '@/store/urlStore';
 import "../src/styles/globals.css";
 import Head from 'next/head';
-import { useEffect } from 'react';
 import { defaultLocale } from '@/config/i18n';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,12 +13,6 @@ type PageProps = {
 };
 
 export default function App({ Component, pageProps }: AppProps<PageProps>) {
-  const initializeUrl = useUrlStore(state => state.initializeUrl);
-  
-  useEffect(() => {
-    initializeUrl();
-  }, []);
-
   return (
     <>
       <Head>

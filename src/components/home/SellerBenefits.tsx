@@ -24,9 +24,8 @@ const SellerBenefits = () => {
   const {
     handleExternalClick,
     isRedirectModalOpen,
-    currentLink,
-    handleRedirect,
-    handleClose
+    handleClose,
+    error
   } = useExternalLink();
   const t = useTranslations();
 
@@ -105,12 +104,8 @@ const SellerBenefits = () => {
   ];
 
   return (
-    <section className="py-10 bg-slate-50 relative overflow-hidden">
-      {/* 背景装饰 */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-100 rounded-full opacity-50"></div>
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-green-100 rounded-full opacity-50"></div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-4">
         {/* 标题部分 */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
@@ -196,34 +191,24 @@ const SellerBenefits = () => {
           </p>
         </motion.div>
 
-        {/* 加入按钮 */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center"
-        >
-
+        {/* 按钮 */}
+        <div className="mt-12 text-center">
           <Button
-            className="inline-flex items-center justify-center px-8 py-3 bg-primary-blue hover:bg-blue-700 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300"
-            onClick={() => handleExternalClick('promote')}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg shadow-lg"
+            onClick={() => handleExternalClick('/www/')}
           >
-            {t('common.promote')}
-            {/* <ArrowRight className="ml-2" /> */}
+            {t('sellerBenefits.startNow')}
           </Button>
-          {/* 重定向模态框 */}
-          {currentLink && (
-            <RedirectModal
-              isOpen={isRedirectModalOpen}
-              onClose={handleClose}
-              onRedirect={handleRedirect}
-              title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
-            />
-          )}
-         
-        </motion.div>
+        </div>
       </div>
+
+      {/* RedirectModal */}
+      <RedirectModal
+        isOpen={isRedirectModalOpen}
+        onClose={handleClose}
+        title={t('common.redirecting')}
+        error={error}
+      />
     </section>
   );
 };

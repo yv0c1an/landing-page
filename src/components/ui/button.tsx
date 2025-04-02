@@ -2,15 +2,18 @@ import * as React from "react"
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
-  color?: 'default' | 'ghost' | 'outline'
+  color?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className = "", color = "default", children, ...props }, ref) => {
-    const colorStyles = {
-      default: "bg-primary-blue text-white hover:bg-blue-700",
-      ghost: "hover:bg-gray-100",
-      outline: "border border-primary-blue text-primary-blue hover:bg-blue-50"
+    const colorStyles =  {
+      default: "bg-primary text-primary-foreground hover:bg-primary/90",
+      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+      outline: "border border-input hover:bg-accent hover:text-accent-foreground",
+      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+      ghost: "text-white hover:bg-accent hover:text-accent-foreground", // 修改这里，默认文字颜色为白色
+      link: "underline-offset-4 hover:underline text-primary",
     }
 
     return (

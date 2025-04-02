@@ -9,10 +9,9 @@ const PlatformInfo = () => {
   const t = useTranslations();
   const { 
     handleExternalClick, 
-    isRedirectModalOpen, 
-    currentLink,
-    handleRedirect,
-    handleClose 
+    isRedirectModalOpen,
+    handleClose,
+    error
   } = useExternalLink();
 
   const features = [
@@ -156,21 +155,19 @@ const PlatformInfo = () => {
           </p>
           <Button 
           color="default"
-            onClick={() => handleExternalClick('promote')}
+            onClick={() => handleExternalClick('/promote/')}
           >
             {t('cta.button')}
           </Button>
         </div>
 
         {/* 添加 RedirectModal */}
-        {currentLink && (
-          <RedirectModal
-            isOpen={isRedirectModalOpen}
-            onClose={handleClose}
-            onRedirect={handleRedirect}
-            title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
-          />
-        )}
+        <RedirectModal
+          isOpen={isRedirectModalOpen}
+          onClose={handleClose}
+          title={t('common.redirecting')}
+          error={error}
+        />
       </div>
     </section>
   );

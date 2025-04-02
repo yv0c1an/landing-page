@@ -32,7 +32,7 @@ export default function Header() {
   const t = useTranslations();
   const { locale, pathname, asPath, query } = router;
   const [currentLocale, setCurrentLocale] = useState(locale || 'en');
-  const { handleExternalClick, handleRedirect, handleClose, isRedirectModalOpen, currentLink } = useExternalLink();
+  const { handleExternalClick, handleClose, isRedirectModalOpen, currentPath, error } = useExternalLink();
 
   useEffect(() => {
     setCurrentLocale(locale || 'en');
@@ -86,21 +86,21 @@ export default function Header() {
             <Button
               color="ghost"
               className={buttonClassName}
-              onClick={() => handleExternalClick('sellerCenter')}
+              onClick={() => handleExternalClick('/www/')}
             >
               {t('common.sellerCenter')}
             </Button>
             <Button
               color="ghost"
               className={buttonClassName}
-              onClick={() => handleExternalClick('goShopping')}
+              onClick={() => handleExternalClick('/wap/')}
             >
               {t('common.goShopping')}
             </Button>
             <Button
               color="ghost"
               className={buttonClassName}
-              onClick={() => handleExternalClick('contactUs')}
+              onClick={() => handleExternalClick('/contact/')}
             >
               {t('common.contactUs')}
             </Button>
@@ -115,7 +115,7 @@ export default function Header() {
             <Button
               color="ghost"
               className={buttonClassName}
-              onClick={() => handleExternalClick('promote')}
+              onClick={() => handleExternalClick('/promote/')}
             >
               {t('common.promote')}
             </Button>
@@ -167,7 +167,7 @@ export default function Header() {
               <SheetTrigger asChild>
                 <Button
                   color="ghost"
-                  className={`md:hidden text-white ${buttonClassName}`}
+                  className={`md:hidden  ${buttonClassName}`}
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
@@ -178,30 +178,30 @@ export default function Header() {
                 </SheetHeader>
                 <div className="mt-6 flex flex-col gap-4">
                   <Button
-                    color="ghost"
+                    color="default"
                     className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('sellerCenter')}
+                    onClick={() => handleExternalClick('/www/')}
                   >
                     {t('common.sellerCenter')}
                   </Button>
                   <Button
-                    color="ghost"
+                    color="default"
                     className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('goShopping')}
+                    onClick={() => handleExternalClick('/wap/')}
                   >
                     {t('common.goShopping')}
                   </Button>
                   <Button
-                    color="ghost"
+                    color="default"
                     className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('contactUs')}
+                    onClick={() => handleExternalClick('/contact/')}
                   >
                     {t('common.contactUs')}
                   </Button>
-                  <Link href={`/${currentLocale}/code-of-conduct`} passHref>
+                  <Link href={`/${currentLocale}/code-of-conduct`} passHref className='w-full'>
                     <Button
-                      color="ghost"
-                      className={`justify-start ${buttonClassName}`}
+                      color="default"
+                      className={`justify-start ${buttonClassName} w-full`}
                     >
                       {t('common.codeOfConduct')}
                     </Button>
@@ -217,8 +217,8 @@ export default function Header() {
       <RedirectModal
         isOpen={isRedirectModalOpen}
         onClose={handleClose}
-        onRedirect={handleRedirect}
-        title={currentLink ? t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) }) : ''}
+        title={t('common.redirecting')}
+        error={error}
       />
     </header>
   );

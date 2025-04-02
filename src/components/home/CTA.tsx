@@ -9,10 +9,9 @@ const CTA = () => {
   const t = useTranslations();
   const { 
     handleExternalClick, 
-    isRedirectModalOpen, 
-    currentLink,
-    handleRedirect,
-    handleClose 
+    isRedirectModalOpen,
+    handleClose,
+    error
   } = useExternalLink();
 
   return (
@@ -64,20 +63,15 @@ const CTA = () => {
               </ul>
             </div>
             
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
-            >
+            {/* 注册按钮 */}
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button 
-                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-3 text-lg rounded-full shadow-lg hover:shadow-xl transition-all border-0"
-                onClick={() => handleExternalClick('promote')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 h-auto rounded-xl shadow-lg shadow-blue-600/30 text-lg font-medium"
+                onClick={() => handleExternalClick('/www/')}
               >
-                {t('cta.button')}
-                <ArrowRight className="ml-2" />
+                {t('cta.registerNow')} <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-            </motion.div>
+            </div>
           </motion.div>
           
           {/* 右侧统计数据 */}
@@ -137,15 +131,13 @@ const CTA = () => {
         </div>
       </div>
       
-      {/* 重定向模态框 */}
-      {currentLink && (
-        <RedirectModal
-          isOpen={isRedirectModalOpen}
-          onClose={handleClose}
-          onRedirect={handleRedirect}
-          title={t(`common.redirectTitle`, { modalName: t(`common.${currentLink}`) })}
-        />
-      )}
+      {/* RedirectModal */}
+      <RedirectModal
+        isOpen={isRedirectModalOpen}
+        onClose={handleClose}
+        title={t('common.redirecting')}
+        error={error}
+      />
     </section>
   );
 };

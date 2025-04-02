@@ -52,23 +52,6 @@
   }
 }
 
-/* 设置字体 */
-@font-face {
-  font-family: 'Bogle';
-  src: url('/fonts/Bogle-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Bogle';
-  src: url('/fonts/Bogle-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* 平滑滚动 */
 html {
   scroll-behavior: smooth;
@@ -99,7 +82,7 @@ html {
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: var(--font-family-default, Bogle, "Helvetica Neue", Helvetica, Arial, sans-serif);
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 }
 
