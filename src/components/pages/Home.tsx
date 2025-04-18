@@ -12,8 +12,6 @@ export default function Home() {
   return (
     <>
       <Head>
-      <title>{process.env.NEXT_PUBLIC_TITLE || ''}</title>
-      <meta name="description" content={process.env.NEXT_PUBLIC_DESCRIPTION ||''} />
        <link rel="icon" sizes="32x32" href="/logo.svg" />
       </Head>
 

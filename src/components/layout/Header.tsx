@@ -86,14 +86,14 @@ export default function Header() {
             <Button
               color="ghost"
               className={buttonClassName}
-              onClick={() => handleExternalClick('/www/')}
+              onClick={() => handleExternalClick('/ww/')}
             >
               {t('common.sellerCenter')}
             </Button>
             <Button
               color="ghost"
               className={buttonClassName}
-              onClick={() => handleExternalClick('/wap/')}
+              onClick={() => handleExternalClick('/')}
             >
               {t('common.goShopping')}
             </Button>
@@ -180,14 +180,14 @@ export default function Header() {
                   <Button
                     color="default"
                     className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('/ww/')}
+                    onClick={() => handleExternalClick('/www/#/login')}
                   >
                     {t('common.sellerCenter')}
                   </Button>
                   <Button
                     color="default"
                     className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('/wap/')}
+                    onClick={() => handleExternalClick('/wap/#/home')}
                   >
                     {t('common.goShopping')}
                   </Button>
