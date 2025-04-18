@@ -1,12 +1,10 @@
 import { GetServerSideProps } from 'next';
-import { defaultLocale } from '@/config/i18n';
 
-
-// 重定向到默认语言
+// 重定向到英文版本
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
-      destination: `/${defaultLocale}`,
+      destination: '/en', // 直接硬编码重定向到英文
       permanent: false,
     },
   };

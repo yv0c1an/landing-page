@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { Menu } from 'lucide-react';
-import { locales } from '@/config/i18n';
+import { locales, defaultLocale } from '@/config/i18n';
 import { useExternalLink } from '@/hooks/useExternalLink';
 import { Button } from '@/components/ui/button';
 import {
@@ -31,12 +31,33 @@ export default function Header() {
   const router = useRouter();
   const t = useTranslations();
   const { locale, pathname, asPath, query } = router;
-  const [currentLocale, setCurrentLocale] = useState(locale || 'en');
-  const { handleExternalClick, handleClose, isRedirectModalOpen, currentPath, error } = useExternalLink();
+  
+  // 从 URL 路径中提取语言代码
+  const extractLocaleFromPath = () => {
+    const path = asPath || pathname || '';
+    // 检查路径是否以语言代码开头
+    for (const loc of locales) {
+      if (path.startsWith(`/${loc}`)) {
+        return loc;
+      }
+    }
+    return locale || defaultLocale;
+  };
+  
 
+
+  
+
+  const pathLocale = extractLocaleFromPath();
+  const [currentLocale, setCurrentLocale] = useState(pathLocale);
+  const { handleExternalClick, handleClose, isRedirectModalOpen, error } = useExternalLink();
+  console.log('defaultLocale', defaultLocale);
+  console.log('pathLocale', pathLocale);
   useEffect(() => {
-    setCurrentLocale(locale || 'en');
-  }, [locale]);
+    // 优先使用 URL 路径中的语言
+    const localeFromPath = extractLocaleFromPath();
+    setCurrentLocale(localeFromPath);
+  }, [locale, asPath, pathname]);
 
   const languages = locales.map(lang => ({
     key: lang,
