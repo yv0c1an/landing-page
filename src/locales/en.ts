@@ -332,7 +332,7 @@ export default {
     subtitle: "Our commitment to ethical business practices",
     introduction: {
       title: "Introduction",
-      content: "At Thryza, we are committed to conducting business with the highest standards of ethics, integrity, and compliance with applicable laws and regulations. This Code of Business Conduct outlines the principles that guide our actions and decisions as we work towards our mission of connecting global buyers and sellers."
+      content: "At Trevaan, we are committed to conducting business with the highest standards of ethics, integrity, and compliance with applicable laws and regulations. This Code of Business Conduct outlines the principles that guide our actions and decisions as we work towards our mission of connecting global buyers and sellers."
     },
     coreValues: {
       title: "Core Values",
