@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { useTranslations } from 'next-intl';
-import { 
-  Globe, 
-  TruckIcon, 
-  Languages, 
-  ShieldCheck, 
-  BarChart4, 
-  Layers 
+import {
+  Globe,
+  TruckIcon,
+  Languages,
+  ShieldCheck,
+  BarChart4,
+  Layers
 } from 'lucide-react';
 
 const Features = () => {
@@ -70,7 +70,7 @@ const Features = () => {
             {t('features.subtitle')}
           </p>
         </motion.div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
@@ -101,7 +101,7 @@ const Features = () => {
             </motion.div>
           ))}
         </div>
-        
+
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -111,9 +111,11 @@ const Features = () => {
         >
           <div className="inline-flex items-center justify-center p-1 rounded-full bg-blue-100 text-primary-blue font-medium">
             <span className="px-4 py-2">{t('features.title')}</span>
-            <span className="bg-primary-blue text-white px-4 py-2 rounded-full">
-              {process.env.NEXT_PUBLIC_APP_NAME}
-            </span>
+            {process.env.NEXT_PUBLIC_APP_NAME && (
+              <span className="bg-primary-blue text-white px-4 py-2 rounded-full">
+                {process.env.NEXT_PUBLIC_APP_NAME}
+              </span>
+            )}
           </div>
         </motion.div>
       </div>

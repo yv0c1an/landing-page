@@ -326,6 +326,7 @@ export default {
     sellerCenter: 'Seller Center',
     shopping: 'Shopping',
     contactUs: 'Contact Us',
+    aboutUs: 'About Us',
   },
   codeOfConduct: {
     title: "Code of Business Conduct",

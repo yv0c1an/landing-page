@@ -195,7 +195,7 @@ const SellerBenefits = () => {
         <div className="mt-12 text-center">
           <Button
             className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg shadow-lg"
-            onClick={() => handleExternalClick('/www/')}
+            onClick={() => handleExternalClick('/promote/')}
           >
             {t('sellerBenefits.startNow')}
           </Button>

@@ -121,9 +121,9 @@ export default function Header() {
             <Button
               color="ghost"
               className={buttonClassName}
-              onClick={() => handleExternalClick('/contact/')}
+              onClick={() => handleExternalClick('/about.html')}
             >
-              {t('common.contactUs')}
+              {t('common.about')}
             </Button>
             <Link href={`/${currentLocale}/code-of-conduct`} passHref>
               <Button
@@ -215,9 +215,9 @@ export default function Header() {
                   <Button
                     color="default"
                     className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('/contact/')}
+                    onClick={() => handleExternalClick('/about.html')}
                   >
-                    {t('common.contactUs')}
+                    {t('common.about')}
                   </Button>
                   <Link href={`/${currentLocale}/code-of-conduct`} passHref className='w-full'>
                     <Button

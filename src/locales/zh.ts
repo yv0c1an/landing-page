@@ -346,6 +346,7 @@ export default {
     sellerCenter: '卖家中心',
     shopping: '购物',
     contactUs: '联系我们',
+    aboutUs: '关于我们',
   },
   codeOfConduct: {
     title: "商业行为准则",

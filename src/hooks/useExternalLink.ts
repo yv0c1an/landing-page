@@ -1,6 +1,28 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+// 安全的 URL 检查函数
+function isSafeUrl(url: string): boolean {
+  try {
+    const parsedUrl = new URL(url);
+    // 确保只允许 http 和 https 协议
+    return ['http:', 'https:'].includes(parsedUrl.protocol);
+  } catch {
+    return false;
+  }
+}
+
+// 清理路径，防止路径遍历攻击
+function sanitizePath(path: string): string {
+  // 移除任何 ../ 序列，确保路径不会跳出预期目录
+  let sanitized = path.replace(/\.\.\//g, '');
+  // 确保路径以 / 开头
+  if (!sanitized.startsWith('/')) {
+    sanitized = '/' + sanitized;
+  }
+  return sanitized;
+}
+
 export const useExternalLink = () => {
   const [isRedirectModalOpen, setIsRedirectModalOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState<string | null>(null);
@@ -9,8 +31,11 @@ export const useExternalLink = () => {
 
   const handleExternalClick = async (path: string) => {
     try {
+      // 清理并验证路径
+      const cleanPath = sanitizePath(path);
+      
       setIsLoading(true);
-      setCurrentPath(path);
+      setCurrentPath(cleanPath);
       setIsRedirectModalOpen(true);
       setError(null);
       
@@ -18,10 +43,15 @@ export const useExternalLink = () => {
       const response = await axios.get('/api/urls');
       const safeUrl = response.data.url;
       
-      if (safeUrl) {
-        window.location.href = `${safeUrl}${path}`;
+      if (safeUrl && isSafeUrl(safeUrl)) {
+        // 使用 window.open 代替 location.href，并添加安全参数
+        window.open(`${safeUrl}${cleanPath}`, '_blank', 'noopener,noreferrer');
+        // 关闭模态框
+        setTimeout(() => {
+          setIsRedirectModalOpen(false);
+        }, 1000);
       } else {
-        throw new Error('No available URL found');
+        throw new Error('Invalid or unsafe URL received');
       }
     } catch (error) {
       console.error('Error fetching URL:', error);
