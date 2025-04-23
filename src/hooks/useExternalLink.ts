@@ -33,19 +33,25 @@ export const useExternalLink = () => {
     try {
       // 清理并验证路径
       const cleanPath = sanitizePath(path);
-      
+
       setIsLoading(true);
       setCurrentPath(cleanPath);
       setIsRedirectModalOpen(true);
       setError(null);
-      
+
       // 每次点击都实时获取最新URL
       const response = await axios.get('/api/urls');
       const safeUrl = response.data.url;
-      
+
       if (safeUrl && isSafeUrl(safeUrl)) {
         // 使用 window.open 代替 location.href，并添加安全参数
-        window.open(`${safeUrl}${cleanPath}`, '_blank', 'noopener,noreferrer');
+        const link = document.createElement('a');
+        link.href = `${safeUrl}${cleanPath}`;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         // 关闭模态框
         setTimeout(() => {
           setIsRedirectModalOpen(false);
