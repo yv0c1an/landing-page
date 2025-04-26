@@ -7,7 +7,11 @@ import { caseStudiesData } from "@/config/caseStudies"; // 使用相对路径导
 
 type LocaleType = 'zh' | 'en';
 
-const SellerCases = () => {
+interface SellerCasesProps {
+  restrictLinks?: boolean;
+}
+
+const SellerCases = ({ restrictLinks = false }: SellerCasesProps) => {
   const t = useTranslations("sellerCases");
   const locale = useLocale() as LocaleType;
   const [activeCase, setActiveCase] = useState(0);

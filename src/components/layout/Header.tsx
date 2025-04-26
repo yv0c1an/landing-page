@@ -27,11 +27,15 @@ const languageFlags: Record<string, string> = {
   zh: "/flags/zh.svg"
 };
 
-export default function Header() {
+interface HeaderProps {
+  restrictLinks?: boolean;
+}
+
+export default function Header({ restrictLinks = false }: HeaderProps) {
   const router = useRouter();
   const t = useTranslations();
   const { locale, pathname, asPath, query } = router;
-  
+
   // 从 URL 路径中提取语言代码
   const extractLocaleFromPath = () => {
     const path = asPath || pathname || '';
@@ -43,10 +47,10 @@ export default function Header() {
     }
     return locale || defaultLocale;
   };
-  
 
 
-  
+
+
 
   const pathLocale = extractLocaleFromPath();
   const [currentLocale, setCurrentLocale] = useState(pathLocale);
@@ -80,7 +84,7 @@ export default function Header() {
     router.push(newPath);
   };
 
-  const appName = process.env.NEXT_PUBLIC_APP_NAME ;
+  const appName = process.env.NEXT_PUBLIC_APP_NAME;
 
   const buttonClassName = "hover:bg-blue-700 hover:text-white focus:bg-blue-700 transition-colors text-white";
 
@@ -103,28 +107,33 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4">
-            <Button
-              color="ghost"
-              className={buttonClassName}
-              onClick={() => handleExternalClick('/ww/')}
-            >
-              {t('common.sellerCenter')}
-            </Button>
-            <Button
-              color="ghost"
-              className={buttonClassName}
-              onClick={() => handleExternalClick('/')}
-            >
-              {t('common.goShopping')}
-            </Button>
-            <Button
-              color="ghost"
-              className={buttonClassName}
-              onClick={() => handleExternalClick('/about.html')}
-            >
-              {t('common.about')}
-            </Button>
+          <nav className="hidden md:flex items-center gap-4 ml-auto">
+            {!restrictLinks && (
+              <>
+                <Button
+                  color="ghost"
+                  className={buttonClassName}
+                  onClick={() => handleExternalClick('/ww/')}
+                >
+                  {t('common.sellerCenter')}
+                </Button>
+                <Button
+                  color="ghost"
+                  className={buttonClassName}
+                  onClick={() => handleExternalClick('/')}
+                >
+                  {t('common.goShopping')}
+                </Button>
+                <Button
+                  color="ghost"
+                  className={buttonClassName}
+                  onClick={() => handleExternalClick('/about.html')}
+                >
+                  {t('common.about')}
+                </Button>
+              </>
+            )}
+
             <Link href={`/${currentLocale}/code-of-conduct`} passHref>
               <Button
                 color="ghost"
@@ -133,13 +142,15 @@ export default function Header() {
                 {t('common.codeOfConduct')}
               </Button>
             </Link>
-            <Button
-              color="ghost"
-              className={buttonClassName}
-              onClick={() => handleExternalClick('/promote/')}
-            >
-              {t('common.promote')}
-            </Button>
+            {!restrictLinks && (
+              <Button
+                color="ghost"
+                className={buttonClassName}
+                onClick={() => handleExternalClick('/promote/')}
+              >
+                {t('common.promote')}
+              </Button>
+            )}
           </nav>
 
           {/* Right Section */}
@@ -198,20 +209,24 @@ export default function Header() {
                   <SheetTitle>{appName}</SheetTitle>
                 </SheetHeader>
                 <div className="mt-6 flex flex-col gap-4">
-                  <Button
-                    color="default"
-                    className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('/www/#/login')}
-                  >
-                    {t('common.sellerCenter')}
-                  </Button>
-                  <Button
-                    color="default"
-                    className={`justify-start ${buttonClassName}`}
-                    onClick={() => handleExternalClick('/wap/#/home')}
-                  >
-                    {t('common.goShopping')}
-                  </Button>
+                  {!restrictLinks && (
+                    <>
+                      <Button
+                        color="default"
+                        className={`justify-start ${buttonClassName}`}
+                        onClick={() => handleExternalClick('/www/#/login')}
+                      >
+                        {t('common.sellerCenter')}
+                      </Button>
+                      <Button
+                        color="default"
+                        className={`justify-start ${buttonClassName}`}
+                        onClick={() => handleExternalClick('/wap/#/home')}
+                      >
+                        {t('common.goShopping')}
+                      </Button>
+                    </>
+                  )}
                   <Button
                     color="default"
                     className={`justify-start ${buttonClassName}`}

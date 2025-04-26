@@ -22,6 +22,17 @@ function isValidUrl(url: string): boolean {
   }
 }
 
+// 清理路径，防止路径遍历攻击
+function sanitizePath(path: string): string {
+  // 移除任何 ../ 序列，确保路径不会跳出预期目录
+  let sanitized = path.replace(/\.\.\//g, '');
+  // 确保路径以 / 开头
+  if (!sanitized.startsWith('/')) {
+    sanitized = '/' + sanitized;
+  }
+  return sanitized;
+}
+
 // 检查 URL 可用性
 async function checkUrlAvailability(url: string): Promise<boolean> {
   if (!isValidUrl(url)) {
@@ -42,7 +53,7 @@ async function checkUrlAvailability(url: string): Promise<boolean> {
     return response.status === 200;
   } catch (error) {
     if (process.env.NODE_ENV !== 'production') {
-      console.error(`URL ${url} is not available:`, error);
+    console.error(`URL ${url} is not available:`, error);
     } else {
       console.error(`URL availability check failed`);
     }
@@ -55,17 +66,22 @@ function getRandomItem<T>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
 }
 
+// 默认回退域名
+const FALLBACK_URL = process.env.NEXT_PUBLIC_FALLBACK_URL;
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   // 设置安全响应头
   res.setHeader('Cache-Control', 'no-store, max-age=0');
-  res.setHeader('Content-Type', 'application/json');
   
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
+
+  // 获取客户端请求的目标路径
+  const targetPath = req.query.path ? sanitizePath(req.query.path as string) : '/';
 
   try {
     // 从本地文件读取 URL 列表
@@ -81,7 +97,8 @@ export default async function handler(
 
     // 检查文件是否存在
     if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ message: 'URL list file not found' });
+      // 如果文件不存在，使用回退URL进行重定向
+      return res.redirect(302, `${FALLBACK_URL}${targetPath}`);
     }
 
     // 读取文件内容
@@ -99,7 +116,8 @@ export default async function handler(
       .filter(url => isValidUrl(url));
 
     if (urls.length === 0) {
-      return res.status(404).json({ message: 'No valid URLs found in the file' });
+      // 如果没有有效URL，使用回退URL进行重定向
+      return res.redirect(302, `${FALLBACK_URL}${targetPath}`);
     }
 
     // 收集不安全的 URLs
@@ -129,9 +147,9 @@ export default async function handler(
         unsafeUrls.push(url);
         continue;
       } else {
-        // 然后检查 URL 是否可用
-        const isAvailable = await checkUrlAvailability(url);
-        if (!isAvailable) continue;
+      // 然后检查 URL 是否可用
+      const isAvailable = await checkUrlAvailability(url);
+      if (!isAvailable) continue;
       }
       // 异步处理不安全 URLs，不阻塞响应
       if (unsafeUrls.length > 0) {
@@ -169,19 +187,20 @@ export default async function handler(
         ]).catch(err => console.error('Error in background processing:', err));
       }
 
-      // 如果 URL 既安全又可用，返回它
-      return res.status(200).json({ url });
+      // 如果 URL 既安全又可用，直接重定向到目标URL
+      return res.redirect(302, `${url}${targetPath}`);
     }
 
-    // 如果没有找到可用的 URL，返回 404
-    return res.status(404).json({ message: 'No available and safe URL found' });
+    // 如果没有找到可用的 URL，使用回退URL重定向
+    return res.redirect(302, `${FALLBACK_URL}${targetPath}`);
   } catch (error) {
     // 使用更安全的错误日志
     if (process.env.NODE_ENV !== 'production') {
-      console.error('Error processing URLs:', error);
+    console.error('Error processing URLs:', error);
     } else {
       console.error('Error in URL processing');
     }
-    return res.status(500).json({ message: 'Internal server error' });
+    // 出错时使用回退URL重定向
+    return res.redirect(302, `${FALLBACK_URL}${targetPath}`);
   }
 }

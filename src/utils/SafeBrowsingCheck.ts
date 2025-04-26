@@ -9,7 +9,7 @@ export class SafeBrowsingCheck {
       if (!this.API_KEY) {
         // 在生产环境中不应该暴露敏感信息
         if (process.env.NODE_ENV !== 'production') {
-          console.error('Google Safe Browsing API key is not set');
+        console.error('Google Safe Browsing API key is not set');
         }
         return true; // 如果没有 API key，默认返回安全
       }
@@ -40,7 +40,7 @@ export class SafeBrowsingCheck {
     } catch (error) {
       // 在生产环境中使用更安全的错误日志
       if (process.env.NODE_ENV !== 'production') {
-        console.error('Error checking URL safety:', error);
+      console.error('Error checking URL safety:', error);
       } else {
         console.error('Error checking URL safety');
       }

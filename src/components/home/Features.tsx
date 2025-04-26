@@ -9,7 +9,11 @@ import {
   Layers
 } from 'lucide-react';
 
-const Features = () => {
+interface FeaturesProps {
+  restrictLinks?: boolean;
+}
+
+const Features = ({ restrictLinks = false }: FeaturesProps) => {
   const t = useTranslations();
 
   const features = [

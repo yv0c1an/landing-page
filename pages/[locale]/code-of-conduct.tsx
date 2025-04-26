@@ -4,19 +4,20 @@ import Head from 'next/head';
 import { defaultLocale } from '@/config/i18n';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { getVisitorType, isValidVisitor } from '@/utils/referrerCheck';
 
-export default function CodeOfConduct() {
+export default function CodeOfConduct({ isValid, visitorType }: { isValid: boolean; visitorType: string }) {
   const t = useTranslations('codeOfConduct');
   const appName = process.env.NEXT_PUBLIC_APP_NAME ;
-
   return (
     <>
       <Head>
         <title>{t('title')} | {appName}</title>
         <meta name="description" content={t('subtitle')} />
+        <meta name="keywords" content={process.env.NEXT_PUBLIC_KEYWORDS ||''} />
       </Head>
       <div className="flex flex-col min-h-screen">
-        <Header />
+        <Header restrictLinks={!isValid} />
         <main className="flex-grow">
           <div className="container mx-auto px-4 py-12">
             <div className="mb-12 text-center">
@@ -125,15 +126,19 @@ export default function CodeOfConduct() {
             </section>
           </div>
         </main>
-        <Footer />
+        <Footer restrictLinks={!isValid} />
       </div>
     </>
   );
 }
 
-// 使用 getServerSideProps 与项目其他页面保持一致
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+// 使用 getServerSideProps 替代 getStaticProps
+export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
   const locale = (params?.locale as string) || defaultLocale;
+  
+  // 检查访问来源，但这个页面对所有用户开放，不需要限制访问
+  const visitorType = getVisitorType(req as any);
+  const isValid = isValidVisitor(req as any);
   
   try {
     const messages = (await import(`@/locales/${locale}`)).default;
@@ -141,7 +146,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       props: {
         messages,
-        locale
+        locale,
+        isValid,
+        visitorType
       }
     };
   } catch (error) {
@@ -152,7 +159,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       props: {
         messages: defaultMessages,
-        locale: defaultLocale
+        locale: defaultLocale,
+        isValid,
+        visitorType
       }
     };
   }

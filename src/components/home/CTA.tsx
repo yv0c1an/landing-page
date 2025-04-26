@@ -5,7 +5,11 @@ import { useExternalLink } from '@/hooks/useExternalLink';
 import { RedirectModal } from '@/components/common/RedirectModal';
 import { Check, ArrowRight, TrendingUp } from 'lucide-react';
 
-const CTA = () => {
+interface CTAProps {
+  restrictLinks?: boolean;
+}
+
+const CTA = ({ restrictLinks = false }: CTAProps) => {
   const t = useTranslations();
   const { 
     handleExternalClick, 
@@ -63,15 +67,17 @@ const CTA = () => {
               </ul>
             </div>
             
-            {/* 注册按钮 */}
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button 
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 h-auto rounded-xl shadow-lg shadow-blue-600/30 text-lg font-medium"
-                onClick={() => handleExternalClick('/promote/')}
-              >
-                {t('cta.registerNow')} <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
+            {/* 注册按钮 - 根据restrictLinks控制显示 */}
+            {!restrictLinks && (
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button 
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 h-auto rounded-xl shadow-lg shadow-blue-600/30 text-lg font-medium"
+                  onClick={() => handleExternalClick('/promote/')}
+                >
+                  {t('cta.registerNow')} <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            )}
           </motion.div>
           
           {/* 右侧统计数据 */}

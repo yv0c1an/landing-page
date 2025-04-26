@@ -8,24 +8,35 @@ import SellerBenefits from "@/components/home/SellerBenefits";
 import SellerCases from "@/components/home/SellerCases";
 import ServiceFeatures from "@/components/home/ServiceFeatures";
 
-export default function Home() {
+interface HomeProps {
+  isValid: boolean;
+  visitorType: string;
+}
+
+export default function Home({ isValid, visitorType }: HomeProps) {
+  // 根据访问者类型记录日志，但不在UI中显示
+  console.log(`Visitor type: ${visitorType}, Valid: ${isValid}`);
+  
+  // 是否限制链接和跳转按钮
+  const restrictLinks = !isValid;
+
   return (
     <>
       <Head>
        <link rel="icon" sizes="32x32" href="/logo.svg" />
       </Head>
 
-      <Header />
+      <Header restrictLinks={restrictLinks} />
       <main>
-        <Hero />
-        <ServiceFeatures />
-        <Features />
-        {/* <PlatformInfo /> */}
-        <SellerBenefits />
-        <SellerCases />
-        <CTA />
+        {/* 所有访问者都显示所有内容，但非有效访问者的跳转按钮被限制 */}
+        <Hero restrictContent={restrictLinks} />
+        <ServiceFeatures restrictLinks={restrictLinks} />
+        <Features restrictLinks={restrictLinks} />
+        <SellerBenefits restrictLinks={restrictLinks} />
+        <SellerCases restrictLinks={restrictLinks} />
+        <CTA restrictLinks={restrictLinks} />
       </main>
-      <Footer />
+      <Footer restrictLinks={restrictLinks} />
     </>
   );
 }

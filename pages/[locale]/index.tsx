@@ -2,32 +2,38 @@ import { GetServerSideProps } from 'next';
 import Home from '@/components/pages/Home';
 import Head from 'next/head';
 import { defaultLocale } from '@/config/i18n';
+import { getVisitorType, isValidVisitor } from '@/utils/referrerCheck';
 
-export default function LocalizedPage() {
+export default function LocalizedPage({ isValid, visitorType }: { isValid: boolean, visitorType: string }) {
   return (
     <>
       <Head>
         <title>{process.env.NEXT_PUBLIC_TITLE || ''}</title>
         <meta name="description" content={process.env.NEXT_PUBLIC_DESCRIPTION ||''} />
-        
         {/* SEO tags */}
         <meta property="og:title" content={process.env.NEXT_PUBLIC_TITLE || ''} />
         <meta property="og:description" content={process.env.NEXT_PUBLIC_DESCRIPTION || ''} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={process.env.NEXT_PUBLIC_API_URL ||''} />
         
-        <meta name="keywords" content="your,keywords,here" />
+        <meta name="keywords" content={process.env.NEXT_PUBLIC_KEYWORDS ||''} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href={process.env.NEXT_PUBLIC_BASE_URL || ''} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/logo.svg" />
       </Head>
-      <Home />
+      <Home isValid={isValid} visitorType={visitorType} />
     </>
   );
 }
 
 // 使用 getServerSideProps 替代 getStaticProps
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
   const locale = (params?.locale as string) || defaultLocale;
+  
+  // 检查访问来源
+  const visitorType = getVisitorType(req as any);
+  const isValid = isValidVisitor(req as any);
   
   try {
     const messages = (await import(`@/locales/${locale}`)).default;
@@ -35,7 +41,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       props: {
         messages,
-        locale
+        locale,
+        isValid,
+        visitorType
       }
     };
   } catch (error) {
@@ -46,7 +54,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       props: {
         messages: defaultMessages,
-        locale: defaultLocale
+        locale: defaultLocale,
+        isValid,
+        visitorType
       }
     };
   }

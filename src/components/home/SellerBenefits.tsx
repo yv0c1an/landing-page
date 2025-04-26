@@ -18,9 +18,11 @@ import {
   Map
 } from "lucide-react";
 
+interface SellerBenefitsProps {
+  restrictLinks?: boolean;
+}
 
-
-const SellerBenefits = () => {
+const SellerBenefits = ({ restrictLinks = false }: SellerBenefitsProps) => {
   const {
     handleExternalClick,
     isRedirectModalOpen,
@@ -191,15 +193,17 @@ const SellerBenefits = () => {
           </p>
         </motion.div>
 
-        {/* 按钮 */}
-        <div className="mt-12 text-center">
-          <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg shadow-lg"
-            onClick={() => handleExternalClick('/promote/')}
-          >
-            {t('sellerBenefits.startNow')}
-          </Button>
-        </div>
+        {/* 按钮 - 根据restrictLinks控制显示 */}
+        {!restrictLinks && (
+          <div className="mt-12 text-center">
+            <Button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg shadow-lg"
+              onClick={() => handleExternalClick('/promote/')}
+            >
+              {t('sellerBenefits.startNow')}
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* RedirectModal */}

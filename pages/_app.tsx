@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import "../src/styles/globals.css";
 import Head from 'next/head';
 import { defaultLocale } from '@/config/i18n';
+import { CookieConsentBanner } from '@/components/common/CookieConsent';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,15 +16,6 @@ type PageProps = {
 export default function App({ Component, pageProps }: AppProps<PageProps>) {
   return (
     <>
-      <Head>
-        <title>{process.env.NEXT_PUBLIC_TITLE}</title>
-        <meta
-          name="description"
-          content={process.env.NEXT_PUBLIC_DESCRIPTION }
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/logo.svg" />
-      </Head>
       <NextIntlClientProvider
         messages={pageProps.messages}
         locale={pageProps.locale || defaultLocale}
@@ -31,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps<PageProps>) {
       >
         <main className={inter.className}>
           <Component {...pageProps} />
+          <CookieConsentBanner />
         </main>
       </NextIntlClientProvider>
     </>

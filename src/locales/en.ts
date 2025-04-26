@@ -14,6 +14,11 @@ export default {
     terms: 'Terms of Service',
     allRightsReserved: 'All Rights Reserved',
   },
+  cookies: {
+    message: "We use cookies to enhance your experience on our website. By continuing to use our site, you agree to our use of cookies in accordance with our Privacy Policy.",
+    accept: "Accept",
+    decline: "Decline",
+  },
   nav: {
     selectLanguage: "Select Language",
     languages: {

@@ -1,7 +1,11 @@
 import { useTranslations } from 'next-intl';
 import { Truck, RotateCcw, CreditCard, MessageCircle, Gift } from 'lucide-react';
 
-const ServiceFeatures = () => {
+interface ServiceFeaturesProps {
+  restrictLinks?: boolean;
+}
+
+const ServiceFeatures = ({ restrictLinks = false }: ServiceFeaturesProps) => {
   const t = useTranslations('serviceFeatures');
 
   const features = [

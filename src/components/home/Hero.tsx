@@ -2,9 +2,16 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/router';
+import { useExternalLink } from '@/hooks/useExternalLink';
 
-const Hero = () => {
+interface HeroProps {
+  restrictContent?: boolean;
+}
+
+const Hero = ({ restrictContent = false }: HeroProps) => {
   const t = useTranslations();
+  const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -28,7 +35,7 @@ const Hero = () => {
   ];
 
   // 自动轮播
-  useEffect(() => {
+  useEffect(() => {    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
@@ -91,6 +98,8 @@ const Hero = () => {
                 <div className="max-w-2xl text-white">
                   <h1 className="text-4xl md:text-5xl font-bold mb-4">{slide.title}</h1>
                   <p className="text-lg md:text-xl">{slide.subtitle}</p>
+                  
+            
                 </div>
               </div>
             </motion.div>

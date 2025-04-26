@@ -2,7 +2,11 @@ import Link from 'next/link';
 import Image from "next/image";
 import { useTranslations } from 'next-intl';
 
-const Footer = () => {
+interface FooterProps {
+  restrictLinks?: boolean;
+}
+
+const Footer = ({ restrictLinks = false }: FooterProps) => {
   const t = useTranslations();
   const currentYear = new Date().getFullYear();
   const appName = process.env.NEXT_PUBLIC_APP_NAME ;
@@ -31,19 +35,7 @@ const Footer = () => {
 
           {/* 右侧链接和版权信息 */}
           <div className="flex flex-col items-center md:items-end">
-            {/* <div className="flex items-center space-x-6 mb-4">
-              <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-                {t('common.about')}
-              </Link>
-              <Link href="/privacy" className="text-gray-300 hover:text-white transition-colors">
-                {t('common.privacy')}
-              </Link>
-              <Link href="/terms" className="text-gray-300 hover:text-white transition-colors">
-                {t('common.terms')}
-              </Link>
-            </div> */}
-            <br/>
-            <br/>
+           
             <br/>
             <div className="text-gray-400 text-sm">
               © 1998 - {currentYear} {appName}. {t('common.allRightsReserved')}
