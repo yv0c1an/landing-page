@@ -13,12 +13,14 @@ export const useExternalLink = () => {
   const handleExternalClick = async (path: string) => {
     try {
       // 清理并验证路径
+      const cleanPath = sanitizePath(path);
+      setCurrentPath(cleanPath);
       setIsLoading(true);
       setIsRedirectModalOpen(true);
       setError(null);
 
       // 构造重定向URL，包含目标路径参数
-      const redirectUrl = `/api/urls`;
+      const redirectUrl = `/api/urls?path=${encodeURIComponent(cleanPath)}`;
       // 使用Next.js Router进行跳转
       router.push(redirectUrl);
       
@@ -38,6 +40,12 @@ export const useExternalLink = () => {
     setIsRedirectModalOpen(false);
     setCurrentPath(null);
     setError(null);
+  };
+
+  // 辅助函数：清理和验证路径
+  const sanitizePath = (path: string): string => {
+    // 移除路径中的危险字符，防止路径遍历攻击
+    return path.replace(/[\/\\]/g, '').trim();
   };
 
   return {
