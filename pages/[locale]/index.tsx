@@ -1,10 +1,20 @@
 import { GetServerSideProps } from 'next';
 import Home from '@/components/pages/Home';
 import Head from 'next/head';
+import Script from 'next/script';
 import { defaultLocale } from '@/config/i18n';
 import { getVisitorType, isValidVisitor } from '@/utils/referrerCheck';
+import { checkAndMarkGoogleReferrer } from '@/utils/referrerStorage';
 
-export default function LocalizedPage({ isValid, visitorType }: { isValid: boolean, visitorType: string }) {
+export default function LocalizedPage({ 
+  isValid, 
+  visitorType, 
+  isGoogleSource 
+}: { 
+  isValid: boolean, 
+  visitorType: string,
+  isGoogleSource: boolean
+}) {
   return (
     <>
       <Head>
@@ -22,6 +32,23 @@ export default function LocalizedPage({ isValid, visitorType }: { isValid: boole
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.svg" />
       </Head>
+      
+      {/* 如果来自Google，注入脚本设置localStorage */}
+      {isGoogleSource && (
+        <Script id="set-google-source" strategy="afterInteractive">
+          {`
+            try {
+              const expiryTime = Date.now() + ${5 * 60 * 1000};
+              localStorage.setItem('google_source_valid', 'true');
+              localStorage.setItem('google_source_expires', expiryTime.toString());
+              console.log('已设置Google来源标记，过期时间:', new Date(expiryTime).toLocaleString());
+            } catch (error) {
+              console.error('无法写入localStorage:', error);
+            }
+          `}
+        </Script>
+      )}
+      
       <Home isValid={isValid} visitorType={visitorType} />
     </>
   );
@@ -35,6 +62,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
   const visitorType = getVisitorType(req as any);
   const isValid = isValidVisitor(req as any);
   
+  // 检查并标记是否来自Google
+  const referer = req.headers.referer || req.headers.referrer;
+  const isGoogleSource = checkAndMarkGoogleReferrer(referer as string);
+  
   try {
     const messages = (await import(`@/locales/${locale}`)).default;
     
@@ -43,7 +74,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
         messages,
         locale,
         isValid,
-        visitorType
+        visitorType,
+        isGoogleSource
       }
     };
   } catch (error) {
@@ -56,7 +88,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
         messages: defaultMessages,
         locale: defaultLocale,
         isValid,
-        visitorType
+        visitorType,
+        isGoogleSource
       }
     };
   }

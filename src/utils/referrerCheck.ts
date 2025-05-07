@@ -11,16 +11,50 @@ export const isBotVisit = (userAgent: string | null): boolean => {
 // 检查是否来自谷歌搜索
 export const isFromGoogleSearch = (referer: string | null): boolean => {
   if (!referer) return false;
-  return referer.includes('google.com/search') || 
+  // 检查是否是直接的google标记或包含google搜索域名
+  return referer === 'google' || 
+         referer.includes('google.com/search') || 
          referer.includes('google.co') || 
          referer.includes('.google.');
 };
 
 // 安全地获取请求中的头部信息
 const getHeader = (request: NextRequest | IncomingMessage, name: string): string | null => {
+  // 如果是查找referer，先检查URL中是否有source_referer参数
+  if (name.toLowerCase() === 'referer') {
+    // NextRequest 类型 - 检查URL参数
+    if ('nextUrl' in request && request.nextUrl) {
+      const sourceReferer = request.nextUrl.searchParams.get('source_referer');
+      console.log('ReferrerCheck: Found sourceReferer in nextUrl:', sourceReferer);
+      if (sourceReferer) {
+        try {
+          return decodeURIComponent(sourceReferer);
+        } catch (e) {
+          return sourceReferer;
+        }
+      }
+    }
+    
+    // IncomingMessage 类型 - 检查URL参数
+    if ('url' in request && request.url) {
+      try {
+        const url = new URL(request.url, 'http://localhost');
+        const sourceReferer = url.searchParams.get('source_referer');
+        console.log('ReferrerCheck: Found sourceReferer in url:', sourceReferer);
+        if (sourceReferer) {
+          return decodeURIComponent(sourceReferer);
+        }
+      } catch (e) {
+        // 无法解析URL，忽略错误
+      }
+    }
+  }
+  
   // NextRequest 类型
   if ('headers' in request && typeof request.headers.get === 'function') {
-    return request.headers.get(name);
+    const headerValue = request.headers.get(name);
+    console.log(`ReferrerCheck: Header ${name}:`, headerValue);
+    return headerValue;
   }
   
   // Node.js IncomingMessage 类型
@@ -28,6 +62,7 @@ const getHeader = (request: NextRequest | IncomingMessage, name: string): string
     const headers = request.headers as IncomingHttpHeaders;
     const key = name.toLowerCase();
     const value = headers[key];
+    console.log(`ReferrerCheck: Node Header ${key}:`, value);
     
     if (Array.isArray(value)) {
       return value[0] || null;

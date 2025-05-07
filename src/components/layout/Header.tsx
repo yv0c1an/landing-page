@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Menu } from 'lucide-react';
 import { locales, defaultLocale } from '@/config/i18n';
 import { useExternalLink } from '@/hooks/useExternalLink';
+import { isGoogleSourceValid } from '@/utils/referrerStorage';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -35,7 +36,10 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
   const router = useRouter();
   const t = useTranslations();
   const { locale, pathname, asPath, query } = router;
-
+  
+  // 使用状态来跟踪Google来源有效性
+  const [isGoogleSource, setIsGoogleSource] = useState(false);
+  
   // 从 URL 路径中提取语言代码
   const extractLocaleFromPath = () => {
     const path = asPath || pathname || '';
@@ -48,20 +52,31 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
     return locale || defaultLocale;
   };
 
-
-
-
-
   const pathLocale = extractLocaleFromPath();
   const [currentLocale, setCurrentLocale] = useState(pathLocale);
   const { handleExternalClick, handleClose, isRedirectModalOpen, error } = useExternalLink();
-  console.log('defaultLocale', defaultLocale);
-  console.log('pathLocale', pathLocale);
+  
   useEffect(() => {
     // 优先使用 URL 路径中的语言
     const localeFromPath = extractLocaleFromPath();
     setCurrentLocale(localeFromPath);
   }, [locale, asPath, pathname]);
+  
+  // 从localStorage读取Google来源信息
+  useEffect(() => {
+    const checkGoogleSource = () => {
+      const isValid = isGoogleSourceValid();
+      setIsGoogleSource(isValid);
+    };
+    
+    // 初始检查
+    checkGoogleSource();
+    
+    // 设置定期检查，处理过期情况
+    const interval = setInterval(checkGoogleSource, 30000); // 每30秒检查一次
+    
+    return () => clearInterval(interval);
+  }, []);
 
   const languages = locales.map(lang => ({
     key: lang,
@@ -70,7 +85,15 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
   }));
 
   const handleLanguageChange = (newLocale: string) => {
+    // 只保留路径部分，完全丢弃查询参数
     let cleanPath = asPath || pathname;
+    
+    // 移除查询部分
+    if (cleanPath.includes('?')) {
+      cleanPath = cleanPath.split('?')[0];
+    }
+    
+    // 移除路径中的语言前缀
     locales.forEach(loc => {
       cleanPath = cleanPath.replace(`/${loc}`, '');
     });
@@ -78,8 +101,11 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
     if (!cleanPath || cleanPath === '/') {
       cleanPath = '/';
     }
-
-    const newPath = cleanPath === '/' ? `/${newLocale}` : `/${newLocale}${cleanPath}`;
+    
+    // 构建新的基础路径 - 不再添加任何查询参数
+    let newPath = `/${newLocale}${cleanPath}`;
+    
+    console.log('切换语言到:', newLocale, '新路径:', newPath);
     setCurrentLocale(newLocale);
     router.push(newPath);
   };
@@ -88,12 +114,18 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
 
   const buttonClassName = "hover:bg-blue-700 hover:text-white focus:bg-blue-700 transition-colors text-white";
 
+  // 使用isGoogleSource状态或传入的restrictLinks来决定是否显示所有链接
+  const shouldShowAllLinks = !restrictLinks || isGoogleSource;
+
   return (
     <header className="sticky top-0 z-40 w-full bg-primary-blue backdrop-blur-md border-b border-blue-600">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href={`/${currentLocale}`} className="flex items-center gap-2">
+          <Link 
+            href={`/${currentLocale}`}
+            className="flex items-center gap-2"
+          >
             <Image
               src="/logo.svg"
               alt="Logo"
@@ -108,7 +140,7 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-4 ml-auto">
-            {!restrictLinks && (
+            {shouldShowAllLinks && (
               <>
                 <Button
                   color="ghost"
@@ -134,7 +166,10 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
               </>
             )}
 
-            <Link href={`/${currentLocale}/code-of-conduct`} passHref>
+            <Link 
+              href={`/${currentLocale}/code-of-conduct`}
+              passHref
+            >
               <Button
                 color="ghost"
                 className={buttonClassName}
@@ -142,7 +177,7 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
                 {t('common.codeOfConduct')}
               </Button>
             </Link>
-            {!restrictLinks && (
+            {shouldShowAllLinks && (
               <Button
                 color="ghost"
                 className={buttonClassName}
@@ -209,7 +244,7 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
                   <SheetTitle>{appName}</SheetTitle>
                 </SheetHeader>
                 <div className="mt-6 flex flex-col gap-4">
-                  {!restrictLinks && (
+                  {shouldShowAllLinks && (
                     <>
                       <Button
                         color="default"
@@ -234,7 +269,11 @@ export default function Header({ restrictLinks = false }: HeaderProps) {
                   >
                     {t('common.about')}
                   </Button>
-                  <Link href={`/${currentLocale}/code-of-conduct`} passHref className='w-full'>
+                  <Link 
+                    href={`/${currentLocale}/code-of-conduct`}
+                    passHref 
+                    className='w-full'
+                  >
                     <Button
                       color="default"
                       className={`justify-start ${buttonClassName} w-full`}

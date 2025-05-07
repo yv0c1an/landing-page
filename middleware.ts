@@ -9,18 +9,33 @@ const intlMiddleware = createMiddleware({
   localePrefix: 'always',
 });
 
-// 自定义中间件，先处理根路径，然后交给 next-intl
+// 检测浏览器首选语言
+function getPreferredLocale(request: NextRequest): string {
+  // 获取 Accept-Language 头部
+  const acceptLanguage = request.headers.get('accept-language') || '';
+  
+  // 检查是否包含中文语言代码 (zh, zh-CN, zh-TW 等)
+  if (acceptLanguage.match(/^zh|,zh/i)) {
+    return 'zh';
+  }
+  
+  // 默认返回英文
+  return 'en';
+}
+
+// 自定义中间件，只处理根路径重定向，其余交给 next-intl
 export default function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const pathname = url.pathname;
   
-  // 如果是根路径，直接重定向到英文
+  // 如果是根路径，根据浏览器语言重定向
   if (pathname === '/' || pathname === '') {
-    url.pathname = '/en';
+    const preferredLocale = getPreferredLocale(request);
+    url.pathname = `/${preferredLocale}`;
     return NextResponse.redirect(url);
   }
   
-  // 其他路径交给 next-intl 处理
+  // 其他所有情况，直接交给next-intl处理
   return intlMiddleware(request);
 }
 
