@@ -1,1 +1,2 @@
-example.com
+https://example.com
+https://wasuperbuymall.com

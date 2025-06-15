@@ -25,7 +25,6 @@ const getHeader = (request: NextRequest | IncomingMessage, name: string): string
     // NextRequest 类型 - 检查URL参数
     if ('nextUrl' in request && request.nextUrl) {
       const sourceReferer = request.nextUrl.searchParams.get('source_referer');
-      console.log('ReferrerCheck: Found sourceReferer in nextUrl:', sourceReferer);
       if (sourceReferer) {
         try {
           return decodeURIComponent(sourceReferer);
@@ -40,7 +39,6 @@ const getHeader = (request: NextRequest | IncomingMessage, name: string): string
       try {
         const url = new URL(request.url, 'http://localhost');
         const sourceReferer = url.searchParams.get('source_referer');
-        console.log('ReferrerCheck: Found sourceReferer in url:', sourceReferer);
         if (sourceReferer) {
           return decodeURIComponent(sourceReferer);
         }
@@ -53,7 +51,6 @@ const getHeader = (request: NextRequest | IncomingMessage, name: string): string
   // NextRequest 类型
   if ('headers' in request && typeof request.headers.get === 'function') {
     const headerValue = request.headers.get(name);
-    console.log(`ReferrerCheck: Header ${name}:`, headerValue);
     return headerValue;
   }
   
@@ -62,7 +59,6 @@ const getHeader = (request: NextRequest | IncomingMessage, name: string): string
     const headers = request.headers as IncomingHttpHeaders;
     const key = name.toLowerCase();
     const value = headers[key];
-    console.log(`ReferrerCheck: Node Header ${key}:`, value);
     
     if (Array.isArray(value)) {
       return value[0] || null;
