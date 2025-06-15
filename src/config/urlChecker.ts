@@ -1,12 +1,13 @@
 /**
  * URL 检查器配置
  * 统一管理所有 URL 检查相关的配置选项
+ * 配置值从环境变量中读取
  */
 
 // 谷歌红名单检查配置
 export const GOOGLE_CHECK_CONFIG = {
-  apiUrl: 'https://openapi.chinaz.net/v1/1029/check_google',
-  apiKey: 'apiuser_quantity_bdf393c36eaab9e9f597054cda226b13_3e8293b29ef94265b5f412d4098799ed',
+  apiUrl: process.env.GOOGLE_CHECK_API_URL || 'https://openapi.chinaz.net/v1/1029/check_google',
+  apiKey: process.env.GOOGLE_CHECK_API_KEY || '',
   version: '1.0',
   timeout: 8000, // 8秒超时
   retries: 2, // 重试2次
@@ -29,12 +30,26 @@ export const SAFE_BROWSING_CONFIG = {
 
 // 文件路径配置
 export const FILE_PATHS = {
-  urlList: 'url.txt',
-  redList: 'red_url.txt'
+  urlList: process.env.URL_LIST_FILE || 'url.txt',
+  redList: process.env.RED_LIST_FILE || 'red_url.txt'
 };
 
 // 日志配置
 export const LOG_CONFIG = {
-  enableDetailedLogs: process.env.NODE_ENV == 'production',
+  enableDetailedLogs: process.env.NODE_ENV === 'production',
   enableErrorLogs: true
-}; 
+};
+
+// 验证必需的环境变量
+export function validateConfig(): { isValid: boolean; missingVars: string[] } {
+  const requiredVars = [
+    'GOOGLE_CHECK_API_KEY'
+  ];
+  
+  const missingVars = requiredVars.filter(varName => !process.env[varName]);
+  
+  return {
+    isValid: missingVars.length === 0,
+    missingVars
+  };
+} 

@@ -9,7 +9,7 @@ const SellerRegister: NextPage = () => {
   return (
     <>
       <Head>
-        <title>商家入驻 - {appName}</title>
+        <title>{`商家入驻 | ${appName}`}</title>
         <meta
           name="description"
           content="加入CrossBorder跨境电商平台，开启您的全球贸易之旅。"

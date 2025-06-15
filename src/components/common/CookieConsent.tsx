@@ -3,7 +3,7 @@ import CookieConsent, { Cookies } from 'react-cookie-consent';
 import { useTranslations } from 'next-intl';
 
 export function CookieConsentBanner() {
-  const t = useTranslations();
+  const t = useTranslations("cookies");
   const [mounted, setMounted] = useState(false);
 
   // 避免服务器端渲染问题
@@ -16,8 +16,8 @@ export function CookieConsentBanner() {
   return (
     <CookieConsent
       location="bottom"
-      buttonText={t('cookies.accept')}
-      declineButtonText={t('cookies.decline')}
+      buttonText={t('accept')}
+      declineButtonText={t('decline')}
       cookieName="myApp-cookieConsent"
       style={{ background: "#0F172A", zIndex: 9999 }}
       buttonStyle={{ 
@@ -38,7 +38,7 @@ export function CookieConsentBanner() {
       enableDeclineButton
       expires={150}
     >
-      {t('cookies.message')}
+      {t('message')}
     </CookieConsent>
   );
 } 

@@ -25,6 +25,10 @@
 - **`urlSecurityChecker.ts`** - URL 安全检查器
   - `performSecurityCheck()` - 执行完整的 URL 安全检查（整合所有检查功能）
 
+- **`urlHelper.ts`** - URL 辅助工具
+  - `getCurrentSiteUrl()` - 动态获取当前网站的根网址
+  - `buildFullUrl()` - 构建完整的URL
+
 ### 通用工具模块
 
 - **`arrayUtils.ts`** - 数组工具函数
@@ -35,12 +39,13 @@
 
 ### 配置管理
 
-- **`../config/urlChecker.ts`** - URL 检查器配置文件 🆕
+- **`../config/urlChecker.ts`** - URL 检查器配置文件
   - `GOOGLE_CHECK_CONFIG` - 谷歌红名单检查配置
   - `AVAILABILITY_CHECK_CONFIG` - URL 可用性检查配置
   - `SAFE_BROWSING_CONFIG` - SafeBrowsing 检查配置
   - `FILE_PATHS` - 文件路径配置
   - `LOG_CONFIG` - 日志配置
+  - `validateConfig()` - 配置验证函数
 
 ### 类型定义
 
@@ -58,26 +63,24 @@
 ```typescript
 // 谷歌红名单检查配置
 export const GOOGLE_CHECK_CONFIG = {
-  apiUrl: 'https://openapi.chinaz.net/v1/1029/check_google',
-  apiKey: 'your-api-key',
+  apiUrl: process.env.GOOGLE_CHECK_API_URL || 'https://openapi.chinaz.net/v1/1029/check_google',
+  apiKey: process.env.GOOGLE_CHECK_API_KEY || '',
   version: '1.0',
   timeout: 8000, // 8秒超时
   retries: 2, // 重试2次
   retryDelay: 1000 // 重试延迟基数（毫秒）
 };
 
-// URL 可用性检查配置
-export const AVAILABILITY_CHECK_CONFIG = {
-  timeout: 5000, // 5秒超时
-  maxRedirects: 0, // 不跟随重定向
-  retries: 1, // 重试1次
-  retryDelay: 500 // 重试延迟（毫秒）
+// 文件路径配置
+export const FILE_PATHS = {
+  urlList: process.env.URL_LIST_FILE || 'url.txt',
+  redList: process.env.RED_LIST_FILE || 'red_url.txt'
 };
 
 // 日志配置
 export const LOG_CONFIG = {
-  enableDetailedLogs: process.env.NODE_ENV == 'production', // 生产环境启用详细日志
-  enableErrorLogs: true // 始终启用错误日志
+  enableDetailedLogs: process.env.NODE_ENV === 'production',
+  enableErrorLogs: true
 };
 ```
 
@@ -88,6 +91,73 @@ export const LOG_CONFIG = {
 - **`enableDetailedLogs`** - 控制详细日志输出（包括调试信息）
 - **`enableErrorLogs`** - 控制错误日志输出
 
+### 🌐 动态URL获取
+
+新增的 `urlHelper.ts` 提供了动态获取当前网站URL的功能：
+
+```typescript
+import { getCurrentSiteUrl, buildFullUrl } from '@/utils/urlHelper';
+
+// 在API路由中使用
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // 自动获取当前网站的根网址
+  const siteUrl = getCurrentSiteUrl(req); // 例如: https://example.com
+  
+  // 构建完整URL
+  const fullUrl = buildFullUrl(req, '/about'); // 例如: https://example.com/about
+}
+```
+
+### 📁 文件路径配置
+
+文件路径现在直接使用 `FILE_PATHS` 中的值，支持以下格式：
+
+- **相对路径**: `url.txt` (相对于项目根目录)
+- **绝对路径**: `/path/to/url.txt` (完整的文件系统路径)
+- **环境变量**: 通过 `URL_LIST_FILE` 和 `RED_LIST_FILE` 环境变量配置
+
+```typescript
+// 在代码中直接使用
+const filePath = FILE_PATHS.urlList;        // 例如: 'url.txt' 或 '/path/to/url.txt'
+const redFilePath = FILE_PATHS.redList;     // 例如: 'red_url.txt' 或 '/path/to/red_url.txt'
+```
+
+## 环境变量配置
+
+### 📁 需要的环境变量文件
+
+创建以下环境变量文件（根据需要）：
+
+#### `.env.local` (本地开发)
+```bash
+# 谷歌红名单检查 API 配置
+GOOGLE_CHECK_API_URL=https://openapi.chinaz.net/v1/1029/check_google
+GOOGLE_CHECK_API_KEY=your_api_key_here
+
+# 文件路径配置（可选，有默认值）
+URL_LIST_FILE=url.txt
+RED_LIST_FILE=red_url.txt
+
+# 或者使用绝对路径
+# URL_LIST_FILE=/path/to/your/url.txt
+# RED_LIST_FILE=/path/to/your/red_url.txt
+```
+
+#### `.env.production` (生产环境)
+```bash
+# 谷歌红名单检查 API 配置
+GOOGLE_CHECK_API_URL=https://openapi.chinaz.net/v1/1029/check_google
+GOOGLE_CHECK_API_KEY=your_production_api_key_here
+
+# 文件路径配置（可选，有默认值）
+URL_LIST_FILE=url.txt
+RED_LIST_FILE=red_url.txt
+
+# 生产环境可能使用不同的路径
+# URL_LIST_FILE=/var/data/url.txt
+# RED_LIST_FILE=/var/data/red_url.txt
+```
+
 ## 使用示例
 
 ```typescript
@@ -97,31 +167,41 @@ import { readUrlsFromFile, updateUrlFiles } from '@/utils/urlFileManager';
 import { performSecurityCheck } from '@/utils/urlSecurityChecker';
 import { shuffleArray } from '@/utils/arrayUtils';
 import { FILE_PATHS, LOG_CONFIG } from '@/config/urlChecker';
+import { getCurrentSiteUrl } from '@/utils/urlHelper';
 
-// 使用配置文件中的路径
-const filePath = path.join(process.cwd(), FILE_PATHS.urlList);
-const redFilePath = path.join(process.cwd(), FILE_PATHS.redList);
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // 直接使用配置中的文件路径
+  const filePath = FILE_PATHS.urlList;      // 不再需要 path.join(process.cwd(), ...)
+  const redFilePath = FILE_PATHS.redList;   // 直接使用配置值
+  
+  // 动态获取当前网站URL作为回退
+  const fallbackUrl = getCurrentSiteUrl(req);
 
-// 清理路径
-const cleanPath = sanitizePath(userInput);
+  // 清理路径
+  const cleanPath = sanitizePath(userInput);
 
-// 读取 URL 列表
-const urls = readUrlsFromFile(filePath);
+  // 读取 URL 列表
+  const urls = readUrlsFromFile(filePath);
 
-// 随机打乱 URL 列表
-const shuffledUrls = shuffleArray(urls);
+  // 随机打乱 URL 列表
+  const shuffledUrls = shuffleArray(urls);
 
-// 执行安全检查
-for (const url of shuffledUrls) {
-  if (LOG_CONFIG.enableDetailedLogs) {
-    console.log(`Checking URL: ${url}`);
+  // 执行安全检查
+  for (const url of shuffledUrls) {
+    if (LOG_CONFIG.enableDetailedLogs) {
+      console.log(`Checking URL: ${url}`);
+    }
+    
+    const result = await performSecurityCheck(url);
+    if (result.isSecure) {
+      // 使用安全的 URL
+      res.redirect(302, `${url}${cleanPath}`);
+      return;
+    }
   }
   
-  const result = await performSecurityCheck(url);
-  if (result.isSecure) {
-    // 使用安全的 URL
-    break;
-  }
+  // 回退到当前网站
+  res.redirect(302, `${fallbackUrl}${cleanPath}`);
 }
 ```
 
@@ -129,12 +209,14 @@ for (const url of shuffledUrls) {
 
 1. **单一职责原则** - 每个文件只负责一个特定功能
 2. **高内聚低耦合** - 相关功能聚集在一起，模块间依赖最小化
-3. **统一配置管理** - 所有配置集中管理，便于调整和维护 🆕
-4. **灵活的日志控制** - 可根据环境和需求调整日志输出 🆕
-5. **易于测试** - 每个工具函数都可以独立测试
-6. **易于维护** - 修改某个功能时只需要关注对应的文件
-7. **代码复用** - 工具函数可以在其他地方复用
-8. **清晰的依赖关系** - 通过 import 可以清楚看到模块间的依赖
+3. **统一配置管理** - 所有配置集中管理，便于调整和维护
+4. **灵活的日志控制** - 可根据环境和需求调整日志输出
+5. **动态URL处理** - 自动适应不同的部署环境
+6. **灵活的文件路径** - 支持相对路径和绝对路径配置 🆕
+7. **易于测试** - 每个工具函数都可以独立测试
+8. **易于维护** - 修改某个功能时只需要关注对应的文件
+9. **代码复用** - 工具函数可以在其他地方复用
+10. **清晰的依赖关系** - 通过 import 可以清楚看到模块间的依赖
 
 ## 依赖关系图
 
@@ -147,13 +229,14 @@ pages/api/urls.ts
 │   ├── @/utils/SafeBrowsingCheck
 │   ├── @/utils/googleRedListChecker
 │   │   ├── @/utils/urlValidator
-│   │   └── @/config/urlChecker 🆕
+│   │   └── @/config/urlChecker
 │   ├── @/utils/urlAvailabilityChecker
-│   │   └── @/config/urlChecker 🆕
-│   └── @/config/urlChecker 🆕
+│   │   └── @/config/urlChecker
+│   └── @/config/urlChecker
 ├── @/utils/arrayUtils
+├── @/utils/urlHelper
 ├── @/types/api
-└── @/config/urlChecker 🆕
+└── @/config/urlChecker
 ```
 
 ## 配置调优建议
@@ -168,7 +251,13 @@ pages/api/urls.ts
 - 生产环境：设置 `enableDetailedLogs: false` 减少日志输出
 
 ### 📁 文件管理
-- 可通过 `FILE_PATHS` 配置自定义文件路径
-- 支持相对路径和绝对路径
+- **相对路径**: 适用于简单部署，文件位于项目根目录
+- **绝对路径**: 适用于复杂部署，文件位于特定目录
+- **环境变量**: 不同环境使用不同的文件路径
+
+### 🌐 URL处理
+- 自动检测协议（HTTP/HTTPS）
+- 支持代理环境（x-forwarded-proto, x-forwarded-host）
+- 本地开发和生产环境自适应
 
 这种模块化和配置化的设计使得代码更加清晰、可维护，并且便于单元测试和功能扩展。 

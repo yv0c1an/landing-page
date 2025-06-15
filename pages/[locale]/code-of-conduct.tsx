@@ -22,7 +22,7 @@ export default function CodeOfConduct({
   return (
     <>
       <Head>
-        <title>{t('title')} | {appName}</title>
+        <title>{`${t('title')} | ${appName}`}</title>
         <meta name="description" content={t('subtitle')} />
         <meta name="keywords" content={process.env.NEXT_PUBLIC_KEYWORDS ||''} />
       </Head>

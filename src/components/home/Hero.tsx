@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/router';
-import { useExternalLink } from '@/hooks/useExternalLink';
 
 interface HeroProps {
   restrictContent?: boolean;
