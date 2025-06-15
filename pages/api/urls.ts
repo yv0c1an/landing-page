@@ -33,7 +33,6 @@ export default async function handler(
   
   // 动态获取当前网站的根网址作为回退URL
   const fallbackUrl = getCurrentSiteUrl(req);
-
   try {
     // 直接使用配置中的文件路径
     const filePath = FILE_PATHS.urlList;

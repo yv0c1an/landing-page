@@ -58,6 +58,14 @@ export default function LocalizedPage({
 export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
   const locale = (params?.locale as string) || defaultLocale;
   
+  // 过滤掉非语言代码的请求（如 favicon.ico, robots.txt 等）
+  const validLocales = ['en', 'zh']; // 或者从 @/config/i18n 导入 locales
+  if (!validLocales.includes(locale)) {
+    return {
+      notFound: true, // 返回 404
+    };
+  }
+  
   // 检查访问来源
   const visitorType = getVisitorType(req as any);
   const isValid = isValidVisitor(req as any);

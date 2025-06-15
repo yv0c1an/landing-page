@@ -28,7 +28,7 @@ export function getCurrentSiteUrl(req: NextApiRequest): string {
   
   // 确定主机名
   const hostname = forwardedHost || host || 'localhost:3000';
-  
+  console.log(`hostname: ${hostname}`);
   return `${protocol}://${hostname}`;
 }
 

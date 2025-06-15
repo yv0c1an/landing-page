@@ -23,22 +23,32 @@ function getPreferredLocale(request: NextRequest): string {
   return 'en';
 }
 
-// 自定义中间件，只处理根路径重定向，其余交给 next-intl
 export default function middleware(request: NextRequest) {
-  const url = request.nextUrl.clone();
-  const pathname = url.pathname;
+  const { pathname } = request.nextUrl;
   
-  // 如果是根路径，根据浏览器语言重定向
-  if (pathname === '/' || pathname === '') {
-    const preferredLocale = getPreferredLocale(request);
-    url.pathname = `/${preferredLocale}`;
-    return NextResponse.redirect(url);
+  // 跳过静态文件和 API 路由
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.includes('.') || // 包含点的文件（如 favicon.ico, robots.txt）
+    pathname.startsWith('/static')
+  ) {
+    return NextResponse.next();
   }
   
-  // 其他所有情况，直接交给next-intl处理
+  // 处理根路径重定向
+  if (pathname === '/') {
+    const preferredLocale = getPreferredLocale(request);
+    return NextResponse.redirect(new URL(`/${preferredLocale}`, request.url));
+  }
+  
+  // 使用 next-intl 中间件处理其他路由
   return intlMiddleware(request);
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  matcher: [
+    // 匹配所有路径，除了以下开头的：
+    '/((?!_next|api|static|.*\\..*).*)',
+  ]
 };
