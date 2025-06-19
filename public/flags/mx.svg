@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20">
+  <rect width="10" height="20" x="0" fill="#006847"/>
+  <rect width="10" height="20" x="10" fill="#FFFFFF"/>
+  <rect width="10" height="20" x="20" fill="#CE1126"/>
+  <!-- 简化国徽 -->
+  <circle cx="15" cy="10" r="2.5" fill="#8B4513"/>
+  <polygon points="15,7.5 16,9 14,9" fill="#228B22"/>
+  <circle cx="15" cy="11" r="0.5" fill="#FF0000"/>
+</svg> 

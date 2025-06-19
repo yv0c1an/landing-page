@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import Head from 'next/head';
 import Script from 'next/script';
 import { defaultLocale } from '@/config/i18n';
+import { getEnabledLanguages, getFallbackLanguage } from '@/lib/env-config';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { getVisitorType, isValidVisitor } from '@/utils/referrerCheck';
@@ -161,7 +162,20 @@ export default function CodeOfConduct({
 
 // 使用 getServerSideProps 替代 getStaticProps
 export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
-  const locale = (params?.locale as string) || defaultLocale;
+  const requestedLocale = (params?.locale as string) || defaultLocale;
+  
+  // 获取回退语言（如果请求的语言不可用，会自动回退到英语）
+  const locale = getFallbackLanguage(requestedLocale);
+  
+  // 如果回退后的语言与请求的语言不同，重定向到正确的语言
+  if (locale !== requestedLocale) {
+    return {
+      redirect: {
+        destination: `/${locale}/code-of-conduct`,
+        permanent: false,
+      },
+    };
+  }
   
   // 检查访问来源，但这个页面对所有用户开放，不需要限制访问
   const visitorType = getVisitorType(req as any);
@@ -186,16 +200,23 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
   } catch (error) {
     console.error(`Failed to load messages for locale: ${locale}`, error);
     
-    // 如果加载失败，使用默认语言
-    const defaultMessages = (await import(`@/locales/${defaultLocale}`)).default;
-    return {
-      props: {
-        messages: defaultMessages,
-        locale: defaultLocale,
-        isValid,
-        visitorType,
-        isGoogleSource
-      }
-    };
+    // 如果加载失败，强制使用英语
+    try {
+      const fallbackMessages = (await import(`@/locales/en`)).default;
+      return {
+        props: {
+          messages: fallbackMessages,
+          locale: 'en',
+          isValid,
+          visitorType,
+          isGoogleSource
+        }
+      };
+    } catch (fallbackError) {
+      console.error('Failed to load fallback English messages:', fallbackError);
+      return {
+        notFound: true,
+      };
+    }
   }
 }; 

@@ -1,0 +1,51 @@
+/* 国旗图标 CSS 样式 */
+.flag-icon {
+  display: inline-block;
+  width: 1.2em;
+  height: 0.9em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 2px;
+}
+
+.flag-icon-en {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Crect fill='%23012169' width='60' height='30'/%3E%3Cpath fill='white' d='m0,0 60,30 m0,-30 L0,30'/%3E%3Cpath fill='%23C8102E' stroke-width='6' stroke='%23C8102E' d='m0,0 60,30 m0,-30 L0,30'/%3E%3Cpath fill='white' stroke-width='4' stroke='white' d='M30,0v30M0,15H60'/%3E%3Cpath fill='%23C8102E' stroke-width='2' stroke='%23C8102E' d='M30,0v30M0,15H60'/%3E%3C/svg%3E");
+}
+
+.flag-icon-zh {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect fill='%23de2910' width='30' height='20'/%3E%3Cg fill='%23ffde00'%3E%3Cpolygon points='5,3 6,6 9,6 7,8 8,11 5,9 2,11 3,8 1,6 4,6'/%3E%3Cpolygon points='12,2 12.5,3.5 14,3 13,4 13.5,5.5 12,4.5 10.5,5.5 11,4 10,3 11.5,3.5'/%3E%3Cpolygon points='14,6 14.5,7.5 16,7 15,8 15.5,9.5 14,8.5 12.5,9.5 13,8 12,7 13.5,7.5'/%3E%3Cpolygon points='14,10 14.5,11.5 16,11 15,12 15.5,13.5 14,12.5 12.5,13.5 13,12 12,11 13.5,11.5'/%3E%3Cpolygon points='12,14 12.5,15.5 14,15 13,16 13.5,17.5 12,16.5 10.5,17.5 11,16 10,15 11.5,15.5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.flag-icon-ja {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect fill='white' width='30' height='20'/%3E%3Ccircle fill='%23bc002d' cx='15' cy='10' r='6'/%3E%3C/svg%3E");
+}
+
+.flag-icon-ko {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect fill='white' width='30' height='20'/%3E%3Ccircle fill='none' stroke='%23cd2e3a' stroke-width='1' cx='15' cy='10' r='4'/%3E%3Cpath fill='%230047a0' d='M15 6a4 4 0 0 1 0 8 2 2 0 0 0 0-8z'/%3E%3Cpath fill='%23cd2e3a' d='M15 6a4 4 0 0 0 0 8 2 2 0 0 1 0-8z'/%3E%3C/svg%3E");
+}
+
+.flag-icon-th {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect fill='%23a51931' width='30' height='20'/%3E%3Crect fill='white' y='3.33' width='30' height='3.33'/%3E%3Crect fill='%236b9bd3' y='6.66' width='30' height='6.66'/%3E%3Crect fill='white' y='13.33' width='30' height='3.33'/%3E%3Crect fill='%23a51931' y='16.66' width='30' height='3.33'/%3E%3C/svg%3E");
+}
+
+/* 圆形变体 */
+.flag-icon-round {
+  border-radius: 50%;
+}
+
+/* 大小变体 */
+.flag-icon-sm {
+  width: 1em;
+  height: 0.75em;
+}
+
+.flag-icon-lg {
+  width: 1.5em;
+  height: 1.125em;
+}
+
+.flag-icon-xl {
+  width: 2em;
+  height: 1.5em;
+} 

@@ -7,13 +7,24 @@ import { caseStudiesData } from "@/config/caseStudies"; // 使用相对路径导
 
 type LocaleType = 'zh' | 'en';
 
+// 回退函数：如果当前语言没有数据，回退到英语，再回退到中文
+const getContentWithFallback = (content: any, locale: string) => {
+  if (content[locale as LocaleType]) {
+    return content[locale as LocaleType];
+  }
+  if (content['en']) {
+    return content['en'];
+  }
+  return content['zh'] || {};
+};
+
 interface SellerCasesProps {
   restrictLinks?: boolean;
 }
 
 const SellerCases = ({ restrictLinks = false }: SellerCasesProps) => {
   const t = useTranslations("sellerCases");
-  const locale = useLocale() as LocaleType;
+  const locale = useLocale();
   const [activeCase, setActiveCase] = useState(0);
 
   // 使用配置的案例数据
@@ -61,16 +72,16 @@ const SellerCases = ({ restrictLinks = false }: SellerCasesProps) => {
                   <div className="p-4 text-white">
                     <div className="flex items-center space-x-2 mb-1">
                       <span className="text-xs px-2 py-1 bg-primary-blue rounded-full">
-                        {caseItem.content[locale].industry}
+                        {getContentWithFallback(caseItem.content, locale).industry}
                       </span>
-                      <span className="text-xs">{caseItem.content[locale].location}</span>
+                      <span className="text-xs">{getContentWithFallback(caseItem.content, locale).location}</span>
                     </div>
                     <h3 className="text-xl font-bold">{caseItem.name}</h3>
                   </div>
                 </div>
               </div>
               <div className="p-4">
-                <p className="text-gray-600 mb-3 line-clamp-2">{caseItem.content[locale].description}</p>
+                <p className="text-gray-600 mb-3 line-clamp-2">{getContentWithFallback(caseItem.content, locale).description}</p>
                 <div className="flex items-center text-primary-blue">
                   <span className="text-sm font-medium">{t("controls.details")}</span>
                   <ArrowRight className="ml-2 w-4 h-4" />
@@ -94,31 +105,31 @@ const SellerCases = ({ restrictLinks = false }: SellerCasesProps) => {
                   {caseStudies[activeCase].name}
                 </h3>
                 <p className="text-gray-600">
-                  {caseStudies[activeCase].content[locale].description}
+                  {getContentWithFallback(caseStudies[activeCase].content, locale).description}
                 </p>
               </div>
 
               <div className="mb-6">
                 <h4 className="text-lg font-semibold mb-3 text-primary-blue">{t("challenges")}</h4>
                 <ul className="space-y-2">
-                  {caseStudies[activeCase].content[locale].challenges.map((challenge, idx) => (
+                  {getContentWithFallback(caseStudies[activeCase].content, locale).challenges?.map((challenge: string, idx: number) => (
                     <li key={idx} className="flex items-start">
                       <div className="mt-1 mr-2 w-1.5 h-1.5 rounded-full bg-primary-blue flex-shrink-0"></div>
                       <span className="text-gray-600">{challenge}</span>
                     </li>
-                  ))}
+                  )) || []}
                 </ul>
               </div>
 
               <div className="mb-6">
                 <h4 className="text-lg font-semibold mb-3 text-primary-blue">{t("solutions")}</h4>
                 <ul className="space-y-2">
-                  {caseStudies[activeCase].content[locale].solutions.map((solution, idx) => (
+                  {getContentWithFallback(caseStudies[activeCase].content, locale).solutions?.map((solution: string, idx: number) => (
                     <li key={idx} className="flex items-start">
                       <div className="mt-1 mr-2 w-1.5 h-1.5 rounded-full bg-primary-blue flex-shrink-0"></div>
                       <span className="text-gray-600">{solution}</span>
                     </li>
-                  ))}
+                  )) || []}
                 </ul>
               </div>
             </div>
@@ -133,7 +144,7 @@ const SellerCases = ({ restrictLinks = false }: SellerCasesProps) => {
                       <span className="text-sm text-gray-600">{t("results.growth")}</span>
                     </div>
                     <div className="text-2xl font-bold text-primary-blue">
-                      {caseStudies[activeCase].content[locale].results.growth}
+                      {getContentWithFallback(caseStudies[activeCase].content, locale).results?.growth}
                     </div>
                   </div>
                   <div className="bg-blue-50 p-4 rounded-lg shadow-sm border border-blue-100">
@@ -142,7 +153,7 @@ const SellerCases = ({ restrictLinks = false }: SellerCasesProps) => {
                       <span className="text-sm text-gray-600">{t("results.revenue")}</span>
                     </div>
                     <div className="text-2xl font-bold text-primary-blue">
-                      {caseStudies[activeCase].content[locale].results.revenue}
+                      {getContentWithFallback(caseStudies[activeCase].content, locale).results?.revenue}
                     </div>
                   </div>
                   <div className="bg-blue-50 p-4 rounded-lg shadow-sm border border-blue-100">
@@ -151,7 +162,7 @@ const SellerCases = ({ restrictLinks = false }: SellerCasesProps) => {
                       <span className="text-sm text-gray-600">{t("results.customers")}</span>
                     </div>
                     <div className="text-2xl font-bold text-primary-blue">
-                      {caseStudies[activeCase].content[locale].results.customers}
+                      {getContentWithFallback(caseStudies[activeCase].content, locale).results?.customers}
                     </div>
                   </div>
                 </div>

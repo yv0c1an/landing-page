@@ -23,7 +23,10 @@ export default {
     selectLanguage: "Select Language",
     languages: {
       zh: "简体中文",
-      en: "English"
+      en: "English",
+      ja: "日本語",
+      ko: "한국어",
+      th: "ไทย"
     },
   },
   hero: {

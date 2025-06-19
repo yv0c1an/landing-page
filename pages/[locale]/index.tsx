@@ -3,6 +3,7 @@ import Home from '@/components/pages/Home';
 import Head from 'next/head';
 import Script from 'next/script';
 import { defaultLocale } from '@/config/i18n';
+import { getEnabledLanguages, getFallbackLanguage } from '@/lib/env-config';
 import { getVisitorType, isValidVisitor } from '@/utils/referrerCheck';
 import { checkAndMarkGoogleReferrer } from '@/utils/referrerStorage';
 
@@ -56,13 +57,18 @@ export default function LocalizedPage({
 
 // 使用 getServerSideProps 替代 getStaticProps
 export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
-  const locale = (params?.locale as string) || defaultLocale;
+  const requestedLocale = (params?.locale as string) || defaultLocale;
   
-  // 过滤掉非语言代码的请求（如 favicon.ico, robots.txt 等）
-  const validLocales = ['en', 'zh']; // 或者从 @/config/i18n 导入 locales
-  if (!validLocales.includes(locale)) {
+  // 获取回退语言（如果请求的语言不可用，会自动回退到英语）
+  const locale = getFallbackLanguage(requestedLocale);
+  
+  // 如果回退后的语言与请求的语言不同，重定向到正确的语言
+  if (locale !== requestedLocale) {
     return {
-      notFound: true, // 返回 404
+      redirect: {
+        destination: `/${locale}`,
+        permanent: false,
+      },
     };
   }
   
@@ -89,16 +95,23 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
   } catch (error) {
     console.error(`Failed to load messages for locale: ${locale}`, error);
     
-    // 如果加载失败，使用默认语言
-    const defaultMessages = (await import(`@/locales/${defaultLocale}`)).default;
-    return {
-      props: {
-        messages: defaultMessages,
-        locale: defaultLocale,
-        isValid,
-        visitorType,
-        isGoogleSource
-      }
-    };
+    // 如果加载失败，强制使用英语
+    try {
+      const fallbackMessages = (await import(`@/locales/en`)).default;
+      return {
+        props: {
+          messages: fallbackMessages,
+          locale: 'en',
+          isValid,
+          visitorType,
+          isGoogleSource
+        }
+      };
+    } catch (fallbackError) {
+      console.error('Failed to load fallback English messages:', fallbackError);
+      return {
+        notFound: true,
+      };
+    }
   }
 };

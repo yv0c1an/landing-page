@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20">
+  <rect width="7.5" height="20" x="0" fill="#FF0000"/>
+  <rect width="15" height="20" x="7.5" fill="#FFFFFF"/>
+  <rect width="7.5" height="20" x="22.5" fill="#FF0000"/>
+  <!-- 简化枫叶 -->
+  <g fill="#FF0000">
+    <polygon points="15,6 14,8 16,8"/>
+    <polygon points="15,8 13,10 17,10"/>
+    <polygon points="15,10 12,12 18,12"/>
+    <polygon points="15,12 14,14 16,14"/>
+  </g>
+</svg> 

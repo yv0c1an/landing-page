@@ -1,27 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-import { locales } from '@/config/i18n';
+import { detectPreferredLocale } from '@/config/i18n';
+import { getEnabledLanguages, getFallbackLanguage } from '@/lib/env-config';
 
 // 创建 next-intl 的中间件
 const intlMiddleware = createMiddleware({
-  locales,
+  locales: getEnabledLanguages(),
   defaultLocale: 'en',
   localePrefix: 'always',
 });
-
-// 检测浏览器首选语言
-function getPreferredLocale(request: NextRequest): string {
-  // 获取 Accept-Language 头部
-  const acceptLanguage = request.headers.get('accept-language') || '';
-  
-  // 检查是否包含中文语言代码 (zh, zh-CN, zh-TW 等)
-  if (acceptLanguage.match(/^zh|,zh/i)) {
-    return 'zh';
-  }
-  
-  // 默认返回英文
-  return 'en';
-}
 
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -38,8 +25,10 @@ export default function middleware(request: NextRequest) {
   
   // 处理根路径重定向
   if (pathname === '/') {
-    const preferredLocale = getPreferredLocale(request);
-    return NextResponse.redirect(new URL(`/${preferredLocale}`, request.url));
+    const acceptLanguage = request.headers.get('accept-language') || '';
+    const preferredLocale = detectPreferredLocale(acceptLanguage);
+    const validLocale = getFallbackLanguage(preferredLocale);
+    return NextResponse.redirect(new URL(`/${validLocale}`, request.url));
   }
   
   // 使用 next-intl 中间件处理其他路由

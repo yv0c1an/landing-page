@@ -25,7 +25,10 @@ import { RedirectModal } from '@/components/common/RedirectModal';
 
 const languageFlags: Record<string, string> = {
   en: "/flags/en.svg",
-  zh: "/flags/zh.svg"
+  zh: "/flags/zh.svg",
+  ja: "/flags/ja.svg",
+  ko: "/flags/ko.svg",
+  th: "/flags/th.svg",
 };
 
 interface HeaderProps {
