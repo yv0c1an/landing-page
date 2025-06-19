@@ -3,13 +3,14 @@ import { Locale } from '@/config/i18n';
 // 语言文件缓存
 const messageCache = new Map<string, any>();
 
-// 预加载所有语言文件的动态导入
-const localeModules = {
-  en: () => import('@/locales/en'),
-  zh: () => import('@/locales/zh'),
-  ja: () => import('@/locales/ja'),
-  ko: () => import('@/locales/ko'),
-  th: () => import('@/locales/th'),
+// 静态导入实际存在的语言文件
+import enMessages from '@/locales/en';
+import zhMessages from '@/locales/zh';
+
+// 创建静态消息映射
+const messageMap = {
+  en: enMessages,
+  zh: zhMessages,
 } as const;
 
 /**
@@ -18,36 +19,37 @@ const localeModules = {
  * @returns 语言翻译对象
  */
 export async function loadMessages(locale: Locale): Promise<any> {
-  // 检查缓存
-  if (messageCache.has(locale)) {
-    return messageCache.get(locale);
-  }
-
   try {
-    // 动态导入语言文件
-    const moduleLoader = localeModules[locale];
-    if (!moduleLoader) {
-      throw new Error(`Locale ${locale} is not supported`);
+    // 检查缓存
+    if (messageCache.has(locale)) {
+      return messageCache.get(locale);
     }
 
-    const module = await moduleLoader();
-    const messages = module.default;
+    // 获取对应的消息，如果不存在则回退到英语
+    let messages = messageMap[locale as keyof typeof messageMap];
+    
+    if (!messages) {
+      console.warn(`Language ${locale} not found, falling back to English`);
+      messages = messageMap.en;
+    }
+
+    // 验证消息对象
+    if (!messages || typeof messages !== 'object') {
+      console.error(`Invalid messages object for locale ${locale}, using English fallback`);
+      messages = messageMap.en;
+    }
 
     // 缓存结果
     messageCache.set(locale, messages);
     
     return messages;
   } catch (error) {
-    console.warn(`Failed to load messages for locale ${locale}:`, error);
+    console.error(`Failed to load messages for locale ${locale}:`, error);
     
-    // 回退到默认语言
-    if (locale !== 'en') {
-      console.log(`Falling back to English for locale ${locale}`);
-      return loadMessages('en');
-    }
-    
-    // 如果连英文都加载失败，返回空对象
-    return {};
+    // 最终回退
+    const fallbackMessages = messageMap.en || {};
+    messageCache.set(locale, fallbackMessages);
+    return fallbackMessages;
   }
 }
 
@@ -76,7 +78,7 @@ export function clearMessageCache(locale?: Locale): void {
  * 获取缓存状态
  */
 export function getCacheStatus(): { locale: string; cached: boolean }[] {
-  const allLocales = Object.keys(localeModules) as Locale[];
+  const allLocales = Object.keys(messageMap) as Locale[];
   return allLocales.map(locale => ({
     locale,
     cached: messageCache.has(locale)
@@ -88,12 +90,12 @@ export function getCacheStatus(): { locale: string; cached: boolean }[] {
  * @param locale 语言代码
  */
 export function isLocaleSupported(locale: string): locale is Locale {
-  return locale in localeModules;
+  return locale in messageMap;
 }
 
 /**
  * 获取所有支持的语言代码
  */
 export function getSupportedLocales(): Locale[] {
-  return Object.keys(localeModules) as Locale[];
+  return Object.keys(messageMap) as Locale[];
 } 

@@ -3,16 +3,25 @@
 // 所有支持的语言列表
 const ALL_SUPPORTED_LANGUAGES = ['en', 'zh', 'ja', 'ko', 'th', 'fr', 'de', 'es', 'it', 'ru', 'pt', 'br', 'ca', 'au', 'in', 'mx', 'gb', 'nl'];
 
+// 实际存在的语言文件列表（需要与i18n-loader.ts中的existingLocaleModules保持一致）
+const EXISTING_LANGUAGE_FILES = ['en', 'zh'];
+
 // 检查语言文件是否存在（仅在服务端使用）
 function checkLanguageFileExists(locale: string): boolean {
   if (typeof window !== 'undefined') return true; // 客户端无法检查文件，假设存在
   
-  try {
-    require.resolve(`@/locales/${locale}`);
-    return true;
-  } catch (error) {
-    return false;
+  // 对于实际存在的语言文件，检查文件
+  if (EXISTING_LANGUAGE_FILES.includes(locale)) {
+    try {
+      require.resolve(`@/locales/${locale}`);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
+  
+  // 对于其他语言，由于我们有回退机制，也认为是"存在"的
+  return ALL_SUPPORTED_LANGUAGES.includes(locale);
 }
 
 // 过滤并验证语言列表
