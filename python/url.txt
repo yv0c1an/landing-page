@@ -1,0 +1,5 @@
+# 安全 URL 列表
+# 每行一个 URL，以 # 开头的行会被忽略
+google.com
+github.com
+stackoverflow.com
